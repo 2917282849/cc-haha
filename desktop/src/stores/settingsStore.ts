@@ -134,7 +134,13 @@ export const useSettingsStore = create<SettingsStore>((set, get) => ({
   isLoading: false,
   error: null,
 
-  appMode: { mode: 'default', portableDir: null, defaultPortableDir: null },
+  appMode: {
+    mode: 'default',
+    portableDir: null,
+    defaultPortableDir: null,
+    activeConfigDir: null,
+    configDirSource: 'system',
+  },
   appModeRequiresRestart: false,
   setUiZoom: (zoom: number) => {
     const level = normalizeAppZoomLevel(zoom)
@@ -393,6 +399,10 @@ export const useSettingsStore = create<SettingsStore>((set, get) => ({
       portableDir: mode === 'portable'
         ? portableDir ?? prev.defaultPortableDir ?? prev.portableDir
         : null,
+      activeConfigDir: mode === 'portable'
+        ? portableDir ?? prev.defaultPortableDir ?? prev.portableDir
+        : null,
+      configDirSource: mode === 'portable' ? 'portable' : 'system',
     }
     set({ appMode: newMode, appModeRequiresRestart: true })
     try {

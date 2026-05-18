@@ -233,7 +233,9 @@ const MIN_VISIBLE_PIXELS: i64 = 64;
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "lowercase")]
 enum AppMode {
+    #[serde(alias = "Default")]
     Default,
+    #[serde(alias = "Portable")]
     Portable,
 }
 
@@ -299,7 +301,6 @@ fn get_default_portable_dir() -> Option<PathBuf> {
     Some(dir)
 }
 
-
 #[derive(Serialize, Deserialize)]
 struct TerminalConfig {
     #[serde(default)]
@@ -342,17 +343,16 @@ impl TerminalConfig {
 
 fn terminal_config_path(app: &AppHandle) -> Option<PathBuf> {
     // honour CLAUDE_CONFIG_DIR for portable installs
-    std::env::var("CLAUDE_CONFIG_DIR").ok().map(|dir| {
-        PathBuf::from(&dir).join(TERMINAL_CONFIG_FILE)
-    }).or_else(|| {
-        match app.path().app_config_dir() {
+    std::env::var("CLAUDE_CONFIG_DIR")
+        .ok()
+        .map(|dir| PathBuf::from(&dir).join(TERMINAL_CONFIG_FILE))
+        .or_else(|| match app.path().app_config_dir() {
             Ok(dir) => Some(dir.join(TERMINAL_CONFIG_FILE)),
             Err(err) => {
                 eprintln!("[desktop] failed to resolve app config dir: {err}");
                 None
             }
-        }
-    })
+        })
 }
 
 impl Default for TerminalConfig {
@@ -500,6 +500,21 @@ fn prepare_for_update_install(app: AppHandle) -> Result<(), String> {
 }
 
 #[tauri::command]
+fn prepare_for_app_mode_restart(app: AppHandle) -> Result<(), String> {
+    mark_app_quitting(&app);
+    stop_server_sidecar(&app);
+    stop_adapters_sidecar(&app);
+
+    #[cfg(target_os = "windows")]
+    {
+        kill_windows_sidecars();
+    }
+
+    std::thread::sleep(Duration::from_millis(300));
+    Ok(())
+}
+
+#[tauri::command]
 fn cancel_update_install(app: AppHandle) -> Result<(), String> {
     clear_app_quitting(&app);
     Ok(())
@@ -507,52 +522,95 @@ fn cancel_update_install(app: AppHandle) -> Result<(), String> {
 
 /// Returns the current app mode and portable directory info.
 #[tauri::command]
-fn get_app_mode() -> serde_json::Value {
-    let config_dir = if let Ok(cd) = std::env::var("CLAUDE_CONFIG_DIR") {
-        Some(PathBuf::from(&cd))
+fn get_app_mode(app: AppHandle) -> serde_json::Value {
+    let env_config_dir = std::env::var("CLAUDE_CONFIG_DIR").ok().map(PathBuf::from);
+    let active_config_dir = env_config_dir
+        .clone()
+        .or_else(|| app.path().app_config_dir().ok());
+    let config_dir_source = if env_config_dir.is_some() {
+        if std::env::var_os("CC_HAHA_APP_PORTABLE_DIR").is_some() {
+            "portable"
+        } else {
+            "environment"
+        }
     } else {
-        get_default_portable_dir()
+        "system"
     };
+    let config_dir = env_config_dir.clone().or_else(get_default_portable_dir);
 
     serde_json::json!({
-        "mode": if std::env::var("CLAUDE_CONFIG_DIR").is_ok() { "portable" } else { "default" },
+        "mode": if env_config_dir.is_some() { "portable" } else { "default" },
         "portableDir": config_dir.as_ref().and_then(|p| p.to_str()),
         "defaultPortableDir": get_default_portable_dir().as_ref().and_then(|p| p.to_str()),
+        "activeConfigDir": active_config_dir.as_ref().and_then(|p| p.to_str()),
+        "configDirSource": config_dir_source,
     })
 }
 
 /// Sets the app mode. Persists to app-mode.json in the current active config dir.
 /// Requires restart to take effect.
 #[tauri::command]
-fn set_app_mode(app: tauri::AppHandle, mode: String, portable_dir: Option<String>) {
-    use tauri::Manager; // 确保作用域内引入 Manager
-
+fn set_app_mode(
+    app: tauri::AppHandle,
+    mode: String,
+    portable_dir: Option<String>,
+) -> Result<(), String> {
     // 确定当前正在使用的配置目录
     let active_config_dir = if let Ok(cd) = std::env::var("CLAUDE_CONFIG_DIR") {
         std::path::PathBuf::from(&cd)
     } else {
-        match app.path().app_config_dir() {
-            Ok(d) => d,
-            Err(e) => {
-                eprintln!("[desktop] set_app_mode: failed to resolve config dir: {e}");
-                return;
-            }
-        }
+        app.path()
+            .app_config_dir()
+            .map_err(|e| format!("resolve app config dir: {e}"))?
     };
 
-    let app_mode = if mode == "portable" {
-        AppMode::Portable
+    let (app_mode, portable_dir, target_portable_dir) = if mode == "portable" {
+        let selected_dir = portable_dir
+            .as_deref()
+            .map(str::trim)
+            .filter(|value| !value.is_empty())
+            .map(PathBuf::from)
+            .or_else(get_default_portable_dir)
+            .ok_or_else(|| "portable config directory is unavailable".to_string())?;
+
+        if selected_dir.exists() && !selected_dir.is_dir() {
+            return Err(format!(
+                "portable config path is not a directory: {}",
+                selected_dir.display()
+            ));
+        }
+
+        fs::create_dir_all(&selected_dir)
+            .map_err(|e| format!("create portable config directory: {e}"))?;
+
+        let persisted_portable_dir = if get_default_portable_dir().as_ref() == Some(&selected_dir) {
+            None
+        } else {
+            Some(selected_dir.to_string_lossy().to_string())
+        };
+
+        (
+            AppMode::Portable,
+            persisted_portable_dir,
+            Some(selected_dir),
+        )
     } else {
-        AppMode::Default
+        (AppMode::Default, None, None)
     };
 
     let config = AppModeConfig {
         mode: app_mode,
-        portable_dir,
+        portable_dir: portable_dir.clone(),
     };
 
     // 写入当前活跃的配置目录
     write_app_mode_config(&active_config_dir, &config);
+
+    if let Some(dir) = target_portable_dir.as_ref() {
+        if dir != &active_config_dir {
+            write_app_mode_config(dir, &config);
+        }
+    }
 
     // 修复：同时始终将模式状态写入系统默认配置目录，
     // 以防止应用层切换模式后，main.rs在下一次启动时读取到旧的系统全局状态
@@ -561,13 +619,18 @@ fn set_app_mode(app: tauri::AppHandle, mode: String, portable_dir: Option<String
             write_app_mode_config(&sys_dir, &config);
         }
     }
+
+    Ok(())
 }
 
 /// Checks if the default portable directory has existing data files.
 #[tauri::command]
 fn detect_portable_dir() -> serde_json::Value {
     let default_portable = get_default_portable_dir();
-    let has_data = default_portable.as_ref().map(|d| dir_has_portable_data(d)).unwrap_or(false);
+    let has_data = default_portable
+        .as_ref()
+        .map(|d| dir_has_portable_data(d))
+        .unwrap_or(false);
     serde_json::json!({
         "defaultPortableDir": default_portable.as_ref().and_then(|p| p.to_str()),
         "hasData": has_data,
@@ -646,21 +709,19 @@ fn window_state_path(app: &AppHandle) -> Option<PathBuf> {
     // honour CLAUDE_CONFIG_DIR so portable installs keep window-state.json
     // and terminal-config.json alongside the config dir instead of
     // %APPDATA%\com.claude-code-haha.desktop\.
-    resolve_portable_state_path().or_else(|| {
-        match app.path().app_config_dir() {
-            Ok(dir) => Some(dir.join(WINDOW_STATE_FILE)),
-            Err(err) => {
-                eprintln!("[desktop] failed to resolve app config dir: {err}");
-                None
-            }
+    resolve_portable_state_path().or_else(|| match app.path().app_config_dir() {
+        Ok(dir) => Some(dir.join(WINDOW_STATE_FILE)),
+        Err(err) => {
+            eprintln!("[desktop] failed to resolve app config dir: {err}");
+            None
         }
     })
 }
 
 fn resolve_portable_state_path() -> Option<PathBuf> {
-    std::env::var("CLAUDE_CONFIG_DIR").ok().map(|dir| {
-        PathBuf::from(&dir).join(WINDOW_STATE_FILE)
-    })
+    std::env::var("CLAUDE_CONFIG_DIR")
+        .ok()
+        .map(|dir| PathBuf::from(&dir).join(WINDOW_STATE_FILE))
 }
 
 fn read_stored_window_state(app: &AppHandle) -> Option<StoredWindowState> {
@@ -1656,12 +1717,7 @@ fn start_adapters_sidecars(app: &AppHandle) -> Result<Vec<CommandChild>, String>
                 .env("CLAUDE_CONFIG_DIR", &config_dir)
                 .env("XDG_CACHE_HOME", cache_dir.to_string_lossy().to_string());
         }
-        let sidecar = sidecar_final.args([
-            "adapters",
-            "--app-root",
-            &app_root_arg,
-            flag,
-        ]);
+        let sidecar = sidecar_final.args(["adapters", "--app-root", &app_root_arg, flag]);
 
         let (mut rx, child) = sidecar
             .spawn()
@@ -1783,9 +1839,9 @@ mod tests {
     use super::{
         decode_terminal_output, default_utf8_locale, ensure_utf8_locale,
         has_meaningful_intersection, is_persistable_window_state, normalize_terminal_bash_path,
-        parse_env_block, resolve_desktop_terminal_shell, run_notification_bridge, select_h5_dist_dir,
-        DesktopTerminalConfig, StoredWindowState, TerminalHostPlatform, SERVER_BIND_HOST,
-        SERVER_CONTROL_HOST,
+        parse_env_block, resolve_desktop_terminal_shell, run_notification_bridge,
+        select_h5_dist_dir, DesktopTerminalConfig, StoredWindowState, TerminalHostPlatform,
+        SERVER_BIND_HOST, SERVER_CONTROL_HOST,
     };
     use std::{collections::HashMap, fs};
 
@@ -1899,10 +1955,8 @@ mod tests {
 
     #[test]
     fn terminal_bash_path_normalizer_rejects_missing_files() {
-        let missing = std::env::temp_dir().join(format!(
-            "cchh-missing-bash-{}",
-            std::process::id()
-        ));
+        let missing =
+            std::env::temp_dir().join(format!("cchh-missing-bash-{}", std::process::id()));
 
         let error = normalize_terminal_bash_path(Some(missing.to_string_lossy().to_string()))
             .expect_err("missing path should be rejected");
@@ -1912,10 +1966,7 @@ mod tests {
 
     #[test]
     fn terminal_bash_path_normalizer_accepts_existing_files() {
-        let path = std::env::temp_dir().join(format!(
-            "cchh-bash-path-test-{}",
-            std::process::id()
-        ));
+        let path = std::env::temp_dir().join(format!("cchh-bash-path-test-{}", std::process::id()));
         fs::write(&path, "").expect("write bash path fixture");
 
         assert_eq!(
@@ -1969,12 +2020,8 @@ mod tests {
     #[test]
     fn desktop_terminal_shell_resolution_keeps_system_default_without_preference() {
         assert_eq!(
-            resolve_desktop_terminal_shell(
-                TerminalHostPlatform::Windows,
-                None,
-                "powershell.exe",
-            )
-            .expect("resolution should succeed"),
+            resolve_desktop_terminal_shell(TerminalHostPlatform::Windows, None, "powershell.exe",)
+                .expect("resolution should succeed"),
             None
         );
     }
@@ -2018,10 +2065,7 @@ mod tests {
 
     #[test]
     fn h5_dist_dir_prefers_tauri_parent_resource_mapping() {
-        let root = std::env::temp_dir().join(format!(
-            "cchh-h5-dist-test-{}",
-            std::process::id()
-        ));
+        let root = std::env::temp_dir().join(format!("cchh-h5-dist-test-{}", std::process::id()));
         let resource_dir = root.join("Contents").join("Resources");
         let app_root = root.join("Contents").join("MacOS");
         let mapped_dist = resource_dir.join("_up_").join("dist");
@@ -2070,6 +2114,7 @@ pub fn run() {
             get_server_url,
             restart_adapters_sidecar,
             prepare_for_update_install,
+            prepare_for_app_mode_restart,
             cancel_update_install,
             terminal_spawn,
             terminal_write,

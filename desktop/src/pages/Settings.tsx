@@ -1398,12 +1398,19 @@ function GeneralSettings() {
   const [notificationActionRunning, setNotificationActionRunning] = useState(false)
   const [modeSwitchConfirmOpen, setModeSwitchConfirmOpen] = useState(false)
   const [pendingMode, setPendingMode] = useState<AppMode | null>(null)
+  const [pendingPortableDir, setPendingPortableDir] = useState<string | null>(null)
+  const [portableDirDraft, setPortableDirDraft] = useState('')
+  const [modeActionRunning, setModeActionRunning] = useState(false)
+  const [modeError, setModeError] = useState<string | null>(null)
   const [uiZoomDraft, setUiZoomDraft] = useState(uiZoom)
   const [isUiZoomDragging, setIsUiZoomDragging] = useState(false)
   const isUiZoomDraggingRef = useRef(false)
   const webSearchDirty = JSON.stringify(webSearchDraft) !== JSON.stringify(webSearch)
   const uiZoomPercent = Math.round(uiZoomDraft * 100)
   const uiZoomRangeProgress = `${Math.round(((uiZoomDraft - UI_ZOOM_MIN) / (UI_ZOOM_MAX - UI_ZOOM_MIN)) * 1000) / 10}%`
+  const activeConfigDir = appMode.activeConfigDir ?? (appMode.mode === 'portable' ? appMode.portableDir : null)
+  const configDirSource = appMode.configDirSource ?? (appMode.mode === 'portable' ? 'portable' : 'system')
+  const isEnvironmentConfigDir = configDirSource === 'environment'
 
   useEffect(() => {
     setWebSearchDraft(webSearch)
@@ -1429,6 +1436,10 @@ function GeneralSettings() {
     if (!isTauriRuntime()) return
     void fetchAppMode()
   }, [fetchAppMode])
+
+  useEffect(() => {
+    setPortableDirDraft(appMode.portableDir ?? appMode.defaultPortableDir ?? '')
+  }, [appMode.defaultPortableDir, appMode.portableDir])
 
   const EFFORT_LABELS: Record<EffortLevel, string> = {
     low: t('settings.general.effort.low'),
@@ -1532,6 +1543,72 @@ function GeneralSettings() {
       }
     } finally {
       setNotificationActionRunning(false)
+    }
+  }
+
+  const openPortableDirPicker = async () => {
+    setModeError(null)
+    try {
+      const { open } = await import('@tauri-apps/plugin-dialog')
+      const selected = await open({
+        directory: true,
+        multiple: false,
+        title: t('settings.general.storageChooseDirTitle'),
+      })
+      if (typeof selected === 'string') {
+        setPortableDirDraft(selected)
+      }
+    } catch {
+      setModeError(t('settings.general.storagePickerError'))
+    }
+  }
+
+  const openModeSwitchConfirm = (mode: AppMode) => {
+    if (isEnvironmentConfigDir) {
+      setModeError(t('settings.general.storageEnvironmentSwitchBlocked'))
+      return
+    }
+
+    const portableDir = portableDirDraft.trim()
+    if (mode === 'portable' && !portableDir) {
+      setModeError(t('settings.general.storageNoDirError'))
+      return
+    }
+
+    setModeError(null)
+    setPendingMode(mode)
+    setPendingPortableDir(mode === 'portable' ? portableDir : null)
+    setModeSwitchConfirmOpen(true)
+  }
+
+  const closeModeSwitchConfirm = () => {
+    if (modeActionRunning) return
+    setModeSwitchConfirmOpen(false)
+    setPendingMode(null)
+    setPendingPortableDir(null)
+  }
+
+  const confirmModeSwitch = async () => {
+    if (!pendingMode) return
+
+    setModeActionRunning(true)
+    setModeError(null)
+    try {
+      await setAppModeAction(pendingMode, pendingPortableDir)
+      const { invoke } = await import('@tauri-apps/api/core')
+      await invoke('prepare_for_app_mode_restart')
+      const { relaunch } = await import('@tauri-apps/plugin-process')
+      await relaunch()
+    } catch (error) {
+      setModeError(
+        error instanceof Error
+          ? error.message
+          : t('settings.general.storageRestartError'),
+      )
+      setModeSwitchConfirmOpen(false)
+      setPendingMode(null)
+      setPendingPortableDir(null)
+      setModeActionRunning(false)
     }
   }
 
@@ -1650,79 +1727,6 @@ function GeneralSettings() {
 
   return (
     <div className="max-w-xl">
-      {/* Mode Section */}
-      {isTauriRuntime() && (
-        <div className="mb-8">
-          <h2 className="text-base font-semibold text-[var(--color-text-primary)] mb-1">{t('settings.general.modeTitle')}</h2>
-          <p className="text-sm text-[var(--color-text-tertiary)] mb-3">{t('settings.general.modeDescription')}</p>
-          <div className="flex gap-2">
-            <button
-              onClick={() => {
-                if (appMode.mode === 'default') return
-                setPendingMode('default')
-                setModeSwitchConfirmOpen(true)
-              }}
-              aria-pressed={appMode.mode === 'default'}
-              className={`flex-1 py-3 text-sm font-semibold rounded-lg border transition-all ${
-                appMode.mode === 'default'
-                  ? 'bg-[image:var(--gradient-btn-primary)] text-[var(--color-btn-primary-fg)] border-transparent shadow-[var(--shadow-button-primary)]'
-                  : 'border-[var(--color-border)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)]'
-              }`}
-            >
-              <div className="flex flex-col items-center gap-1">
-                <span className="material-symbols-outlined text-[22px]">settings_applications</span>
-                <span>{t('settings.general.modeDefault')}</span>
-              </div>
-            </button>
-            <button
-              onClick={() => {
-                if (appMode.mode === 'portable') return
-                setPendingMode('portable')
-                setModeSwitchConfirmOpen(true)
-              }}
-              aria-pressed={appMode.mode === 'portable'}
-              className={`flex-1 py-3 text-sm font-semibold rounded-lg border transition-all ${
-                appMode.mode === 'portable'
-                  ? 'bg-[image:var(--gradient-btn-primary)] text-[var(--color-btn-primary-fg)] border-transparent shadow-[var(--shadow-button-primary)]'
-                  : 'border-[var(--color-border)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)]'
-              }`}
-            >
-              <div className="flex flex-col items-center gap-1">
-                <span className="material-symbols-outlined text-[22px]">drive_file_move</span>
-                <span>{t('settings.general.modePortable')}</span>
-              </div>
-            </button>
-          </div>
-          {appMode.mode === 'portable' && appMode.portableDir && (
-            <div className="mt-2 text-xs text-[var(--color-text-tertiary)] font-mono break-all">
-              {t('settings.general.modePortableDir')}: {appMode.portableDir}
-            </div>
-          )}
-          {appMode.mode === 'default' && (
-            <div className="mt-2 text-xs text-[var(--color-text-tertiary)]">
-              {t('settings.general.modeDefaultHint')}
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Restart Required Banner */}
-      {appModeRequiresRestart && (
-        <div className="mb-6 rounded-xl border border-[var(--color-warning)] bg-[var(--color-warning)]/10 px-4 py-3 flex items-center gap-3">
-          <span className="material-symbols-outlined text-[20px] text-[var(--color-warning)]" style={{ fontVariationSettings: "'FILL' 1" }}>
-            warning
-          </span>
-          <div>
-            <div className="text-sm font-medium text-[var(--color-text-primary)]">
-              {t('settings.general.modeRestartTitle')}
-            </div>
-            <div className="text-xs text-[var(--color-text-tertiary)] mt-0.5">
-              {t('settings.general.modeRestartHint')}
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Appearance selector */}
       <h2 className="text-base font-semibold text-[var(--color-text-primary)] mb-1">{t('settings.general.appearanceTitle')}</h2>
       <p className="text-sm text-[var(--color-text-tertiary)] mb-3">{t('settings.general.appearanceDescription')}</p>
@@ -1990,21 +1994,159 @@ function GeneralSettings() {
           </div>
         </div>
       </div>
+
+      {isTauriRuntime() && (
+        <div className="mt-8 border-t border-[var(--color-border)] pt-8">
+          <h2 className="text-base font-semibold text-[var(--color-text-primary)] mb-1">{t('settings.general.storageTitle')}</h2>
+          <p className="text-sm text-[var(--color-text-tertiary)] mb-3">{t('settings.general.storageDescription')}</p>
+
+          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-container-low)] px-4 py-4">
+            <div className="flex flex-col gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  if (isEnvironmentConfigDir) {
+                    setModeError(t('settings.general.storageEnvironmentSwitchBlocked'))
+                    return
+                  }
+                  if (appMode.mode !== 'default') {
+                    openModeSwitchConfirm('default')
+                  }
+                }}
+                aria-pressed={appMode.mode === 'default' && !isEnvironmentConfigDir}
+                className={`flex items-start gap-3 rounded-lg border px-3 py-3 text-left transition-all ${
+                  appMode.mode === 'default' && !isEnvironmentConfigDir
+                    ? 'border-[var(--color-brand)] bg-[var(--color-surface)] shadow-[var(--shadow-focus-ring)]'
+                    : 'border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-border-focus)]'
+                }`}
+              >
+                <span className="material-symbols-outlined mt-0.5 text-[20px] text-[var(--color-text-secondary)]">settings_applications</span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-semibold text-[var(--color-text-primary)]">{t('settings.general.storageSystemTitle')}</span>
+                  <span className="mt-1 block text-xs leading-5 text-[var(--color-text-tertiary)]">{t('settings.general.storageSystemDescription')}</span>
+                </span>
+              </button>
+
+              <div
+                className={`rounded-lg border px-3 py-3 transition-all ${
+                  appMode.mode === 'portable' && !isEnvironmentConfigDir
+                    ? 'border-[var(--color-brand)] bg-[var(--color-surface)] shadow-[var(--shadow-focus-ring)]'
+                    : 'border-[var(--color-border)] bg-[var(--color-surface)]'
+                }`}
+              >
+                <div className="mb-3 flex items-start gap-3">
+                  <span className="material-symbols-outlined mt-0.5 text-[20px] text-[var(--color-text-secondary)]">drive_file_move</span>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm font-semibold text-[var(--color-text-primary)]">{t('settings.general.storagePortableTitle')}</div>
+                    <div className="mt-1 text-xs leading-5 text-[var(--color-text-tertiary)]">{t('settings.general.storagePortableDescription')}</div>
+                  </div>
+                </div>
+
+                <div className="flex items-end gap-2">
+                  <div className="min-w-0 flex-1">
+                    <Input
+                      id="portable-data-dir"
+                      label={t('settings.general.storagePortableDirLabel')}
+                      value={portableDirDraft}
+                      placeholder={t('settings.general.storagePortableDirPlaceholder')}
+                      onChange={(event) => {
+                        setPortableDirDraft(event.target.value)
+                        setModeError(null)
+                      }}
+                      className="w-full font-mono text-xs"
+                    />
+                  </div>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    className="h-10 flex-shrink-0 px-3 whitespace-nowrap"
+                    onClick={() => void openPortableDirPicker()}
+                  >
+                    {t('settings.general.storageChooseDir')}
+                  </Button>
+                </div>
+
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
+                  <button
+                    type="button"
+                    className="text-xs font-medium text-[var(--color-brand)] hover:underline"
+                    onClick={() => {
+                      setPortableDirDraft(appMode.defaultPortableDir ?? '')
+                      setModeError(null)
+                    }}
+                  >
+                    {t('settings.general.storageUseDefaultPortableDir')}
+                  </button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="secondary"
+                    disabled={modeActionRunning || (appMode.mode === 'portable' && portableDirDraft.trim() === (appMode.portableDir ?? ''))}
+                    onClick={() => openModeSwitchConfirm('portable')}
+                  >
+                    {t('settings.general.storageApplyPortable')}
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {activeConfigDir && (
+              <div className="mt-3 rounded-lg border border-[var(--color-border)]/70 bg-[var(--color-surface)] px-3 py-2">
+                <div className="text-[11px] font-medium uppercase tracking-wide text-[var(--color-text-tertiary)]">{t('settings.general.storageActiveDir')}</div>
+                <div className="mt-1 break-all font-mono text-xs text-[var(--color-text-secondary)]">{activeConfigDir}</div>
+              </div>
+            )}
+
+            {isEnvironmentConfigDir && (
+              <div className="mt-3 rounded-lg border border-[var(--color-warning)] bg-[var(--color-warning)]/10 px-3 py-2 text-xs leading-5 text-[var(--color-text-secondary)]">
+                {t('settings.general.storageEnvironmentHint')}
+              </div>
+            )}
+
+            {appModeRequiresRestart && (
+              <div className="mt-3 rounded-lg border border-[var(--color-warning)] bg-[var(--color-warning)]/10 px-3 py-2 text-xs leading-5 text-[var(--color-text-secondary)]">
+                {t('settings.general.storageRestartHint')}
+              </div>
+            )}
+
+            <div className="mt-3 text-xs leading-5 text-[var(--color-text-tertiary)]">
+              {t('settings.general.storageMoveHint')}
+            </div>
+
+            {modeError && (
+              <div className="mt-3 text-xs text-[var(--color-error)]">
+                {modeError}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Confirm dialog for mode switch */}
       <ConfirmDialog
         open={modeSwitchConfirmOpen}
-        onClose={() => { setModeSwitchConfirmOpen(false); setPendingMode(null); }}
-        onConfirm={() => {
-          if (pendingMode) { void setAppModeAction(pendingMode); }
-          setModeSwitchConfirmOpen(false);
-          setPendingMode(null);
-        }}
+        onClose={closeModeSwitchConfirm}
+        onConfirm={() => void confirmModeSwitch()}
         title={t('settings.general.modeSwitchTitle')}
-        body={t('settings.general.modeSwitchBody', {
-          mode: pendingMode === 'portable' ? t('settings.general.modePortable') : t('settings.general.modeDefault'),
-        })}
+        body={(
+          <div className="space-y-3 text-sm leading-6 text-[var(--color-text-secondary)]">
+            <p>
+              {pendingMode === 'portable'
+                ? t('settings.general.storageSwitchPortableBody')
+                : t('settings.general.storageSwitchDefaultBody')}
+            </p>
+            {pendingMode === 'portable' && pendingPortableDir && (
+              <div className="rounded-lg bg-[var(--color-surface-container-low)] px-3 py-2 font-mono text-xs break-all text-[var(--color-text-secondary)]">
+                {pendingPortableDir}
+              </div>
+            )}
+            <p>{t('settings.general.storageSwitchRestartBody')}</p>
+          </div>
+        )}
         confirmLabel={t('settings.general.modeSwitchConfirm')}
         cancelLabel={t('common.cancel')}
+        confirmVariant="primary"
+        loading={modeActionRunning}
       />
     </div>
   )
