@@ -74,6 +74,11 @@ describe('OpenAI OAuth desktop token file storage', () => {
     clearOpenAIOAuthTokenCache()
   }
 
+  function unsetTokenFileOverride(): void {
+    delete process.env.OPENAI_CODEX_OAUTH_FILE
+    clearOpenAIOAuthTokenCache()
+  }
+
   test('reads desktop token file synchronously', async () => {
     await fsp.writeFile(
       tokenPath,
@@ -145,6 +150,27 @@ describe('OpenAI OAuth desktop token file storage', () => {
     }
   })
 
+  test('file-backed save clears legacy secure storage tokens', async () => {
+    seedSecureStorage({
+      accessToken: 'secure-access',
+      refreshToken: 'secure-refresh',
+      expiresAt: 4_100_000_000_000,
+    })
+
+    const result = saveOpenAIOAuthTokens({
+      accessToken: 'file-access',
+      refreshToken: 'file-refresh',
+      expiresAt: 4_100_000_000_123,
+    })
+
+    expect(result).toEqual({ success: true })
+    expect(getOpenAIOAuthTokens()?.accessToken).toBe('file-access')
+
+    unsetTokenFileOverride()
+    expect(getOpenAIOAuthTokens()).toBeNull()
+    await expect(getOpenAIOAuthTokensAsync()).resolves.toBeNull()
+  })
+
   test('deletes the desktop token file when the env override is set', async () => {
     await fsp.writeFile(
       tokenPath,
@@ -200,6 +226,10 @@ describe('OpenAI OAuth desktop token file storage', () => {
     )
 
     expect(deleteOpenAIOAuthTokens()).toBe(true)
+    expect(getOpenAIOAuthTokens()).toBeNull()
+    await expect(getOpenAIOAuthTokensAsync()).resolves.toBeNull()
+
+    unsetTokenFileOverride()
     expect(getOpenAIOAuthTokens()).toBeNull()
     await expect(getOpenAIOAuthTokensAsync()).resolves.toBeNull()
   })

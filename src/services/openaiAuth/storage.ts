@@ -1,4 +1,5 @@
 import * as fs from 'fs'
+import * as os from 'os'
 import * as path from 'path'
 import memoize from 'lodash-es/memoize.js'
 import { getSecureStorage } from '../../utils/secureStorage/index.js'
@@ -15,10 +16,44 @@ type SecureStorageShape = Record<string, unknown> & {
 
 const SECURE_STORAGE_CACHE_KEY = 'secure-storage'
 const FILE_CACHE_KEY_PREFIX = 'file:'
+const FILE_BACKED_STORAGE_MARKER_FILE = 'openai-oauth-file-backed'
 
 function getDesktopTokenFilePath(): string | null {
   const filePath = process.env[OPENAI_CODEX_OAUTH_FILE_ENV_KEY]?.trim()
   return filePath ? filePath : null
+}
+
+function getCcHahaDir(): string {
+  const configDir =
+    process.env.CLAUDE_CONFIG_DIR || path.join(os.homedir(), '.claude')
+  return path.join(configDir, 'cc-haha')
+}
+
+function getFileBackedStorageMarkerPath(): string {
+  return path.join(getCcHahaDir(), FILE_BACKED_STORAGE_MARKER_FILE)
+}
+
+function markFileBackedStorageUsed(): void {
+  try {
+    fs.mkdirSync(getCcHahaDir(), { recursive: true })
+    fs.writeFileSync(getFileBackedStorageMarkerPath(), '1\n', { mode: 0o600 })
+  } catch (error) {
+    logError(error)
+  }
+}
+
+function clearFileBackedStorageMarker(): void {
+  try {
+    fs.rmSync(getFileBackedStorageMarkerPath(), { force: true })
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+      logError(error)
+    }
+  }
+}
+
+function isSecureStorageFallbackDisabled(): boolean {
+  return fs.existsSync(getFileBackedStorageMarkerPath())
 }
 
 function normalizeTokenFile(value: unknown): OpenAIOAuthTokens | null {
@@ -109,6 +144,7 @@ export function saveOpenAIOAuthTokens(tokens: OpenAIOAuthTokens): {
 } {
   try {
     if (writeDesktopTokenFileSync(tokens)) {
+      markFileBackedStorageUsed()
       clearOpenAIOAuthTokenCache()
       return { success: true }
     }
@@ -117,6 +153,9 @@ export function saveOpenAIOAuthTokens(tokens: OpenAIOAuthTokens): {
     const data = (storage.read() ?? {}) as SecureStorageShape
     data[STORAGE_KEY] = tokens
     const result = storage.update(data)
+    if (result.success) {
+      clearFileBackedStorageMarker()
+    }
     clearOpenAIOAuthTokenCache()
     return result
   } catch (error) {
@@ -134,6 +173,10 @@ const getOpenAIOAuthTokensCached = memoize(
       return readDesktopTokenFileSync(
         cacheKey.slice(FILE_CACHE_KEY_PREFIX.length),
       )
+    }
+
+    if (isSecureStorageFallbackDisabled()) {
+      return null
     }
 
     try {
@@ -160,6 +203,10 @@ export async function getOpenAIOAuthTokensAsync(): Promise<OpenAIOAuthTokens | n
     return readDesktopTokenFileAsync(filePath)
   }
 
+  if (isSecureStorageFallbackDisabled()) {
+    return null
+  }
+
   try {
     const storage = getSecureStorage()
     const data = (await storage.readAsync()) as SecureStorageShape | null
@@ -179,6 +226,7 @@ export function deleteOpenAIOAuthTokens(): boolean {
     const filePath = getDesktopTokenFilePath()
     if (filePath) {
       fs.rmSync(filePath, { force: true })
+      markFileBackedStorageUsed()
       clearOpenAIOAuthTokenCache()
       return true
     }
