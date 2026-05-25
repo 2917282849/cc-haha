@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type WheelEvent } from 'react'
 import { useTranslation, type TranslationKey } from '../i18n'
 import { terminalApi } from '../api/terminal'
 import { useSettingsStore } from '../stores/settingsStore'
@@ -24,6 +24,21 @@ const STATUS_LABEL_KEYS: Record<TerminalStatus, TranslationKey> = {
   exited: 'settings.terminal.status.exited',
   error: 'settings.terminal.status.error',
   unavailable: 'settings.terminal.status.unavailable',
+}
+
+function findScrollableAncestor(element: HTMLElement, deltaY: number): HTMLElement | null {
+  let parent = element.parentElement
+  while (parent) {
+    const style = window.getComputedStyle(parent)
+    const canScrollY = style.overflowY === 'auto' || style.overflowY === 'scroll'
+    if (canScrollY && parent.scrollHeight > parent.clientHeight) {
+      const maxScrollTop = parent.scrollHeight - parent.clientHeight
+      const canMove = deltaY < 0 ? parent.scrollTop > 0 : parent.scrollTop < maxScrollTop
+      if (canMove) return parent
+    }
+    parent = parent.parentElement
+  }
+  return null
 }
 
 type TerminalSettingsProps = {
@@ -283,6 +298,18 @@ export function TerminalSettings({
     runtime.terminal?.clear()
   }
 
+  const handleTerminalWheelCapture = useCallback((event: WheelEvent<HTMLDivElement>) => {
+    const host = hostRef.current
+    if (!host || host.contains(document.activeElement)) return
+
+    const scroller = findScrollableAncestor(event.currentTarget, event.deltaY)
+    if (!scroller) return
+
+    event.preventDefault()
+    event.stopPropagation()
+    scroller.scrollBy({ top: event.deltaY, left: event.deltaX })
+  }, [])
+
   const savePreferences = async () => {
     setPreferencesError(null)
     setPreferencesSaved(false)
@@ -316,23 +343,33 @@ export function TerminalSettings({
   return (
     <div className={`flex h-full flex-col overflow-hidden ${
       docked
-        ? 'min-h-0 bg-[var(--color-surface-container-lowest)] px-3 py-2'
+        ? 'min-h-0 bg-[var(--color-surface-container-lowest)] px-3 py-1.5'
         : workspace
           ? 'min-h-0 bg-[var(--color-surface)] px-5 py-4'
-          : 'min-h-[620px]'
+          : 'min-h-[min(720px,calc(100vh-8rem))]'
     }`}>
-      <div className={`${docked ? 'mb-2' : 'mb-3'} flex flex-wrap items-start justify-between gap-3`}>
-        <div className="min-w-0">
-          <h2 className={`${docked ? 'text-sm' : 'text-base'} font-semibold text-[var(--color-text-primary)]`}>
+      <div
+        data-testid="settings-terminal-toolbar"
+        className={`${docked ? 'mb-1.5 min-h-8' : 'mb-2 min-h-9'} flex min-w-0 flex-wrap items-center gap-2`}
+      >
+        <div className="flex min-w-0 flex-1 items-center gap-2">
+          <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--color-terminal-danger)]" aria-hidden="true" />
+          <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--color-terminal-warning)]" aria-hidden="true" />
+          <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--color-terminal-accent)]" aria-hidden="true" />
+          <h2 className={`${docked ? 'text-[13px]' : 'text-sm'} shrink-0 font-semibold text-[var(--color-text-primary)]`}>
             {t('settings.terminal.title')}
           </h2>
-          {!docked && (
-            <p className="mt-0.5 max-w-2xl text-sm text-[var(--color-text-tertiary)]">
-              {t('settings.terminal.description')}
-            </p>
+          <StatusPill status={status} label={t(STATUS_LABEL_KEYS[status])} compact={docked} />
+          {shellInfo && (
+            <div className="flex min-w-0 items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]">
+              <span className="shrink-0 font-mono">{shellInfo.shell}</span>
+              <span className="shrink-0 text-[var(--color-border)]">/</span>
+              <span className="min-w-0 truncate font-mono">{shellInfo.cwd}</span>
+            </div>
           )}
         </div>
-        <div className="flex items-center gap-2">
+
+        <div className="flex shrink-0 items-center gap-1.5">
           {onOpenInTab && (
             <button
               type="button"
@@ -381,17 +418,6 @@ export function TerminalSettings({
             </button>
           )}
         </div>
-      </div>
-
-      <div className={`${docked ? 'mb-2' : 'mb-3'} flex flex-wrap items-center gap-2 text-xs text-[var(--color-text-tertiary)]`}>
-        <StatusPill status={status} label={t(STATUS_LABEL_KEYS[status])} />
-        {shellInfo && (
-          <>
-            <span className="font-mono">{shellInfo.shell}</span>
-            <span className="text-[var(--color-border)]">/</span>
-            <span className="min-w-0 max-w-full truncate font-mono">{shellInfo.cwd}</span>
-          </>
-        )}
       </div>
 
       {error && (
@@ -492,19 +518,15 @@ export function TerminalSettings({
           </div>
         </div>
       ) : (
-        <div className="min-h-0 flex-1 overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-terminal-border)] bg-[var(--color-terminal-bg)] shadow-[var(--shadow-dropdown)]">
-          <div className="flex h-8 items-center gap-2 border-b border-[var(--color-terminal-border)] bg-[var(--color-terminal-header)] px-3">
-            <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-terminal-danger)]" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-terminal-warning)]" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-terminal-accent)]" />
-            <span className="ml-2 truncate font-mono text-[11px] text-[var(--color-terminal-muted)]">
-              {t('settings.terminal.windowTitle')}
-            </span>
-          </div>
+        <div
+          data-testid="settings-terminal-frame"
+          onWheelCapture={handleTerminalWheelCapture}
+          className="min-h-0 flex-1 overflow-hidden rounded-[var(--radius-sm)] border border-[var(--color-terminal-border)] bg-[var(--color-terminal-bg)] shadow-[var(--shadow-dropdown)]"
+        >
           <div
             ref={hostRef}
             data-testid={testId}
-            className="settings-terminal-host h-[calc(100%-2rem)] w-full overflow-hidden p-2"
+            className="settings-terminal-host h-full w-full overflow-hidden px-2 pb-2 pt-1.5"
           />
         </div>
       )}
@@ -512,7 +534,7 @@ export function TerminalSettings({
   )
 }
 
-function StatusPill({ status, label }: { status: TerminalStatus; label: string }) {
+function StatusPill({ status, label, compact = false }: { status: TerminalStatus; label: string; compact?: boolean }) {
   const color =
     status === 'running'
       ? 'bg-[var(--color-success)]'
@@ -523,7 +545,7 @@ function StatusPill({ status, label }: { status: TerminalStatus; label: string }
           : 'bg-[var(--color-text-tertiary)]'
 
   return (
-    <span className="inline-flex h-6 items-center gap-1.5 rounded-full border border-[var(--color-border)] bg-[var(--color-surface-container-low)] px-2.5 text-[11px] font-medium text-[var(--color-text-secondary)]">
+    <span className={`inline-flex ${compact ? 'h-5 px-2 text-[10px]' : 'h-6 px-2.5 text-[11px]'} shrink-0 items-center gap-1.5 rounded-full border border-[var(--color-border)] bg-[var(--color-surface-container-low)] font-medium text-[var(--color-text-secondary)]`}>
       <span className={`h-1.5 w-1.5 rounded-full ${color}`} />
       {label}
     </span>

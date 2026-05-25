@@ -108,7 +108,7 @@ describe('TerminalSettings', () => {
   it('shows a desktop-runtime empty state outside Tauri', () => {
     render(<TerminalSettings />)
 
-    expect(screen.getByText(/claude-haha/)).toBeInTheDocument()
+    expect(screen.getByTestId('settings-terminal-toolbar')).toHaveTextContent('Terminal')
     expect(screen.getByText('Desktop runtime required')).toBeInTheDocument()
     expect(terminalMocks.spawn).not.toHaveBeenCalled()
   })
@@ -125,6 +125,44 @@ describe('TerminalSettings', () => {
     expect(screen.getByText('/Users/test')).toBeInTheDocument()
     expect(terminalMocks.terminalInstance.open).toHaveBeenCalled()
     expect(terminalMocks.fitInstance.fit).toHaveBeenCalled()
+  })
+
+  it('uses one compact toolbar instead of a nested terminal title bar', async () => {
+    terminalMocks.available = true
+
+    render(<TerminalSettings />)
+
+    await waitFor(() => expect(terminalMocks.spawn).toHaveBeenCalled())
+    expect(screen.getByTestId('settings-terminal-toolbar')).toHaveTextContent('/bin/zsh')
+    expect(screen.getByTestId('settings-terminal-frame')).toBeInTheDocument()
+    expect(screen.queryByText('Host shell')).not.toBeInTheDocument()
+  })
+
+  it('lets the settings page keep scrolling when the terminal is not focused', async () => {
+    terminalMocks.available = true
+    const container = document.createElement('div')
+    container.style.overflowY = 'auto'
+    let scrollTop = 0
+    Object.defineProperty(container, 'clientHeight', { configurable: true, value: 100 })
+    Object.defineProperty(container, 'scrollHeight', { configurable: true, value: 300 })
+    Object.defineProperty(container, 'scrollTop', {
+      configurable: true,
+      get: () => scrollTop,
+      set: (value) => { scrollTop = value },
+    })
+    const scrollBy = vi.fn(({ top }: ScrollToOptions) => {
+      scrollTop += Number(top ?? 0)
+    })
+    Object.defineProperty(container, 'scrollBy', { configurable: true, value: scrollBy })
+    document.body.appendChild(container)
+
+    render(<TerminalSettings />, { container })
+    await waitFor(() => expect(terminalMocks.spawn).toHaveBeenCalled())
+
+    fireEvent.wheel(screen.getByTestId('settings-terminal-frame'), { deltaY: 48 })
+
+    expect(scrollBy).toHaveBeenCalledWith({ top: 48, left: 0 })
+    expect(scrollTop).toBe(48)
   })
 
   it('starts in the provided cwd when embedded in a project session', async () => {
