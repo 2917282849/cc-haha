@@ -529,6 +529,83 @@ describe('ConversationService', () => {
       await fs.rm(workDir, { recursive: true, force: true })
     }
   })
+
+  it('should not report transcript context as full for low-trust media usage spikes', async () => {
+    const previousConfigDir = process.env.CLAUDE_CONFIG_DIR
+    const previousNodeEnv = process.env.NODE_ENV
+    const previousUseBedrock = process.env.CLAUDE_CODE_USE_BEDROCK
+    const tmpConfigDir = await fs.mkdtemp(path.join(os.tmpdir(), 'claude-transcript-media-'))
+    const workDir = await fs.mkdtemp(path.join(os.tmpdir(), 'claude-workdir-media-'))
+    process.env.CLAUDE_CONFIG_DIR = tmpConfigDir
+    process.env.NODE_ENV = 'development'
+    process.env.CLAUDE_CODE_USE_BEDROCK = '1'
+
+    try {
+      const svc = new SessionService()
+      const { sessionId } = await svc.createSession(workDir)
+      const found = await svc.findSessionFile(sessionId)
+      expect(found).not.toBeNull()
+
+      await fs.appendFile(found!.filePath, JSON.stringify({
+        type: 'user',
+        uuid: crypto.randomUUID(),
+        timestamp: '2026-04-27T12:00:00.000Z',
+        cwd: workDir,
+        message: {
+          role: 'user',
+          content: [{
+            type: 'image',
+            source: {
+              type: 'base64',
+              media_type: 'image/png',
+              data: 'a'.repeat(1024),
+            },
+          }],
+        },
+      }) + '\n')
+      await fs.appendFile(found!.filePath, JSON.stringify({
+        type: 'assistant',
+        uuid: crypto.randomUUID(),
+        timestamp: '2026-04-27T12:00:01.000Z',
+        cwd: workDir,
+        version: '999.0.0-test',
+        message: {
+          role: 'assistant',
+          model: 'claude-sonnet-4-6',
+          content: [{ type: 'text', text: 'ok' }],
+          usage: {
+            input_tokens: 1_000_000,
+            output_tokens: 10,
+          },
+        },
+      }) + '\n')
+
+      const contextEstimate = await svc.getTranscriptContextEstimate(sessionId)
+
+      expect(contextEstimate?.rawMaxTokens).toBe(200_000)
+      expect(contextEstimate?.totalTokens).toBeLessThan(200_000)
+      expect(contextEstimate?.percentage).toBeLessThan(100)
+      expect(contextEstimate?.categories[0]?.name).toBe('Estimated context')
+    } finally {
+      if (previousConfigDir === undefined) {
+        delete process.env.CLAUDE_CONFIG_DIR
+      } else {
+        process.env.CLAUDE_CONFIG_DIR = previousConfigDir
+      }
+      if (previousNodeEnv === undefined) {
+        delete process.env.NODE_ENV
+      } else {
+        process.env.NODE_ENV = previousNodeEnv
+      }
+      if (previousUseBedrock === undefined) {
+        delete process.env.CLAUDE_CODE_USE_BEDROCK
+      } else {
+        process.env.CLAUDE_CODE_USE_BEDROCK = previousUseBedrock
+      }
+      await fs.rm(tmpConfigDir, { recursive: true, force: true })
+      await fs.rm(workDir, { recursive: true, force: true })
+    }
+  })
 })
 
 // ============================================================================
