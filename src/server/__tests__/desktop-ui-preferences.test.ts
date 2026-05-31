@@ -59,6 +59,7 @@ describe('DesktopUiPreferencesService', () => {
       schemaVersion: 2,
       profile: {
         displayName: 'cc-haha',
+        subtitle: 'github.com/NanmiCoder/cc-haha',
         avatarFile: null,
         avatarUpdatedAt: null,
       },
@@ -101,6 +102,7 @@ describe('DesktopUiPreferencesService', () => {
       futureField: { keep: true },
       profile: {
         displayName: 'cc-haha',
+        subtitle: 'github.com/NanmiCoder/cc-haha',
         avatarFile: null,
         avatarUpdatedAt: null,
       },
@@ -117,6 +119,7 @@ describe('DesktopUiPreferencesService', () => {
       futureField: { keep: true },
       profile: {
         displayName: 'cc-haha',
+        subtitle: 'github.com/NanmiCoder/cc-haha',
         avatarFile: null,
         avatarUpdatedAt: null,
       },
@@ -149,6 +152,7 @@ describe('DesktopUiPreferencesService', () => {
     const service = new DesktopUiPreferencesService()
     const after = await service.updateProfilePreferences({
       displayName: '  Claude Captain  ',
+      subtitle: '  local.example/profile  ',
       avatarFile: '../escape.png',
       avatarUpdatedAt: 42,
     })
@@ -157,6 +161,7 @@ describe('DesktopUiPreferencesService', () => {
       schemaVersion: 2,
       profile: {
         displayName: 'Claude Captain',
+        subtitle: 'local.example/profile',
         avatarFile: null,
         avatarUpdatedAt: null,
       },
@@ -226,6 +231,7 @@ describe('desktop UI preferences API', () => {
         schemaVersion: 2,
         profile: {
           displayName: 'cc-haha',
+          subtitle: 'github.com/NanmiCoder/cc-haha',
           avatarFile: null,
           avatarUpdatedAt: null,
         },
@@ -250,6 +256,7 @@ describe('desktop UI preferences API', () => {
         schemaVersion: 2,
         profile: {
           displayName: 'cc-haha',
+          subtitle: 'github.com/NanmiCoder/cc-haha',
           avatarFile: null,
           avatarUpdatedAt: null,
         },
@@ -267,6 +274,7 @@ describe('desktop UI preferences API', () => {
   test('persists profile preferences and avatar uploads through the API', async () => {
     const profileReq = makeRequest('PUT', '/api/desktop-ui/preferences/profile', {
       displayName: '  Local Operator  ',
+      subtitle: '  operator.example  ',
     })
     const profileRes = await handleDesktopUiApi(profileReq.req, profileReq.url, profileReq.segments)
     const profileBody = await profileRes.json() as Record<string, unknown>
@@ -277,6 +285,7 @@ describe('desktop UI preferences API', () => {
       preferences: {
         profile: {
           displayName: 'Local Operator',
+          subtitle: 'operator.example',
           avatarFile: null,
         },
       },
@@ -297,6 +306,7 @@ describe('desktop UI preferences API', () => {
       preferences: {
         profile: {
           displayName: 'Local Operator',
+          subtitle: 'operator.example',
           avatarFile: 'profile/avatar.jpg',
         },
       },

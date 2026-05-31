@@ -93,6 +93,7 @@ describe('ActivitySettings', () => {
         schemaVersion: 2,
         profile: {
           displayName: 'cc-haha',
+          subtitle: 'github.com/NanmiCoder/cc-haha',
           avatarFile: null,
           avatarUpdatedAt: null,
         },
@@ -111,6 +112,7 @@ describe('ActivitySettings', () => {
         schemaVersion: 2,
         profile: {
           displayName: profile.displayName,
+          subtitle: profile.subtitle,
           avatarFile: null,
           avatarUpdatedAt: null,
         },
@@ -129,6 +131,7 @@ describe('ActivitySettings', () => {
         schemaVersion: 2,
         profile: {
           displayName: 'cc-haha',
+          subtitle: 'github.com/NanmiCoder/cc-haha',
           avatarFile: 'profile/avatar.png',
           avatarUpdatedAt: '2026-05-09T12:00:00.000Z',
         },
@@ -147,6 +150,7 @@ describe('ActivitySettings', () => {
         schemaVersion: 2,
         profile: {
           displayName: 'cc-haha',
+          subtitle: 'github.com/NanmiCoder/cc-haha',
           avatarFile: null,
           avatarUpdatedAt: null,
         },
@@ -238,12 +242,17 @@ describe('ActivitySettings', () => {
     fireEvent.click(screen.getByRole('button', { name: '编辑个人资料' }))
     const input = screen.getByLabelText('显示名称')
     fireEvent.change(input, { target: { value: '本地舰长' } })
+    fireEvent.change(screen.getByLabelText('第二行'), { target: { value: 'relakkes.dev' } })
     fireEvent.click(screen.getByRole('button', { name: '保存' }))
 
     await flushActivityLoad()
 
-    expect(updateProfilePreferencesMock).toHaveBeenCalledWith({ displayName: '本地舰长' })
+    expect(updateProfilePreferencesMock).toHaveBeenCalledWith({
+      displayName: '本地舰长',
+      subtitle: 'relakkes.dev',
+    })
     expect(screen.getByText('本地舰长')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'relakkes.dev' })).toHaveAttribute('href', 'https://relakkes.dev')
   })
 
   it('handles avatar upload, fallback, removal, save failure, and cancel reset', async () => {
@@ -253,6 +262,7 @@ describe('ActivitySettings', () => {
         schemaVersion: 2,
         profile: {
           displayName: 'Local Captain',
+          subtitle: 'Local workspace',
           avatarFile: 'profile/avatar.webp',
           avatarUpdatedAt: '2026-05-09T12:00:00.000Z',
         },
@@ -266,7 +276,7 @@ describe('ActivitySettings', () => {
       },
     })
     updateProfilePreferencesMock.mockRejectedValueOnce(new Error('display name rejected'))
-    const { container } = render(<ActivitySettings />)
+    render(<ActivitySettings />)
 
     await flushActivityLoad()
 
@@ -286,12 +296,14 @@ describe('ActivitySettings', () => {
     expect(screen.getByText('display name rejected')).toBeInTheDocument()
 
     fireEvent.change(screen.getByLabelText('Display name'), { target: { value: 'Unsaved Name' } })
+    fireEvent.change(screen.getByLabelText('Second line'), { target: { value: 'Unsaved subtitle' } })
     const cancelButtons = screen.getAllByRole('button', { name: 'Cancel' })
     fireEvent.click(cancelButtons[cancelButtons.length - 1]!)
     fireEvent.click(screen.getByRole('button', { name: 'Edit profile' }))
     expect(screen.getByLabelText('Display name')).toHaveValue('Local Captain')
+    expect(screen.getByLabelText('Second line')).toHaveValue('Local workspace')
 
-    const input = container.querySelector('input[type="file"]') as HTMLInputElement
+    const input = document.querySelector('input[type="file"]') as HTMLInputElement
     const file = new File([new Uint8Array([1, 2, 3])], 'avatar.png', { type: 'image/png' })
     fireEvent.change(input, { target: { files: [file] } })
 

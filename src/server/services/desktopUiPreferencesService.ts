@@ -9,7 +9,9 @@ import { ensurePersistentStorageUpgraded } from './persistentStorageMigrations.j
 const CURRENT_DESKTOP_UI_PREFERENCES_SCHEMA_VERSION = 2
 const MAX_PROJECT_PREFERENCE_ENTRIES = 2_000
 const MAX_PROFILE_DISPLAY_NAME_LENGTH = 80
+const MAX_PROFILE_SUBTITLE_LENGTH = 160
 const MAX_PROFILE_AVATAR_BYTES = 2_000_000
+const DEFAULT_PROFILE_SUBTITLE = 'github.com/NanmiCoder/cc-haha'
 
 const AVATAR_CONTENT_TYPES = {
   'image/png': { extension: 'png', mediaType: 'image/png' },
@@ -27,6 +29,7 @@ export type SidebarProjectPreferences = {
 
 export type DesktopProfilePreferences = {
   displayName: string
+  subtitle: string
   avatarFile: string | null
   avatarUpdatedAt: string | null
 }
@@ -53,6 +56,7 @@ const DEFAULT_SIDEBAR_PROJECT_PREFERENCES: SidebarProjectPreferences = {
 
 const DEFAULT_PROFILE_PREFERENCES: DesktopProfilePreferences = {
   displayName: 'cc-haha',
+  subtitle: DEFAULT_PROFILE_SUBTITLE,
   avatarFile: null,
   avatarUpdatedAt: null,
 }
@@ -102,6 +106,13 @@ function normalizeProfileDisplayName(value: unknown): string {
   return trimmed.slice(0, MAX_PROFILE_DISPLAY_NAME_LENGTH)
 }
 
+function normalizeProfileSubtitle(value: unknown): string {
+  if (typeof value !== 'string') return DEFAULT_PROFILE_PREFERENCES.subtitle
+  const trimmed = value.trim().replace(/\s+/g, ' ')
+  if (trimmed.length === 0) return DEFAULT_PROFILE_PREFERENCES.subtitle
+  return trimmed.slice(0, MAX_PROFILE_SUBTITLE_LENGTH)
+}
+
 function normalizeAvatarFile(value: unknown): string | null {
   if (typeof value !== 'string') return null
   if (!/^profile\/avatar\.(png|jpg|webp)$/.test(value)) return null
@@ -116,6 +127,7 @@ function normalizeProfilePreferences(value: unknown): DesktopProfilePreferences 
   const record = value as Record<string, unknown>
   return {
     displayName: normalizeProfileDisplayName(record.displayName),
+    subtitle: normalizeProfileSubtitle(record.subtitle),
     avatarFile: normalizeAvatarFile(record.avatarFile),
     avatarUpdatedAt: typeof record.avatarUpdatedAt === 'string' ? record.avatarUpdatedAt : null,
   }
@@ -265,6 +277,9 @@ export class DesktopUiPreferencesService {
         displayName: Object.prototype.hasOwnProperty.call(patch, 'displayName')
           ? patch.displayName
           : currentProfile.displayName,
+        subtitle: Object.prototype.hasOwnProperty.call(patch, 'subtitle')
+          ? patch.subtitle
+          : currentProfile.subtitle,
       })
       const nextPreferences: DesktopUiPreferences = {
         ...preferences,

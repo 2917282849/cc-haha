@@ -10,6 +10,7 @@ export type SidebarProjectPreferences = {
 
 export type DesktopProfilePreferences = {
   displayName: string
+  subtitle: string
   avatarFile: string | null
   avatarUpdatedAt: string | null
 }
@@ -37,7 +38,7 @@ export const desktopUiPreferencesApi = {
     )
   },
 
-  updateProfilePreferences(profile: Pick<DesktopProfilePreferences, 'displayName'>) {
+  updateProfilePreferences(profile: Pick<DesktopProfilePreferences, 'displayName' | 'subtitle'>) {
     return api.put<{ ok: true; preferences: DesktopUiPreferences }>(
       '/api/desktop-ui/preferences/profile',
       profile,

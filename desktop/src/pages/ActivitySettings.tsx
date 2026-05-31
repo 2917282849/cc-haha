@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react'
+import { createPortal } from 'react-dom'
 import { activityStatsApi, type ActivityStatsResponse, type DailyActivity } from '../api/activityStats'
 import {
   desktopUiPreferencesApi,
@@ -52,10 +53,10 @@ const DATE_LOCALES: Record<Locale, string> = {
 }
 const DEFAULT_PROFILE: DesktopProfilePreferences = {
   displayName: 'cc-haha',
+  subtitle: 'github.com/NanmiCoder/cc-haha',
   avatarFile: null,
   avatarUpdatedAt: null,
 }
-const PROFILE_LINK_URL = 'https://github.com/NanmiCoder/cc-haha'
 
 function localDateKey(date: Date) {
   const year = date.getFullYear()
@@ -123,6 +124,16 @@ function formatSessionCount(value: number, t: ReturnType<typeof useTranslation>)
 
 function formatMessageCount(value: number, t: ReturnType<typeof useTranslation>) {
   return `${value} ${t('settings.activity.messages')}`
+}
+
+function withProfileDefaults(profile: Partial<DesktopProfilePreferences> | null | undefined): DesktopProfilePreferences {
+  return { ...DEFAULT_PROFILE, ...profile }
+}
+
+function getProfileSubtitleHref(subtitle: string) {
+  if (/^https?:\/\//i.test(subtitle)) return subtitle
+  if (/^[\w.-]+\.[a-z]{2,}(?:\/.*)?$/i.test(subtitle)) return `https://${subtitle}`
+  return null
 }
 
 function calculateHeatCellSize(width: number) {
@@ -341,6 +352,7 @@ export function ActivitySettings() {
   const [isEditingProfile, setIsEditingProfile] = useState(false)
   const [isSavingProfile, setIsSavingProfile] = useState(false)
   const [draftDisplayName, setDraftDisplayName] = useState(DEFAULT_PROFILE.displayName)
+  const [draftSubtitle, setDraftSubtitle] = useState(DEFAULT_PROFILE.subtitle)
   const [heatmapMode, setHeatmapMode] = useState<HeatmapMode>('daily')
   const [hoveredDate, setHoveredDate] = useState<string | null>(null)
   const [focusedDate, setFocusedDate] = useState<string | null>(null)
@@ -377,9 +389,10 @@ export function ActivitySettings() {
     desktopUiPreferencesApi.getPreferences()
       .then((result) => {
         if (cancelled) return
-        const nextProfile = result.preferences.profile ?? DEFAULT_PROFILE
+        const nextProfile = withProfileDefaults(result.preferences.profile)
         setProfile(nextProfile)
         setDraftDisplayName(nextProfile.displayName)
+        setDraftSubtitle(nextProfile.subtitle)
       })
       .catch((err) => {
         if (cancelled) return
@@ -480,6 +493,7 @@ export function ActivitySettings() {
   const avatarClassName = profile.avatarFile
     ? 'h-full w-full object-cover'
     : 'h-full w-full scale-[1.28] object-contain transition-transform'
+  const profileSubtitleHref = getProfileSubtitleHref(profile.subtitle)
   const hasUsage = Boolean(stats && (stats.totalSessions > 0 || totalTokens > 0))
   const modeOptions: Array<{ mode: HeatmapMode; label: string; help: string }> = [
     { mode: 'daily', label: t('settings.activity.mode.daily'), help: t('settings.activity.modeHelp.daily') },
@@ -492,9 +506,14 @@ export function ActivitySettings() {
     setProfileError(null)
     setProfileStatus(null)
     try {
-      const result = await desktopUiPreferencesApi.updateProfilePreferences({ displayName: draftDisplayName })
-      setProfile(result.preferences.profile)
-      setDraftDisplayName(result.preferences.profile.displayName)
+      const result = await desktopUiPreferencesApi.updateProfilePreferences({
+        displayName: draftDisplayName,
+        subtitle: draftSubtitle,
+      })
+      const nextProfile = withProfileDefaults(result.preferences.profile)
+      setProfile(nextProfile)
+      setDraftDisplayName(nextProfile.displayName)
+      setDraftSubtitle(nextProfile.subtitle)
       setIsEditingProfile(false)
       setProfileStatus(t('settings.activity.profileSaved'))
     } catch (err) {
@@ -513,8 +532,10 @@ export function ActivitySettings() {
     setProfileStatus(null)
     try {
       const result = await desktopUiPreferencesApi.uploadProfileAvatar(file)
-      setProfile(result.preferences.profile)
-      setDraftDisplayName(result.preferences.profile.displayName)
+      const nextProfile = withProfileDefaults(result.preferences.profile)
+      setProfile(nextProfile)
+      setDraftDisplayName(nextProfile.displayName)
+      setDraftSubtitle(nextProfile.subtitle)
       setProfileStatus(t('settings.activity.profileSaved'))
     } catch (err) {
       setProfileError(err instanceof Error ? err.message : t('settings.activity.profileSaveFailed'))
@@ -529,7 +550,7 @@ export function ActivitySettings() {
     setProfileStatus(null)
     try {
       const result = await desktopUiPreferencesApi.deleteProfileAvatar()
-      setProfile(result.preferences.profile)
+      setProfile(withProfileDefaults(result.preferences.profile))
       setProfileStatus(t('settings.activity.profileSaved'))
     } catch (err) {
       setProfileError(err instanceof Error ? err.message : t('settings.activity.profileSaveFailed'))
@@ -540,21 +561,8 @@ export function ActivitySettings() {
 
   return (
     <div className="mx-auto w-full max-w-[1160px] min-w-0 pb-12">
-      <section className="relative flex min-h-[310px] flex-col items-center justify-end pt-12 text-center">
-        <button
-          type="button"
-          className="absolute right-0 top-0 inline-flex h-8 items-center gap-1.5 rounded-md px-2.5 text-sm font-medium text-[var(--color-text-secondary)] transition-[background-color,transform] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)] active:translate-y-[1px] disabled:opacity-50"
-          onClick={() => {
-            setIsEditingProfile(true)
-            setDraftDisplayName(profile.displayName)
-          }}
-          disabled={isProfileLoading}
-        >
-          <span className="material-symbols-outlined text-[16px]" aria-hidden="true">edit</span>
-          {t('settings.activity.editProfile')}
-        </button>
-
-        <div className="relative h-24 w-24 overflow-hidden rounded-full border border-[var(--color-border)] bg-[var(--color-surface-container-lowest)] shadow-[0_12px_34px_-24px_rgba(15,23,42,0.65)]">
+      <section className="relative flex min-h-[245px] flex-col items-center justify-start pt-6 text-center">
+        <div className="relative h-[88px] w-[88px] overflow-hidden rounded-full border border-[var(--color-border)] bg-[var(--color-surface-container-lowest)] shadow-[0_12px_34px_-24px_rgba(15,23,42,0.65)]">
           <img
             src={avatarSrc}
             alt={`${profile.displayName} avatar`}
@@ -565,20 +573,40 @@ export function ActivitySettings() {
             }}
           />
         </div>
-        <h1 className="mt-8 max-w-full truncate text-4xl font-semibold tracking-tight text-[var(--color-text-primary)] sm:text-[44px]">{profile.displayName}</h1>
-        <a
-          href={PROFILE_LINK_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-4 inline-flex max-w-full items-center justify-center gap-2 truncate text-lg text-[var(--color-text-tertiary)] transition-colors hover:text-[var(--color-text-primary)]"
-        >
-          <span>{t('settings.activity.defaultHandle')}</span>
-        </a>
+        <div className="mt-6 flex max-w-full items-center justify-center gap-2">
+          <h1 className="max-w-[min(720px,calc(100%-2.25rem))] truncate text-4xl font-semibold tracking-tight text-[var(--color-text-primary)] sm:text-[44px]">{profile.displayName}</h1>
+          <button
+            type="button"
+            aria-label={t('settings.activity.editProfile')}
+            title={t('settings.activity.editProfile')}
+            className="mt-1 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-[var(--color-text-tertiary)] transition-[background-color,color,transform] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-brand)] focus:ring-offset-2 focus:ring-offset-[var(--color-surface)] active:translate-y-[1px] disabled:opacity-50"
+            onClick={() => {
+              setIsEditingProfile(true)
+              setDraftDisplayName(profile.displayName)
+              setDraftSubtitle(profile.subtitle)
+            }}
+            disabled={isProfileLoading}
+          >
+            <span className="material-symbols-outlined text-[16px]" aria-hidden="true">edit</span>
+          </button>
+        </div>
+        {profileSubtitleHref ? (
+          <a
+            href={profileSubtitleHref}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 inline-flex max-w-full items-center justify-center gap-2 truncate text-lg text-[var(--color-text-tertiary)] transition-colors hover:text-[var(--color-text-primary)]"
+          >
+            <span>{profile.subtitle}</span>
+          </a>
+        ) : (
+          <div className="mt-3 max-w-full truncate text-lg text-[var(--color-text-tertiary)]">{profile.subtitle}</div>
+        )}
         {profileStatus && <div className="mt-3 text-xs text-[var(--color-success)]">{profileStatus}</div>}
         {profileError && !isEditingProfile && <div className="mt-3 text-xs text-[var(--color-error)]">{profileError}</div>}
       </section>
 
-      <section className="mx-auto mt-10 overflow-hidden rounded-[18px] border border-[var(--color-border)] bg-[var(--color-surface-container-lowest)]">
+      <section className="mx-auto mt-8 overflow-hidden rounded-[18px] border border-[var(--color-border)] bg-[var(--color-surface-container-lowest)]">
         {isLoading ? (
           <div className="grid gap-0 sm:grid-cols-2 xl:grid-cols-5">
             {Array.from({ length: 5 }).map((_, index) => (
@@ -602,8 +630,8 @@ export function ActivitySettings() {
         )}
       </section>
 
-      {isEditingProfile && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/25 px-4 py-8" role="dialog" aria-modal="true" aria-labelledby="activity-profile-dialog-title">
+      {isEditingProfile && createPortal(
+        <div className="fixed inset-0 z-[10000] flex items-center justify-center bg-[var(--color-overlay-scrim)] px-4 py-8" role="dialog" aria-modal="true" aria-labelledby="activity-profile-dialog-title">
           <div className="w-full max-w-[420px] rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-container-lowest)] p-5 shadow-2xl">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -616,6 +644,7 @@ export function ActivitySettings() {
                 onClick={() => {
                   setIsEditingProfile(false)
                   setDraftDisplayName(profile.displayName)
+                  setDraftSubtitle(profile.subtitle)
                   setProfileError(null)
                 }}
                 aria-label={t('settings.activity.cancelEdit')}
@@ -633,6 +662,18 @@ export function ActivitySettings() {
                   id="activity-profile-display-name"
                   value={draftDisplayName}
                   onChange={(event) => setDraftDisplayName(event.target.value)}
+                  className="h-10 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-3 text-sm text-[var(--color-text-primary)] outline-none transition-colors focus:border-[var(--color-border-focus)]"
+                />
+              </div>
+
+              <div className="grid gap-2">
+                <label htmlFor="activity-profile-subtitle" className="text-xs font-medium text-[var(--color-text-secondary)]">
+                  {t('settings.activity.subtitle')}
+                </label>
+                <input
+                  id="activity-profile-subtitle"
+                  value={draftSubtitle}
+                  onChange={(event) => setDraftSubtitle(event.target.value)}
                   className="h-10 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-3 text-sm text-[var(--color-text-primary)] outline-none transition-colors focus:border-[var(--color-border-focus)]"
                 />
               </div>
@@ -678,6 +719,7 @@ export function ActivitySettings() {
                 onClick={() => {
                   setIsEditingProfile(false)
                   setDraftDisplayName(profile.displayName)
+                  setDraftSubtitle(profile.subtitle)
                   setProfileError(null)
                 }}
               >
@@ -693,7 +735,8 @@ export function ActivitySettings() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
 
       <div className="mt-16">

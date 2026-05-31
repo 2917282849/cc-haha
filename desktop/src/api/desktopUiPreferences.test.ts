@@ -6,6 +6,7 @@ const preferences = {
   schemaVersion: 2,
   profile: {
     displayName: 'cc-haha',
+    subtitle: 'github.com/NanmiCoder/cc-haha',
     avatarFile: null,
     avatarUpdatedAt: null,
   },
@@ -43,7 +44,10 @@ describe('desktopUiPreferencesApi', () => {
       }))
 
     await expect(desktopUiPreferencesApi.getPreferences()).resolves.toEqual({ exists: true, preferences })
-    await expect(desktopUiPreferencesApi.updateProfilePreferences({ displayName: 'Local Captain' })).resolves.toEqual({
+    await expect(desktopUiPreferencesApi.updateProfilePreferences({
+      displayName: 'Local Captain',
+      subtitle: 'local.example',
+    })).resolves.toEqual({
       ok: true,
       preferences,
     })
@@ -54,7 +58,7 @@ describe('desktopUiPreferencesApi', () => {
     }))
     expect(fetchMock).toHaveBeenNthCalledWith(2, 'http://127.0.0.1:49237/api/desktop-ui/preferences/profile', expect.objectContaining({
       method: 'PUT',
-      body: JSON.stringify({ displayName: 'Local Captain' }),
+      body: JSON.stringify({ displayName: 'Local Captain', subtitle: 'local.example' }),
     }))
     expect(fetchMock).toHaveBeenNthCalledWith(3, 'http://127.0.0.1:49237/api/desktop-ui/preferences/profile/avatar', expect.objectContaining({
       method: 'DELETE',
