@@ -121,6 +121,7 @@ type SessionStartOptions = {
   effort?: string
   thinking?: 'enabled' | 'adaptive' | 'disabled'
   providerId?: string | null
+  resumeInterruptedTurn?: boolean
 }
 
 export class ConversationStartupError extends Error {
@@ -1042,6 +1043,9 @@ export class ConversationService {
 
     const cleanEnv = await getProcessEnvWithTerminalShellEnvironment()
     delete cleanEnv.CLAUDE_CODE_OAUTH_TOKEN
+    if (options?.resumeInterruptedTurn === false) {
+      delete cleanEnv.CLAUDE_CODE_RESUME_INTERRUPTED_TURN
+    }
     if (this.shouldStripInheritedProviderEnv(options?.providerId)) {
       for (const key of PROVIDER_ENV_KEYS) {
         delete cleanEnv[key]

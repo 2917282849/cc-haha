@@ -21,6 +21,7 @@ describe('ConversationService', () => {
   let originalProviderManagedByHost: string | undefined
   let originalDiagnosticsFile: string | undefined
   let originalAttributionHeader: string | undefined
+  let originalResumeInterruptedTurn: string | undefined
   let originalHome: string | undefined
   let originalPath: string | undefined
   let originalShell: string | undefined
@@ -39,6 +40,7 @@ describe('ConversationService', () => {
     originalProviderManagedByHost = process.env.CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST
     originalDiagnosticsFile = process.env.CLAUDE_CODE_DIAGNOSTICS_FILE
     originalAttributionHeader = process.env.CLAUDE_CODE_ATTRIBUTION_HEADER
+    originalResumeInterruptedTurn = process.env.CLAUDE_CODE_RESUME_INTERRUPTED_TURN
     originalHome = process.env.HOME
     originalPath = process.env.PATH
     originalShell = process.env.SHELL
@@ -57,6 +59,7 @@ describe('ConversationService', () => {
     delete process.env.CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST
     delete process.env.CLAUDE_CODE_DIAGNOSTICS_FILE
     delete process.env.CLAUDE_CODE_ATTRIBUTION_HEADER
+    delete process.env.CLAUDE_CODE_RESUME_INTERRUPTED_TURN
     process.env.CC_HAHA_DISABLE_TERMINAL_SHELL_ENV = '1'
     resetTerminalShellEnvironmentCacheForTests()
   })
@@ -91,6 +94,9 @@ describe('ConversationService', () => {
 
     if (originalAttributionHeader === undefined) delete process.env.CLAUDE_CODE_ATTRIBUTION_HEADER
     else process.env.CLAUDE_CODE_ATTRIBUTION_HEADER = originalAttributionHeader
+
+    if (originalResumeInterruptedTurn === undefined) delete process.env.CLAUDE_CODE_RESUME_INTERRUPTED_TURN
+    else process.env.CLAUDE_CODE_RESUME_INTERRUPTED_TURN = originalResumeInterruptedTurn
 
     if (originalHome === undefined) delete process.env.HOME
     else process.env.HOME = originalHome
@@ -595,6 +601,18 @@ describe('ConversationService', () => {
 
     expect(env.CC_HAHA_DESKTOP_AWAIT_MCP).toBe('1')
     expect(env.CC_HAHA_DESKTOP_AWAIT_MCP_TIMEOUT_MS).toBe('5000')
+  })
+
+  test('buildChildEnv disables inherited interrupted-turn resume for prewarm launches', async () => {
+    process.env.CLAUDE_CODE_RESUME_INTERRUPTED_TURN = '1'
+    const service = new ConversationService() as any
+    const env = (await service.buildChildEnv(
+      '/tmp',
+      'ws://127.0.0.1:3456/sdk/test-session?token=test-token',
+      { resumeInterruptedTurn: false },
+    )) as Record<string, string>
+
+    expect(env.CLAUDE_CODE_RESUME_INTERRUPTED_TURN).toBeUndefined()
   })
 
   test('buildChildEnv enables stream idle watchdog for desktop CLI sessions', async () => {

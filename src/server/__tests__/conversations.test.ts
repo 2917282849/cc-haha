@@ -1875,7 +1875,7 @@ describe('WebSocket Chat Integration', () => {
     const { sessionId } = await createRes.json() as { sessionId: string }
 
     const originalStartSession = conversationService.startSession.bind(conversationService)
-    const startCalls: Array<{ sessionId: string }> = []
+    const startCalls: Array<{ sessionId: string; options?: Record<string, unknown> }> = []
 
     conversationService.startSession = (async function patchedStartSession(
       sid: string,
@@ -1883,7 +1883,7 @@ describe('WebSocket Chat Integration', () => {
       sdkUrl: string,
       options?: { permissionMode?: string; model?: string; effort?: string; thinking?: 'enabled' | 'adaptive' | 'disabled'; providerId?: string | null },
     ) {
-      startCalls.push({ sessionId: sid })
+      startCalls.push({ sessionId: sid, options: options as Record<string, unknown> | undefined })
       return originalStartSession(sid, workDir, sdkUrl, options)
     }) as typeof conversationService.startSession
 
@@ -1972,6 +1972,8 @@ describe('WebSocket Chat Integration', () => {
       await completion
 
       expect(startCalls).toHaveLength(1)
+      expect(startCalls[0]!.sessionId).toBe(sessionId)
+      expect(startCalls[0]!.options?.resumeInterruptedTurn).toBe(false)
       expect(messages.some((msg) => msg.type === 'content_delta')).toBe(true)
       expect(messages.some((msg) => msg.type === 'message_complete')).toBe(true)
       expect(messages.some((msg) => msg.type === 'error')).toBe(false)
