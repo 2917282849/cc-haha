@@ -1002,10 +1002,8 @@ describe('ProviderService', () => {
       }
     })
 
-    test('injects Claude Code billing attribution with compat version and signed CCH', async () => {
+    test('strips leading billing attribution instead of injecting it for OpenAI-compatible upstreams', async () => {
       const originalFetch = globalThis.fetch
-      const originalEntrypoint = process.env.CLAUDE_CODE_ENTRYPOINT
-      delete process.env.CLAUDE_CODE_ENTRYPOINT
       const calls: Array<{ body: Record<string, unknown> }> = []
       globalThis.fetch = mock(async (_url: string | URL | Request, init?: RequestInit) => {
         calls.push({ body: JSON.parse(String(init?.body)) as Record<string, unknown> })
@@ -1033,6 +1031,10 @@ describe('ProviderService', () => {
           body: JSON.stringify({
             model: 'gpt-4',
             max_tokens: 64,
+            system: [
+              { type: 'text', text: 'x-anthropic-billing-header: cc_version=2.1.92.693; cc_entrypoint=cli; cch=00000;' },
+              { type: 'text', text: 'You are a helpful assistant.' },
+            ],
             messages: [{ role: 'user', content: 'hello from proxy' }],
           }),
         })
@@ -1040,15 +1042,57 @@ describe('ProviderService', () => {
         const res = await handleProxyRequest(req, new URL(req.url))
         expect(res.status).toBe(200)
 
-        const system = calls[0].body.messages as Array<Record<string, string>>
-        expect(system[0].role).toBe('system')
-        expect(system[0].content).toMatch(
-          /^x-anthropic-billing-header: cc_version=2\.1\.92\.693; cc_entrypoint=unknown; cch=[0-9a-f]{5};$/,
-        )
+        // The rotating billing header would change the prompt prefix on every
+        // request and defeat upstream prefix caching — it must not be forwarded.
+        const messages = calls[0].body.messages as Array<Record<string, string>>
+        expect(messages[0].role).toBe('system')
+        expect(messages[0].content).toBe('You are a helpful assistant.')
+        expect(JSON.stringify(calls[0].body)).not.toContain('x-anthropic-billing-header')
       } finally {
         globalThis.fetch = originalFetch
-        if (originalEntrypoint === undefined) delete process.env.CLAUDE_CODE_ENTRYPOINT
-        else process.env.CLAUDE_CODE_ENTRYPOINT = originalEntrypoint
+      }
+    })
+
+    test('forwards a stable prompt_cache_key from client session metadata for OpenAI Responses upstreams', async () => {
+      const originalFetch = globalThis.fetch
+      const calls: Array<{ body: Record<string, unknown> }> = []
+      globalThis.fetch = mock(async (_url: string | URL | Request, init?: RequestInit) => {
+        calls.push({ body: JSON.parse(String(init?.body)) as Record<string, unknown> })
+        return new Response(JSON.stringify({
+          id: 'resp-1',
+          object: 'response',
+          created_at: 0,
+          model: 'gpt-5.4',
+          status: 'completed',
+          output: [{ type: 'message', role: 'assistant', content: [{ type: 'output_text', text: 'ok' }] }],
+          usage: { input_tokens: 1, output_tokens: 1, total_tokens: 2 },
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }) as typeof fetch
+
+      try {
+        const svc = new ProviderService()
+        const provider = await svc.addProvider(sampleInput({ apiFormat: 'openai_responses' }))
+        await svc.activateProvider(provider.id)
+
+        const req = new Request('http://localhost:3456/proxy/v1/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: 'gpt-5.4',
+            max_tokens: 64,
+            metadata: { user_id: 'user_3f7a_account_9b2c_session_sess-42aa' },
+            messages: [{ role: 'user', content: 'hello from proxy' }],
+          }),
+        })
+
+        const res = await handleProxyRequest(req, new URL(req.url))
+        expect(res.status).toBe(200)
+        expect(calls[0].body.prompt_cache_key).toBe('sess-42aa')
+      } finally {
+        globalThis.fetch = originalFetch
       }
     })
 
