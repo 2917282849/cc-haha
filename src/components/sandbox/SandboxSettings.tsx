@@ -82,7 +82,7 @@ export function SandboxSettings(t0) {
   } else {
     t6 = $[6];
   }
-  const t7 = currentMode === "disabled" ? `No Sandbox ${currentIndicator}` : "No Sandbox";
+  const t7 = currentMode === "disabled" ? `No Sandbox ${currentIndicator}` : "无沙盒";
   let t8;
   if ($[7] !== t7) {
     t8 = {
@@ -168,7 +168,7 @@ export function SandboxSettings(t0) {
   useKeybindings(t11, t12);
   let t13;
   if ($[18] !== handleSelect || $[19] !== onComplete || $[20] !== options || $[21] !== showSocketWarning) {
-    t13 = <Tab key="mode" title="Mode"><SandboxModeTab showSocketWarning={showSocketWarning} options={options} onSelect={handleSelect} onComplete={onComplete} /></Tab>;
+    t13 = <Tab key="mode" title="模式"><SandboxModeTab showSocketWarning={showSocketWarning} options={options} onSelect={handleSelect} onComplete={onComplete} /></Tab>;
     $[18] = handleSelect;
     $[19] = onComplete;
     $[20] = options;
@@ -211,7 +211,7 @@ export function SandboxSettings(t0) {
   const tabs = t16;
   let t17;
   if ($[32] !== tabs) {
-    t17 = <Pane color="permission"><Tabs title="Sandbox:" color="permission" defaultTab="Mode">{tabs}</Tabs></Pane>;
+    t17 = <Pane color="permission"><Tabs title="Sandbox:" color="permission" defaultTab="模式">{tabs}</Tabs></Pane>;
     $[32] = tabs;
     $[33] = t17;
   } else {

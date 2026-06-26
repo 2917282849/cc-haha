@@ -89,7 +89,7 @@ export function HelpV2(t0) {
     tabs = [t4];
     let t5;
     if ($[16] !== builtinCommands || $[17] !== close || $[18] !== columns || $[19] !== maxHeight) {
-      t5 = <Tab key="commands" title="commands"><Commands commands={builtinCommands} maxHeight={maxHeight} columns={columns} title="Browse default commands:" onCancel={close} /></Tab>;
+      t5 = <Tab key="commands" title="commands"><Commands commands={builtinCommands} maxHeight={maxHeight} columns={columns} title="浏览默认命令：" onCancel={close} /></Tab>;
       $[16] = builtinCommands;
       $[17] = close;
       $[18] = columns;
@@ -101,7 +101,7 @@ export function HelpV2(t0) {
     tabs.push(t5);
     let t6;
     if ($[21] !== close || $[22] !== columns || $[23] !== customCommands || $[24] !== maxHeight) {
-      t6 = <Tab key="custom" title="custom-commands"><Commands commands={customCommands} maxHeight={maxHeight} columns={columns} title="Browse custom commands:" emptyMessage="No custom commands found" onCancel={close} /></Tab>;
+      t6 = <Tab key="custom" title="custom-commands"><Commands commands={customCommands} maxHeight={maxHeight} columns={columns} title="浏览自定义命令：" emptyMessage="未找到自定义命令" onCancel={close} /></Tab>;
       $[21] = close;
       $[22] = columns;
       $[23] = customCommands;

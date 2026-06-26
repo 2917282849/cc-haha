@@ -94,16 +94,16 @@ export function AgentEditor({
     }
   }, [agent, selectedColor, onSaved, setAppState]);
   const menuItems = useMemo(() => [{
-    label: 'Open in editor',
+    label: '在编辑器中打开',
     action: handleOpenInEditor
   }, {
-    label: 'Edit tools',
+    label: '编辑工具',
     action: () => setEditMode('edit-tools')
   }, {
-    label: 'Edit model',
+    label: '编辑模型',
     action: () => setEditMode('edit-model')
   }, {
-    label: 'Edit color',
+    label: '编辑颜色',
     action: () => setEditMode('edit-color')
   }], [handleOpenInEditor]);
   const handleEscape = useCallback(() => {

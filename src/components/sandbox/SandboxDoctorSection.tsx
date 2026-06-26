@@ -23,7 +23,7 @@ export function SandboxDoctorSection() {
         break bb0;
       }
       const statusColor = hasErrors ? "error" as const : "warning" as const;
-      const statusText = hasErrors ? "Missing dependencies" : "Available (with warnings)";
+      const statusText = hasErrors ? "缺少依赖" : "Available (with warnings)";
       t0 = <Box flexDirection="column"><Text bold={true}>Sandbox</Text><Text>└ Status: <Text color={statusColor}>{statusText}</Text></Text>{depCheck.errors.map(_temp)}{depCheck.warnings.map(_temp2)}{hasErrors && <Text dimColor={true}>└ Run /sandbox for install instructions</Text>}</Box>;
     }
     $[0] = t0;

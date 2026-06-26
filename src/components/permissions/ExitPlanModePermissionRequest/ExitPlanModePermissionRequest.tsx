@@ -602,7 +602,7 @@ export function ExitPlanModePermissionRequest({
         toolUseConfirm.onReject();
       }
     }
-    return <PermissionDialog color="planMode" title="Exit plan mode?" workerBadge={workerBadge}>
+    return <PermissionDialog color="planMode" title="退出计划模式？" workerBadge={workerBadge}>
         <Box flexDirection="column" paddingX={1} marginTop={1}>
           <Text>Claude wants to exit plan mode</Text>
           <Box marginTop={1}>
@@ -628,7 +628,7 @@ export function ExitPlanModePermissionRequest({
       </PermissionDialog>;
   }
   return <Box flexDirection="column" tabIndex={0} autoFocus onKeyDown={handleKeyDown}>
-      <PermissionDialog color="planMode" title="Ready to code?" innerPaddingX={0} workerBadge={workerBadge}>
+      <PermissionDialog color="planMode" title="准备好写代码了吗？" innerPaddingX={0} workerBadge={workerBadge}>
         <Box flexDirection="column" marginTop={1}>
           <Box paddingX={1} flexDirection="column">
             <Text>Here is Claude&apos;s plan:</Text>
@@ -714,33 +714,33 @@ export function buildPlanApprovalOptions({
   // Slot 2: keep-context with elevated mode (same priority: auto > bypass > edits).
   if (feature('TRANSCRIPT_CLASSIFIER') && isAutoModeAvailable) {
     options.push({
-      label: 'Yes, and use auto mode',
+      label: '是，并使用自动模式',
       value: 'yes-resume-auto-mode'
     });
   } else if (isBypassPermissionsModeAvailable) {
     options.push({
-      label: 'Yes, and bypass permissions',
+      label: '是，并跳过权限检查',
       value: 'yes-accept-edits-keep-context'
     });
   } else {
     options.push({
-      label: 'Yes, auto-accept edits',
+      label: '是，自动接受编辑',
       value: 'yes-accept-edits-keep-context'
     });
   }
   options.push({
-    label: 'Yes, manually approve edits',
+    label: '是，手动审批编辑',
     value: 'yes-default-keep-context'
   });
   if (showUltraplan) {
     options.push({
-      label: 'No, refine with Ultraplan on Claude Code on the web',
+      label: '否，在 Claude Code 网页版上用 Ultraplan 优化',
       value: 'ultraplan'
     });
   }
   options.push({
     type: 'input',
-    label: 'No, keep planning',
+    label: '否，继续规划',
     value: 'no',
     placeholder: 'Tell Claude what to change',
     description: 'shift+tab to approve with this feedback',

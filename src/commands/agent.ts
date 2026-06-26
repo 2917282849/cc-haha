@@ -23,7 +23,7 @@ export function parseAgentCommandArgs(args: string): ParsedAgentCommandArgs | nu
 const agentCommand: Command = {
   type: 'prompt',
   name: 'agent',
-  description: 'Run a prompt with a selected Agent',
+  description: '用选定的 Agent 运行提示词',
   argumentHint: '<agent> <prompt>',
   progressMessage: 'running agent',
   contentLength: 0,

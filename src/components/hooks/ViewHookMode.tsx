@@ -150,7 +150,7 @@ export function ViewHookMode(t0) {
   }
   let t16;
   if ($[37] !== onCancel || $[38] !== t15) {
-    t16 = <Dialog title="Hook details" onCancel={onCancel} inputGuide={_temp}>{t15}</Dialog>;
+    t16 = <Dialog title="Hook 详情" onCancel={onCancel} inputGuide={_temp}>{t15}</Dialog>;
     $[37] = onCancel;
     $[38] = t15;
     $[39] = t16;

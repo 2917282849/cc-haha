@@ -47,7 +47,7 @@ export function ExportDialog({
       if (raw) process.stdout.write(raw);
       onDone({
         success: true,
-        message: 'Conversation copied to clipboard'
+        message: '对话已复制到剪贴板'
       });
     } else if (value === 'file') {
       setSelectedOption('file');
@@ -69,7 +69,7 @@ export function ExportDialog({
     } catch (error) {
       onDone({
         success: false,
-        message: `Failed to export conversation: ${error instanceof Error ? error.message : 'Unknown error'}`
+        message: `Failed to export conversation: ${error instanceof Error ? error.message : '未知错误'}`
       });
     }
   };
@@ -87,13 +87,13 @@ export function ExportDialog({
     }
   }, [showFilenameInput, handleGoBack, onDone]);
   const options = [{
-    label: 'Copy to clipboard',
+    label: '复制到剪贴板',
     value: 'clipboard',
-    description: 'Copy the conversation to your system clipboard'
+    description: '复制对话到系统剪贴板'
   }, {
-    label: 'Save to file',
+    label: '保存到文件',
     value: 'file',
-    description: 'Save the conversation to a file in the current directory'
+    description: '保存对话到当前目录的文件'
   }];
 
   // Custom input guide that changes based on dialog state
@@ -115,7 +115,7 @@ export function ExportDialog({
     context: 'Settings',
     isActive: showFilenameInput
   });
-  return <Dialog title="Export Conversation" subtitle="Select export method:" color="permission" onCancel={handleCancel} inputGuide={renderInputGuide} isCancelActive={!showFilenameInput}>
+  return <Dialog title="导出对话" subtitle="选择导出方式：" color="permission" onCancel={handleCancel} inputGuide={renderInputGuide} isCancelActive={!showFilenameInput}>
       {!showFilenameInput ? <Select options={options} onChange={handleSelectOption} onCancel={handleCancel} /> : <Box flexDirection="column">
           <Text>Enter filename:</Text>
           <Box flexDirection="row" gap={1} marginTop={1}>

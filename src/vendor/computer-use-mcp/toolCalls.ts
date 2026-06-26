@@ -2532,7 +2532,7 @@ async function handleKey(
   if (gate) return gate;
 
   await adapter.executor.key(keySequence, repeat);
-  return okText("Key pressed.");
+  return okText("按键已按下。");
 }
 
 async function handleScroll(
@@ -3508,7 +3508,7 @@ export async function handleToolCall(
   // ─── Gate 1: kill switch ─────────────────────────────────────────────
   if (adapter.isDisabled()) {
     return errorResult(
-      "Computer control is disabled in Settings. Enable it and try again.",
+      "电脑控制在设置中被禁用。请启用后重试。",
       "other",
     );
   }

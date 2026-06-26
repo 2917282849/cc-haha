@@ -164,7 +164,7 @@ export function PromptInputHelpMenu(props) {
   }
   let t25;
   if ($[29] !== dimColor) {
-    t25 = <Box><Text dimColor={dimColor}>{"& for background"}</Text></Box>;
+    t25 = <Box><Text dimColor={dimColor}>{"& 后台运行"}</Text></Box>;
     $[29] = dimColor;
     $[30] = t25;
   } else {

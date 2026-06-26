@@ -242,7 +242,7 @@ export function PreviewQuestionView({
   // 2: PreviewBox borders (top + bottom)
   // 2: notes section (marginTop=1 + text)
   // 2: footer section (marginTop=1 + divider)
-  // 1: "Chat about this" line
+  // 1: "讨论此内容" line
   // 1: plan mode line (may or may not show)
   // 2: help text (marginTop=1 + text)
   const PREVIEW_OVERHEAD = 11;
@@ -282,7 +282,7 @@ export function PreviewQuestionView({
 
             {/* Right panel: preview + notes */}
             <Box flexDirection="column" flexGrow={1}>
-              <PreviewBox content={previewContent || 'No preview available'} maxLines={previewMaxLines} minWidth={minContentWidth} maxWidth={previewMaxWidth} />
+              <PreviewBox content={previewContent || '没有预览可用'} maxLines={previewMaxLines} minWidth={minContentWidth} maxWidth={previewMaxWidth} />
               <Box marginTop={1} flexDirection="row" gap={1}>
                 <Text color="suggestion">Notes:</Text>
                 {isInNotesInput ? <TextInput value={notesValue} placeholder="Add notes on this design…" onChange={value => {

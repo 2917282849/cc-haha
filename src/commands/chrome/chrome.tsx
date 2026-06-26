@@ -122,7 +122,7 @@ function ClaudeInChromeMenu(t0) {
       let t5;
       if ($[9] === Symbol.for("react.memo_cache_sentinel")) {
         t5 = {
-          label: "Install Chrome extension",
+          label: "安装 Chrome 扩展",
           value: "install-extension"
         };
         $[9] = t5;

@@ -19,7 +19,7 @@ const command = {
       icon = currentlyEnabled ? figures.tick : figures.circle
     }
 
-    let statusText = 'sandbox disabled'
+    let statusText = '沙盒已禁用'
     if (currentlyEnabled) {
       statusText = autoAllow
         ? 'sandbox enabled (auto-allow)'

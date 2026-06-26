@@ -224,7 +224,7 @@ class ChromeNativeHost {
         const remaining = await readdir(socketDir)
         if (remaining.length === 0) {
           await rmdir(socketDir)
-          log('Removed empty socket directory')
+          log('已删除空的 socket 目录')
         }
       } catch {
         // Ignore

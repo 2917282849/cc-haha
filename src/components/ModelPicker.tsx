@@ -25,7 +25,7 @@ export type Props = {
   onCancel?: () => void;
   isStandaloneCommand?: boolean;
   showFastModeNotice?: boolean;
-  /** Overrides the dim header line below "Select model". */
+  /** Overrides the dim header line below "选择模型". */
   headerText?: string;
   /**
    * When true, skip writing effortLevel to userSettings on selection.

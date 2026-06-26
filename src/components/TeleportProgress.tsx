@@ -16,16 +16,16 @@ const STEPS: {
   label: string;
 }[] = [{
   key: 'validating',
-  label: 'Validating session'
+  label: '验证会话中'
 }, {
   key: 'fetching_logs',
-  label: 'Fetching session logs'
+  label: '获取会话日志中'
 }, {
   key: 'fetching_branch',
-  label: 'Getting branch info'
+  label: '获取分支信息中'
 }, {
   key: 'checking_out',
-  label: 'Checking out branch'
+  label: '切换分支中'
 }];
 export function TeleportProgress(t0) {
   const $ = _c(16);

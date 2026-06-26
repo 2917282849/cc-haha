@@ -44,10 +44,10 @@ export function PluginHintMenu({
     label: 'No',
     value: 'no'
   }, {
-    label: "No, and don't show plugin installation hints again",
+    label: "否，不再显示插件安装提示",
     value: 'disable'
   }];
-  return <PermissionDialog title="Plugin Recommendation">
+  return <PermissionDialog title="插件推荐">
       <Box flexDirection="column" paddingX={2} paddingY={1}>
         <Box marginBottom={1}>
           <Text dimColor>

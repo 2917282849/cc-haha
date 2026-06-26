@@ -218,7 +218,7 @@ export function buildMemoryLines(
     : [
         '## How to save memories',
         '',
-        'Saving a memory is a two-step process:',
+        '保存记忆分两步：',
         '',
         '**Step 1** — write the memory to its own file (e.g., `user_role.md`, `feedback_testing.md`) using this frontmatter format:',
         '',

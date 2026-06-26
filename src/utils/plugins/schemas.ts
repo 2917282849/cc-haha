@@ -603,7 +603,7 @@ const PluginUserConfigOptionSchema = lazySchema(() =>
       default: z
         .union([z.string(), z.number(), z.boolean(), z.array(z.string())])
         .optional()
-        .describe('Default value used when the user provides nothing'),
+        .describe('用户未提供时使用的默认值'),
       multiple: z
         .boolean()
         .optional()
@@ -839,14 +839,14 @@ const NpmPackageNameSchema = lazySchema(() =>
     .string()
     .refine(
       name => !name.includes('..') && !name.includes('//'),
-      'Package name cannot contain path traversal patterns',
+      '包名不能包含路径遍历模式',
     )
     .refine(name => {
       // Allow scoped packages (@org/package) and regular packages
       const scopedPackageRegex = /^@[a-z0-9][a-z0-9-._]*\/[a-z0-9][a-z0-9-._]*$/
       const regularPackageRegex = /^[a-z0-9][a-z0-9-._]*$/
       return scopedPackageRegex.test(name) || regularPackageRegex.test(name)
-    }, 'Invalid npm package name format'),
+    }, '无效的 npm 包名格式'),
 )
 
 /**

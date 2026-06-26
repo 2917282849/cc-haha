@@ -46,7 +46,7 @@ function FileWriteToolCreatedMessage(t0) {
   const {
     columns
   } = useTerminalSize();
-  const contentWithFallback = content || "(No content)";
+  const contentWithFallback = content || "（无内容）";
   const numLines = countLines(content);
   const plusLines = numLines - MAX_LINES_TO_RENDER;
   let t1;
@@ -130,7 +130,7 @@ export function userFacingName(input: Partial<{
   content: string;
 }> | undefined): string {
   if (input?.file_path?.startsWith(getPlansDirectory())) {
-    return 'Updated plan';
+    return '方案已更新';
   }
   return 'Write';
 }
@@ -398,7 +398,7 @@ export function renderToolResultMessage({
     case 'update':
       {
         const isPlanFile = filePath.startsWith(getPlansDirectory());
-        return <FileEditToolUpdatedMessage filePath={filePath} structuredPatch={structuredPatch} firstLine={content.split('\n')[0] ?? null} fileContent={originalFile ?? undefined} style={style} verbose={verbose} previewHint={isPlanFile ? '/plan to preview' : undefined} />;
+        return <FileEditToolUpdatedMessage filePath={filePath} structuredPatch={structuredPatch} firstLine={content.split('\n')[0] ?? null} fileContent={originalFile ?? undefined} style={style} verbose={verbose} previewHint={isPlanFile ? '/plan 预览' : undefined} />;
       }
   }
 }

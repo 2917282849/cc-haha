@@ -67,7 +67,7 @@ export function DevChannelsDialog(t0) {
   let t6;
   if ($[8] === Symbol.for("react.memo_cache_sentinel")) {
     t6 = [{
-      label: "I am using this for local development",
+      label: "我用于本地开发",
       value: "accept"
     }, {
       label: "Exit",
@@ -87,7 +87,7 @@ export function DevChannelsDialog(t0) {
   }
   let t8;
   if ($[11] !== t5 || $[12] !== t7) {
-    t8 = <Dialog title="WARNING: Loading development channels" color="error" onCancel={handleEscape}>{t5}{t7}</Dialog>;
+    t8 = <Dialog title="警告：正在加载开发频道" color="error" onCancel={handleEscape}>{t5}{t7}</Dialog>;
     $[11] = t5;
     $[12] = t7;
     $[13] = t8;

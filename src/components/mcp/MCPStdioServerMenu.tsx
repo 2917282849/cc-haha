@@ -58,10 +58,10 @@ export function MCPStdioServerMenu({
   const serverCommandsCount = filterMcpPromptsByServer(mcp.commands, server.name).length;
   const menuOptions = [];
 
-  // Only show "View tools" if server is not disabled and has tools
+  // Only show "查看工具" if server is not disabled and has tools
   if (server.client.type !== 'disabled' && serverToolsCount > 0) {
     menuOptions.push({
-      label: 'View tools',
+      label: '查看工具',
       value: 'tools'
     });
   }
@@ -82,7 +82,7 @@ export function MCPStdioServerMenu({
   if (menuOptions.length === 0) {
     menuOptions.push({
       label: 'Back',
-      value: 'back'
+      value: '返回'
     });
   }
   if (isReconnecting) {
@@ -156,7 +156,7 @@ export function MCPStdioServerMenu({
             }
           } else if (value === 'toggle-enabled') {
             await handleToggleEnabled();
-          } else if (value === 'back') {
+          } else if (value === '返回') {
             onCancel();
           }
         }} onCancel={onCancel} />
@@ -168,7 +168,7 @@ export function MCPStdioServerMenu({
           {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <Byline>
               <KeyboardShortcutHint shortcut="↑↓" action="navigate" />
               <KeyboardShortcutHint shortcut="Enter" action="select" />
-              <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />
+              <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
             </Byline>}
         </Text>
       </Box>

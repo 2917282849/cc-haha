@@ -46,7 +46,7 @@ export function LspRecommendationMenu({
         </Text>,
     value: 'yes'
   }, {
-    label: 'No, not now',
+    label: '否，暂时不',
     value: 'no'
   }, {
     label: <Text>
@@ -57,7 +57,7 @@ export function LspRecommendationMenu({
     label: 'Disable all LSP recommendations',
     value: 'disable'
   }];
-  return <PermissionDialog title="LSP Plugin Recommendation">
+  return <PermissionDialog title="LSP 插件推荐">
       <Box flexDirection="column" paddingX={2} paddingY={1}>
         <Box marginBottom={1}>
           <Text dimColor>

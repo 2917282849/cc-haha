@@ -88,7 +88,7 @@ export function TeleportStash({
       </Box>;
   }
   const showFileCount = changedFiles.length > 8;
-  return <Dialog title="Working Directory Has Changes" onCancel={onCancel}>
+  return <Dialog title="工作目录有变更" onCancel={onCancel}>
       <Text>
         Teleport will switch git branches. The following changes were found:
       </Text>
@@ -105,7 +105,7 @@ export function TeleportStash({
           <Spinner />
           <Text> Stashing changes...</Text>
         </Box> : <Select options={[{
-      label: 'Stash changes and continue',
+      label: '暂存变更并继续',
       value: 'stash'
     }, {
       label: 'Exit',

@@ -57,7 +57,7 @@ export function TeleportRepoMismatchDialog(t0) {
     let t3;
     if ($[7] === Symbol.for("react.memo_cache_sentinel")) {
       t3 = {
-        label: "Cancel",
+        label: "取消",
         value: "cancel"
       };
       $[7] = t3;
@@ -86,7 +86,7 @@ export function TeleportRepoMismatchDialog(t0) {
   }
   let t4;
   if ($[15] !== onCancel || $[16] !== t3) {
-    t4 = <Dialog title="Teleport to Repo" onCancel={onCancel} color="background">{t3}</Dialog>;
+    t4 = <Dialog title="传送到仓库" onCancel={onCancel} color="background">{t3}</Dialog>;
     $[15] = onCancel;
     $[16] = t3;
     $[17] = t4;

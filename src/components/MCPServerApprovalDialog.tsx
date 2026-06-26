@@ -82,10 +82,10 @@ export function MCPServerApprovalDialog(t0) {
       label: "Use this and all future MCP servers in this project",
       value: "yes_all"
     }, {
-      label: "Use this MCP server",
+      label: "使用此 MCP 服务器",
       value: "yes"
     }, {
-      label: "Continue without using this MCP server",
+      label: "不使用此 MCP 服务器继续",
       value: "no"
     }];
     $[6] = t5;

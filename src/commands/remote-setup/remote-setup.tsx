@@ -150,13 +150,13 @@ function Web({
     onDone(`Connected as ${result.result.github_username}. Opened ${url}`);
   };
   if (step.name === 'checking') {
-    return <LoadingState message="Checking login status…" />;
+    return <LoadingState message="检查登录状态…" />;
   }
   if (step.name === 'uploading') {
-    return <LoadingState message="Connecting GitHub to Claude…" />;
+    return <LoadingState message="正在连接 GitHub 到 Claude…" />;
   }
   const token = step.token;
-  return <Dialog title="Connect Claude on the web to GitHub?" onCancel={handleCancel} hideInputGuide>
+  return <Dialog title="将 Claude on the web 连接到 GitHub？" onCancel={handleCancel} hideInputGuide>
       <Box flexDirection="column">
         <Text>
           Claude on the web requires connecting to your GitHub account to clone
@@ -170,7 +170,7 @@ function Web({
       label: 'Continue',
       value: 'send'
     }, {
-      label: 'Cancel',
+      label: '取消',
       value: 'cancel'
     }]} onChange={value => {
       if (value === 'send') {

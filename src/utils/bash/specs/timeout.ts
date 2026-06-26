@@ -2,7 +2,7 @@ import type { CommandSpec } from '../registry.js'
 
 const timeout: CommandSpec = {
   name: 'timeout',
-  description: 'Run a command with a time limit',
+  description: '在限时内运行命令',
   args: [
     {
       name: 'duration',

@@ -30,52 +30,52 @@ export const SUPPORTED_SETTINGS: Record<string, SettingConfig> = {
   theme: {
     source: 'global',
     type: 'string',
-    description: 'Color theme for the UI',
+    description: '界面颜色主题',
     options: feature('AUTO_THEME') ? THEME_SETTINGS : THEME_NAMES,
   },
   editorMode: {
     source: 'global',
     type: 'string',
-    description: 'Key binding mode',
+    description: '按键绑定模式',
     options: EDITOR_MODES,
   },
   verbose: {
     source: 'global',
     type: 'boolean',
-    description: 'Show detailed debug output',
+    description: '显示详细调试输出',
     appStateKey: 'verbose',
   },
   preferredNotifChannel: {
     source: 'global',
     type: 'string',
-    description: 'Preferred notification channel',
+    description: '首选通知渠道',
     options: NOTIFICATION_CHANNELS,
   },
   autoCompactEnabled: {
     source: 'global',
     type: 'boolean',
-    description: 'Auto-compact when context is full',
+    description: '上下文满时自动压缩',
   },
   autoMemoryEnabled: {
     source: 'settings',
     type: 'boolean',
-    description: 'Enable auto-memory',
+    description: '启用自动记忆',
   },
   autoDreamEnabled: {
     source: 'settings',
     type: 'boolean',
-    description: 'Enable background memory consolidation',
+    description: '启用后台记忆整合',
   },
   fileCheckpointingEnabled: {
     source: 'global',
     type: 'boolean',
-    description: 'Enable file checkpointing for code rewind',
+    description: '启用文件检查点用于代码回退',
   },
   showTurnDuration: {
     source: 'global',
     type: 'boolean',
     description:
-      'Show turn duration message after responses (e.g., "Cooked for 1m 6s")',
+      '在回复后显示每轮耗时消息（例如, "Cooked for 1m 6s")',
   },
   terminalProgressBarEnabled: {
     source: 'global',
@@ -85,7 +85,7 @@ export const SUPPORTED_SETTINGS: Record<string, SettingConfig> = {
   todoFeatureEnabled: {
     source: 'global',
     type: 'boolean',
-    description: 'Enable todo/task tracking',
+    description: '启用待办/任务追踪',
   },
   model: {
     source: 'settings',
@@ -107,13 +107,13 @@ export const SUPPORTED_SETTINGS: Record<string, SettingConfig> = {
   alwaysThinkingEnabled: {
     source: 'settings',
     type: 'boolean',
-    description: 'Enable extended thinking (false to disable)',
+    description: '启用扩展思考（设为 false 禁用）',
     appStateKey: 'thinkingEnabled',
   },
   'permissions.defaultMode': {
     source: 'settings',
     type: 'string',
-    description: 'Default permission mode for tool usage',
+    description: '工具的默认权限模式',
     options: feature('TRANSCRIPT_CLASSIFIER')
       ? ['default', 'plan', 'acceptEdits', 'dontAsk', 'auto']
       : ['default', 'plan', 'acceptEdits', 'dontAsk'],
@@ -146,7 +146,7 @@ export const SUPPORTED_SETTINGS: Record<string, SettingConfig> = {
         voiceEnabled: {
           source: 'settings' as const,
           type: 'boolean' as const,
-          description: 'Enable voice dictation (hold-to-talk)',
+          description: '启用语音听写（按住说话）',
         },
       }
     : {}),
@@ -156,7 +156,7 @@ export const SUPPORTED_SETTINGS: Record<string, SettingConfig> = {
           source: 'global' as const,
           type: 'boolean' as const,
           description:
-            'Enable Remote Control for all sessions (true | false | default)',
+            '为所有会话启用远程控制（true | false | default）',
           formatOnRead: () => getRemoteControlAtStartup(),
         },
       }

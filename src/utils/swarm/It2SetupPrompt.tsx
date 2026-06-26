@@ -74,7 +74,7 @@ export function It2SetupPrompt(t0) {
             setStep("success");
             setTimeout(onDone, 1500, "installed" as const);
           } else {
-            setError(result.error || "Verification failed");
+            setError(result.error || "验证失败");
             setStep("failed");
           }
         });
@@ -100,7 +100,7 @@ export function It2SetupPrompt(t0) {
       if (result_0.success) {
         setStep("api-instructions");
       } else {
-        setError(result_0.error || "Installation failed");
+        setError(result_0.error || "安装失败");
         setStep("install-failed");
       }
     };
@@ -169,19 +169,19 @@ export function It2SetupPrompt(t0) {
     };
     function renderInitialPrompt() {
       const options = [{
-        label: "Install it2 now",
+        label: "立即安装 it2",
         value: "install",
         description: packageManager ? `Uses ${packageManager} to install the it2 CLI tool` : "Requires Python (uvx, pipx, or pip)"
       }];
       if (tmuxAvailable) {
         options.push({
-          label: "Use tmux instead",
+          label: "改用 tmux",
           value: "tmux",
-          description: "Opens teammates in a separate tmux session"
+          description: "在单独的 tmux 会话中打开队友"
         });
       }
       options.push({
-        label: "Cancel",
+        label: "取消",
         value: "cancel",
         description: "Skip teammate spawning for now"
       });
@@ -209,19 +209,19 @@ export function It2SetupPrompt(t0) {
     }
     function renderInstallFailed() {
       const options_0 = [{
-        label: "Try again",
+        label: "重试",
         value: "retry",
         description: "Retry the installation"
       }];
       if (tmuxAvailable) {
         options_0.push({
-          label: "Use tmux instead",
+          label: "改用 tmux",
           value: "tmux",
           description: "Falls back to tmux for teammate panes"
         });
       }
       options_0.push({
-        label: "Cancel",
+        label: "取消",
         value: "cancel",
         description: "Skip teammate spawning for now"
       });
@@ -256,19 +256,19 @@ export function It2SetupPrompt(t0) {
     }
     function renderFailed() {
       const options_1 = [{
-        label: "Try again",
+        label: "重试",
         value: "retry",
         description: "Verify the connection again"
       }];
       if (tmuxAvailable) {
         options_1.push({
-          label: "Use tmux instead",
+          label: "改用 tmux",
           value: "tmux",
           description: "Falls back to tmux for teammate panes"
         });
       }
       options_1.push({
-        label: "Cancel",
+        label: "取消",
         value: "cancel",
         description: "Skip teammate spawning for now"
       });
@@ -283,7 +283,7 @@ export function It2SetupPrompt(t0) {
                       setStep("success");
                       setTimeout(onDone, 1500, "installed" as const);
                     } else {
-                      setError(result_1.error || "Verification failed");
+                      setError(result_1.error || "验证失败");
                       setStep("failed");
                     }
                   });

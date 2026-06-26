@@ -33,7 +33,7 @@ export function PermissionStep(): ReactNode {
     useWizard<ScheduledTaskWizardData>()
 
   return (
-    <WizardDialogLayout subtitle="Permission mode">
+    <WizardDialogLayout subtitle="权限模式">
       <Box flexDirection="column">
         <Box marginBottom={1}>
           <Text dimColor>

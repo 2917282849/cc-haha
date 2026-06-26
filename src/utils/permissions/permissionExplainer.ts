@@ -45,7 +45,7 @@ const SYSTEM_PROMPT = `Analyze shell commands and explain what they do, why you'
 // Tool definition for forced structured output (no beta required)
 const EXPLAIN_COMMAND_TOOL = {
   name: 'explain_command',
-  description: 'Provide an explanation of a shell command',
+  description: '解释 Shell 命令',
   input_schema: {
     type: 'object' as const,
     properties: {

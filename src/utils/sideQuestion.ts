@@ -70,7 +70,7 @@ CRITICAL CONSTRAINTS:
 - You have NO tools available - you cannot read files, run commands, search, or take any actions
 - This is a one-off response - there will be no follow-up turns
 - You can ONLY provide information based on what you already know from the conversation context
-- NEVER say things like "Let me try...", "I'll now...", "Let me check...", or promise to take any action
+- NEVER say things like "让我试试...", "I'll now...", "Let me check...", or promise to take any action
 - If you don't know the answer, say so - do not offer to look it up or investigate
 
 Simply answer the question with the information you have.</system-reminder>

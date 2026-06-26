@@ -299,7 +299,7 @@ export function GroveDialog(t0) {
   let t10;
   if ($[19] !== groveConfig?.notice_is_grace_period) {
     t10 = groveConfig?.notice_is_grace_period ? [{
-      label: "Not now",
+      label: "以后再说",
       value: "defer"
     }] : [];
     $[19] = groveConfig?.notice_is_grace_period;
@@ -336,7 +336,7 @@ export function GroveDialog(t0) {
   }
   let t14;
   if ($[30] !== handleCancel || $[31] !== t13 || $[32] !== t8) {
-    t14 = <Dialog title="Updates to Consumer Terms and Policies" color="professionalBlue" onCancel={handleCancel} inputGuide={_temp}>{t8}{t13}</Dialog>;
+    t14 = <Dialog title="消费者条款和政策更新" color="professionalBlue" onCancel={handleCancel} inputGuide={_temp}>{t8}{t13}</Dialog>;
     $[30] = handleCancel;
     $[31] = t13;
     $[32] = t8;
@@ -447,7 +447,7 @@ export function PrivacySettingsDialog(t0) {
   }
   let t8;
   if ($[13] !== onDone || $[14] !== t4 || $[15] !== t7) {
-    t8 = <Dialog title="Data Privacy" color="professionalBlue" onCancel={onDone} inputGuide={t4}>{t5}{t7}</Dialog>;
+    t8 = <Dialog title="数据隐私" color="professionalBlue" onCancel={onDone} inputGuide={t4}>{t5}{t7}</Dialog>;
     $[13] = onDone;
     $[14] = t4;
     $[15] = t7;

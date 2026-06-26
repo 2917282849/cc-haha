@@ -323,7 +323,7 @@ async function handleUserMessage(
   }
 
   // Send thinking status
-  sendMessage(ws, { type: 'status', state: 'thinking', verb: 'Thinking' })
+  sendMessage(ws, { type: 'status', state: 'thinking', verb: '思考中' })
 
   const activeTurn: ActiveUserTurnState = { messageSent: false }
   activeUserTurns.set(sessionId, activeTurn)
@@ -334,7 +334,7 @@ async function handleUserMessage(
     return
   }
   if (initialRuntimeTransition.waited) {
-    sendMessage(ws, { type: 'status', state: 'thinking', verb: 'Thinking' })
+    sendMessage(ws, { type: 'status', state: 'thinking', verb: '思考中' })
   }
 
   // Track and emit the first placeholder title before CLI startup/streaming.
@@ -389,7 +389,7 @@ async function handleUserMessage(
   const startupRuntimeTransition = await waitForRuntimeTransitionBeforeUserTurn(ws, sessionId)
   if (startupRuntimeTransition.ok) {
     if (startupRuntimeTransition.waited) {
-      sendMessage(ws, { type: 'status', state: 'thinking', verb: 'Thinking' })
+      sendMessage(ws, { type: 'status', state: 'thinking', verb: '思考中' })
     }
   } else {
     clearActiveUserTurn(sessionId, activeTurn)
@@ -1584,7 +1584,7 @@ export function translateCliMessage(cliMsg: any, sessionId: string): ServerMessa
 
           if (contentBlock.type === 'thinking' || contentBlock.type === 'redacted_thinking') {
             streamState.activeBlockTypes.set(index, 'thinking')
-            return [{ type: 'status', state: 'thinking', verb: 'Thinking' }]
+            return [{ type: 'status', state: 'thinking', verb: '思考中' }]
           }
 
           streamState.activeBlockTypes.set(index, 'text')
@@ -1708,7 +1708,7 @@ export function translateCliMessage(cliMsg: any, sessionId: string): ServerMessa
           (typeof cliMsg.result === 'string' && cliMsg.result) ||
           (Array.isArray(cliMsg.errors) && cliMsg.errors.length > 0
             ? cliMsg.errors.join('\n')
-            : 'Unknown error')
+            : '未知错误')
         if (isDuplicateOfLastApiError(streamState.lastApiError, resultMessage)) {
           streamState.lastApiError = undefined
           return [{ type: 'message_complete', usage }]
@@ -1778,7 +1778,7 @@ export function translateCliMessage(cliMsg: any, sessionId: string): ServerMessa
           return [{
             type: 'status',
             state: 'compacting',
-            verb: 'Compacting conversation',
+            verb: '正在压缩对话',
           }]
         }
         // CLI 在权限模式变化时也会 enqueue 一条 status 事件（status:null +
@@ -1790,7 +1790,7 @@ export function translateCliMessage(cliMsg: any, sessionId: string): ServerMessa
           return [{ type: 'permission_mode_changed', mode: cliMsg.permissionMode }]
         }
         if (cliMsg.status == null) {
-          return [{ type: 'status', state: 'thinking', verb: 'Thinking' }]
+          return [{ type: 'status', state: 'thinking', verb: '思考中' }]
         }
         return []
       }
@@ -2214,7 +2214,7 @@ function extractLocalCommandOutput(
 }
 
 function isCompactLocalCommandOutput(output: string): boolean {
-  return output.trim() === 'Compacted'
+  return output.trim() === '已压缩'
 }
 
 function extractTaggedContent(raw: string, tag: string): string | null {

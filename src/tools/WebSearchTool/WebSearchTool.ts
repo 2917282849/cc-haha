@@ -172,7 +172,7 @@ export const WebSearchTool = buildTool({
     return `Claude wants to search the web for: ${input.query}`
   },
   userFacingName() {
-    return 'Web Search'
+    return '网页搜索'
   },
   getToolUseSummary,
   getActivityDescription(input) {

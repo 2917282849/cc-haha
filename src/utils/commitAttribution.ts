@@ -770,7 +770,7 @@ export async function getGitDiffSize(filePath: string): Promise<number> {
 
     for (const line of lines) {
       // Skip the summary line (e.g., "1 file changed, 3 insertions(+), 2 deletions(-)")
-      if (line.includes('file changed') || line.includes('files changed')) {
+      if (line.includes('file changed') || line.includes('文件已变更')) {
         const insertMatch = line.match(/(\d+) insertions?/)
         const deleteMatch = line.match(/(\d+) deletions?/)
 

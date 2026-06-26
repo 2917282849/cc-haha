@@ -1514,7 +1514,7 @@ export function checkEditableInternalPath(
       updatedInput: input,
       decisionReason: {
         type: 'other',
-        reason: 'Plan files for current session are allowed for writing',
+        reason: '当前会话的方案文件允许写入',
       },
     }
   }
@@ -1671,7 +1671,7 @@ export function checkReadableInternalPath(
       updatedInput: input,
       decisionReason: {
         type: 'other',
-        reason: 'Plan files for current session are allowed for reading',
+        reason: '当前会话的方案文件允许读取',
       },
     }
   }

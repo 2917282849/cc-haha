@@ -27,7 +27,7 @@ export function powershellToolUseOptions({
       type: 'input',
       label: 'Yes',
       value: 'yes',
-      placeholder: 'and tell Claude what to do next',
+      placeholder: '并告诉 Claude 接下来做什么',
       onChange: onAcceptFeedbackChange,
       allowEmptySubmitToCancel: true
     });
@@ -76,7 +76,7 @@ export function powershellToolUseOptions({
       type: 'input',
       label: 'No',
       value: 'no',
-      placeholder: 'and tell Claude what to do differently',
+      placeholder: '并告诉 Claude 换种做法',
       onChange: onRejectFeedbackChange,
       allowEmptySubmitToCancel: true
     });

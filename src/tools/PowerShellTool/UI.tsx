@@ -109,7 +109,7 @@ export function renderToolResultMessage(content: Out, progressMessagesForMessage
             {backgroundTaskId ? <>
                 Running in the background{' '}
                 <KeyboardShortcutHint shortcut="↓" action="manage" parens />
-              </> : interrupted ? 'Interrupted' : returnCodeInterpretation || '(No output)'}
+              </> : interrupted ? '已中断' : returnCodeInterpretation || '(No output)'}
           </Text>
         </MessageResponse> : null}
       {timeoutMs ? <MessageResponse>

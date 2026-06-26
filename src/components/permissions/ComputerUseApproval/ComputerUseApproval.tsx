@@ -86,7 +86,7 @@ function ComputerUseTccPanel(t0) {
     let t1;
     if ($[5] === Symbol.for("react.memo_cache_sentinel")) {
       t1 = {
-        label: "Try again",
+        label: "重试",
         value: "retry"
       };
       $[5] = t1;
@@ -161,7 +161,7 @@ function ComputerUseTccPanel(t0) {
   }
   let t7;
   if ($[15] === Symbol.for("react.memo_cache_sentinel")) {
-    t7 = <Text dimColor={true}>Grant the missing permissions in System Settings, then select "Try again". macOS may require you to restart Claude Code after granting Screen Recording.</Text>;
+    t7 = <Text dimColor={true}>Grant the missing permissions in System Settings, then select "重试". macOS may require you to restart Claude Code after granting Screen Recording.</Text>;
     $[15] = t7;
   } else {
     t7 = $[15];
@@ -187,7 +187,7 @@ function ComputerUseTccPanel(t0) {
   }
   let t10;
   if ($[23] !== onDone || $[24] !== t9) {
-    t10 = <Dialog title="Computer Use needs macOS permissions" onCancel={onDone}>{t9}</Dialog>;
+    t10 = <Dialog title="计算机使用需要 macOS 权限" onCancel={onDone}>{t9}</Dialog>;
     $[23] = onDone;
     $[24] = t9;
     $[25] = t10;
@@ -414,7 +414,7 @@ function ComputerUseAppListPanel(t0) {
   }
   let t21;
   if ($[45] !== t11 || $[46] !== t20) {
-    t21 = <Dialog title="Computer Use wants to control these apps" onCancel={t11}>{t20}</Dialog>;
+    t21 = <Dialog title="计算机使用想要控制这些应用" onCancel={t11}>{t20}</Dialog>;
     $[45] = t11;
     $[46] = t20;
     $[47] = t21;

@@ -1022,10 +1022,10 @@ export function getSearchReadSummaryText(
   if (searchCount > 0) {
     const searchVerb = isActive
       ? parts.length === 0
-        ? 'Searching for'
+        ? '搜索中'
         : 'searching for'
       : parts.length === 0
-        ? 'Searched for'
+        ? '已搜索'
         : 'searched for'
     parts.push(
       `${searchVerb} ${searchCount} ${searchCount === 1 ? 'pattern' : 'patterns'}`,

@@ -39,7 +39,7 @@ export async function isBinaryInstalled(command: string): Promise<boolean> {
   binaryCache.set(trimmedCommand, exists)
 
   logForDebugging(
-    `[binaryCheck] Binary '${trimmedCommand}' ${exists ? 'found' : 'not found'}`,
+    `[binaryCheck] Binary '${trimmedCommand}' ${exists ? 'found' : '未找到'}`,
   )
 
   return exists

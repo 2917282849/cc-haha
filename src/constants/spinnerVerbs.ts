@@ -177,7 +177,7 @@ export const SPINNER_VERBS = [
   'Symbioting',
   'Synthesizing',
   'Tempering',
-  'Thinking',
+  '思考中',
   'Thundering',
   'Tinkering',
   'Tomfoolering',

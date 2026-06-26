@@ -224,11 +224,11 @@ export function convertEffortValueToLevel(value: EffortValue): EffortLevel {
 export function getEffortLevelDescription(level: EffortLevel): string {
   switch (level) {
     case 'low':
-      return 'Quick, straightforward implementation with minimal overhead'
+      return '快速、直接的实现，额外开销最小'
     case 'medium':
-      return 'Balanced approach with standard implementation and testing'
+      return '均衡处理，包含标准实现和测试'
     case 'high':
-      return 'Comprehensive implementation with extensive testing and documentation'
+      return '更完整的实现，包含充分测试和文档'
     case 'max':
       return 'Maximum capability with deepest reasoning (Opus 4.7 only)'
   }
@@ -248,7 +248,7 @@ export function getEffortValueDescription(value: EffortValue): string {
   if (typeof value === 'string') {
     return getEffortLevelDescription(value)
   }
-  return 'Balanced approach with standard implementation and testing'
+  return '均衡处理，包含标准实现和测试'
 }
 
 export type OpusDefaultEffortConfig = {

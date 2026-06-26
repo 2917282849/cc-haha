@@ -11,7 +11,7 @@ What to add:
 
 Usage notes:
 - If there's already a CLAUDE.md, suggest improvements to it.
-- When you make the initial CLAUDE.md, do not repeat yourself and do not include obvious instructions like "Provide helpful error messages to users", "Write unit tests for all new utilities", "Never include sensitive information (API keys, tokens) in code or commits".
+- When you make the initial CLAUDE.md, do not repeat yourself and do not include obvious instructions like "Provide helpful error messages to users", "为所有新工具编写单元测试", "Never include sensitive information (API keys, tokens) in code or commits".
 - Avoid listing every component or file structure that can be easily discovered.
 - Don't include generic development practices.
 - If there are Cursor rules (in .cursor/rules/ or .cursorrules) or Copilot rules (in .github/copilot-instructions.md), make sure to include the important parts.
@@ -37,7 +37,7 @@ Use AskUserQuestion to find out what the user wants:
   Description for personal: "Your private preferences for this project (gitignored, not shared) — your role, sandbox URLs, preferred test data, workflow quirks."
 
 - "Also set up skills and hooks?"
-  Options: "Skills + hooks" | "Skills only" | "Hooks only" | "Neither, just CLAUDE.md"
+  Options: "Skills + hooks" | "仅 Skill" | "仅 Hook" | "Neither, just CLAUDE.md"
   Description for skills: "On-demand capabilities you or Claude invoke with \`/skill-name\` — good for repeatable workflows and reference knowledge."
   Description for hooks: "Deterministic shell commands that run on tool events (e.g., format after every edit). Claude can't skip them."
 
@@ -76,7 +76,7 @@ If the user chose personal CLAUDE.local.md or both: ask about them, not the code
   - **Skill** (on-demand) — you or Claude invoke \`/skill-name\` when you want it. Fits workflows that don't belong on every edit: deep verification, session reports, deploys.
   - **CLAUDE.md note** (looser) — influences Claude's behavior but not enforced. Fits communication/thinking preferences: "plan before coding", "be terse", "explain tradeoffs".
 
-  **Respect Phase 1's skills+hooks choice as a hard filter**: if the user picked "Skills only", downgrade any hook you'd suggest to a skill or a CLAUDE.md note. If "Hooks only", downgrade skills to hooks (where mechanically possible) or notes. If "Neither", everything becomes a CLAUDE.md note. Never propose an artifact type the user didn't opt into.
+  **Respect Phase 1's skills+hooks choice as a hard filter**: if the user picked "仅 Skill", downgrade any hook you'd suggest to a skill or a CLAUDE.md note. If "仅 Hook", downgrade skills to hooks (where mechanically possible) or notes. If "Neither", everything becomes a CLAUDE.md note. Never propose an artifact type the user didn't opt into.
 
 **Show the proposal via AskUserQuestion's \`preview\` field, not as a separate text message** — the dialog overlays your output, so preceding text is hidden. The \`preview\` field renders markdown in a side-panel (like plan mode); the \`question\` field is plain-text-only. Structure it as:
 
@@ -88,7 +88,7 @@ If the user chose personal CLAUDE.local.md or both: ask about them, not the code
     • **/verify skill** (on-demand) — \`make lint && make typecheck && make test\`
     • **CLAUDE.md note** (guideline) — "run lint/typecheck/test before marking done"
 
-  - Option labels stay short ("Looks good", "Drop the hook", "Drop the skill") — the tool auto-adds an "Other" free-text option, so don't add your own catch-all.
+  - Option labels stay short ("看起来不错", "Drop the hook", "Drop the skill") — the tool auto-adds an "Other" free-text option, so don't add your own catch-all.
 
 **Build the preference queue** from the accepted proposal. Each entry: {type: hook|skill|note, description, target file, any Phase-2-sourced details like the actual test/format command}. Phases 4-7 consume this queue.
 
@@ -151,7 +151,7 @@ If Phase 2 found multiple git worktrees and the user confirmed they use sibling/
 
 If CLAUDE.local.md already exists: read it, propose specific additions, and do not silently overwrite.
 
-## Phase 6: Suggest and create skills (if user chose "Skills + hooks" or "Skills only")
+## Phase 6: Suggest and create skills (if user chose "Skills + hooks" or "仅 Skill")
 
 Skills add capabilities Claude can use on demand without bloating every session.
 
@@ -191,7 +191,7 @@ Check the environment and ask about each gap you find (use AskUserQuestion):
 
 - **Linting**: If Phase 2 found no lint config (no .eslintrc, ruff.toml, .golangci.yml, etc. for the project's language), ask the user if they want Claude to set up linting for this codebase. Explain that linting catches issues early and gives Claude fast feedback on its own edits.
 
-- **Proposal-sourced hooks** (if user chose "Skills + hooks" or "Hooks only"): Consume \`hook\` entries from the Phase 3 preference queue. If Phase 2 found a formatter and the queue has no formatting hook, offer format-on-edit as a fallback. If the user chose "Neither" or "Skills only" in Phase 1, skip this bullet entirely.
+- **Proposal-sourced hooks** (if user chose "Skills + hooks" or "仅 Hook"): Consume \`hook\` entries from the Phase 3 preference queue. If Phase 2 found a formatter and the queue has no formatting hook, offer format-on-edit as a fallback. If the user chose "Neither" or "仅 Skill" in Phase 1, skip this bullet entirely.
 
   For each hook preference (from the queue or the formatter fallback):
 
@@ -230,8 +230,8 @@ const command = {
     return feature('NEW_INIT') &&
       (process.env.USER_TYPE === 'ant' ||
         isEnvTruthy(process.env.CLAUDE_CODE_NEW_INIT))
-      ? 'Initialize new CLAUDE.md file(s) and optional skills/hooks with codebase documentation'
-      : 'Initialize a new CLAUDE.md file with codebase documentation'
+      ? '用代码库文档初始化新的 CLAUDE.md 文件，并可选创建技能/Hook'
+      : '用代码库文档初始化新的 CLAUDE.md 文件'
   },
   contentLength: 0, // Dynamic content
   progressMessage: 'analyzing your codebase',

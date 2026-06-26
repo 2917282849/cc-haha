@@ -93,16 +93,16 @@ export function MessageSelector({
   function getRestoreOptions(canRestoreCode: boolean): OptionWithDescription<RestoreOption>[] {
     const baseOptions: OptionWithDescription<RestoreOption>[] = canRestoreCode ? [{
       value: 'both',
-      label: 'Restore code and conversation'
+      label: '恢复代码和对话'
     }, {
       value: 'conversation',
-      label: 'Restore conversation'
+      label: '恢复对话'
     }, {
       value: 'code',
-      label: 'Restore code'
+      label: '恢复代码'
     }] : [{
       value: 'conversation',
-      label: 'Restore conversation'
+      label: '恢复对话'
     }];
     const summarizeInputProps = {
       type: 'input' as const,
@@ -114,7 +114,7 @@ export function MessageSelector({
     };
     baseOptions.push({
       value: 'summarize',
-      label: 'Summarize from here',
+      label: '从此处开始摘要',
       ...summarizeInputProps,
       onChange: setSummarizeFromFeedback
     });
@@ -128,7 +128,7 @@ export function MessageSelector({
     }
     baseOptions.push({
       value: 'nevermind',
-      label: 'Never mind'
+      label: '算了'
     });
     return baseOptions;
   }
@@ -402,9 +402,9 @@ export function MessageSelector({
 function getRestoreOptionConversationText(option: RestoreOption): string {
   switch (option) {
     case 'summarize':
-      return 'Messages after this point will be summarized.';
+      return '此位置之后的消息将被摘要。';
     case 'summarize_up_to':
-      return 'Preceding messages will be summarized. This and subsequent messages will remain unchanged — you will stay at the end of the conversation.';
+      return '前面的消息将被摘要。此消息及后续消息保持不变——你将停留在对话末尾。';
     case 'both':
     case 'conversation':
       return 'The conversation will be forked.';

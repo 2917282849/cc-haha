@@ -288,7 +288,7 @@ function BridgeDisconnectDialog(t0) {
   if ($[17] !== displayUrl || $[18] !== handleContinue || $[19] !== qrText || $[20] !== showQR) {
     const qrLines = qrText ? qrText.split("\n").filter(_temp1) : [];
     T1 = Dialog;
-    t14 = "Remote Control";
+    t14 = "远程控制";
     t15 = handleContinue;
     t16 = true;
     T0 = Box;

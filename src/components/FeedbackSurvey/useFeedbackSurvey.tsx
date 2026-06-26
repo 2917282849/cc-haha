@@ -127,7 +127,7 @@ export function useFeedbackSurvey(messages: Message[], isLoading: boolean, submi
       return false;
     }
 
-    // Don't show if user previously chose "Don't ask again"
+    // Don't show if user previously chose "不再询问"
     if (getGlobalConfig().transcriptShareDismissed) {
       return false;
     }

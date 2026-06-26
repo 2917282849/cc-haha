@@ -72,7 +72,7 @@ export function PluginOptionsFlow({
       result.push({
         key: 'top-level',
         title: `Configure ${plugin.name}`,
-        subtitle: 'Plugin options',
+        subtitle: '插件选项',
         schema: unconfigured,
         load: () => loadPluginOptions(pluginId),
         save: values => savePluginOptions(pluginId, values, plugin.manifest.userConfig!)

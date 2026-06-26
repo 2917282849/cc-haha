@@ -9,7 +9,7 @@ import { formatTokens } from '../utils/format.js';
 import { getSourceDisplayName, type SettingSource } from '../utils/settings/constants.js';
 import { plural } from '../utils/stringUtils.js';
 import { ContextSuggestions } from './ContextSuggestions.js';
-const RESERVED_CATEGORY_NAME = 'Autocompact buffer';
+const RESERVED_CATEGORY_NAME = '自动压缩缓冲';
 
 /**
  * One-liner for the legend header showing what context-collapse has done.

@@ -9,7 +9,7 @@ import { InVirtualListContext } from './messageActions.js';
 
 // Context to track if we're inside a sub agent
 // Similar to MessageResponseContext, this helps us avoid showing
-// too many "(ctrl+o to expand)" hints in sub agent output
+// too many "(ctrl+o 展开)" hints in sub agent output
 const SubAgentContext = React.createContext(false);
 export function SubAgentProvider(t0) {
   const $ = _c(2);

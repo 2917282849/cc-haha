@@ -56,10 +56,10 @@ export function InvalidSettingsDialog(t0) {
   let t4;
   if ($[6] === Symbol.for("react.memo_cache_sentinel")) {
     t4 = [{
-      label: "Exit and fix manually",
+      label: "退出并手动修复",
       value: "exit"
     }, {
-      label: "Continue without these settings",
+      label: "不使用这些设置继续",
       value: "continue"
     }];
     $[6] = t4;
@@ -76,7 +76,7 @@ export function InvalidSettingsDialog(t0) {
   }
   let t6;
   if ($[9] !== onExit || $[10] !== t2 || $[11] !== t5) {
-    t6 = <Dialog title="Settings Error" onCancel={onExit} color="warning">{t2}{t3}{t5}</Dialog>;
+    t6 = <Dialog title="设置错误" onCancel={onExit} color="warning">{t2}{t3}{t5}</Dialog>;
     $[9] = onExit;
     $[10] = t2;
     $[11] = t5;

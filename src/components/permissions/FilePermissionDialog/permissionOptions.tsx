@@ -76,7 +76,7 @@ export function getFilePermissionOptions({
       type: 'input',
       label: 'Yes',
       value: 'yes',
-      placeholder: 'and tell Claude what to do next',
+      placeholder: '并告诉 Claude 接下来做什么',
       onChange: onAcceptFeedbackChange,
       allowEmptySubmitToCancel: true,
       option: {
@@ -104,7 +104,7 @@ export function getFilePermissionOptions({
   // persisted permission rules.
   if ((inClaudeFolder || inGlobalClaudeFolder) && operationType !== 'read') {
     options.push({
-      label: 'Yes, and allow Claude to edit its own settings for this session',
+      label: '是，并允许 Claude 在本次会话中编辑自身设置',
       value: 'yes-claude-folder',
       option: {
         type: 'accept-session',
@@ -155,7 +155,7 @@ export function getFilePermissionOptions({
       type: 'input',
       label: 'No',
       value: 'no',
-      placeholder: 'and tell Claude what to do differently',
+      placeholder: '并告诉 Claude 换种做法',
       onChange: onRejectFeedbackChange,
       allowEmptySubmitToCancel: true,
       option: {

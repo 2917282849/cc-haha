@@ -2503,7 +2503,7 @@ export function REPL({
             setSpinnerMessage(event.hookType === 'pre_compact' ? 'Running PreCompact hooks\u2026' : event.hookType === 'post_compact' ? 'Running PostCompact hooks\u2026' : 'Running SessionStart hooks\u2026');
             break;
           case 'compact_start':
-            setSpinnerMessage('Compacting conversation');
+            setSpinnerMessage('正在压缩对话');
             break;
           case 'compact_end':
             setSpinnerMessage(null);
@@ -3738,7 +3738,7 @@ export function REPL({
   }, [rewindConversationTo, setInputValue]);
   restoreMessageSyncRef.current = restoreMessageSync;
 
-  // MessageSelector path: defer via setImmediate so the "Interrupted" message
+  // MessageSelector path: defer via setImmediate so the "已中断" message
   // renders to static output before rewind — otherwise it remains vestigial
   // at the top of the screen.
   const handleRestoreMessage = useCallback(async (message: UserMessage) => {
@@ -3931,7 +3931,7 @@ export function REPL({
       // Use ref to get current dialog state, avoiding stale closure
       focusedInputDialogRef.current === undefined && idleTimeSinceResponse >= getGlobalConfig().messageIdleNotifThresholdMs) {
         void sendNotification({
-          message: 'Claude is waiting for your input',
+          message: 'Claude 在等待你的输入',
           notificationType: 'idle_prompt'
         }, terminal);
       }
@@ -4671,7 +4671,7 @@ export function REPL({
                 {/* Show pending indicator on worker while waiting for leader approval */}
                 {pendingWorkerRequest && <WorkerPendingPermission toolName={pendingWorkerRequest.toolName} description={pendingWorkerRequest.description} />}
                 {/* Show pending indicator for sandbox permission on worker side */}
-                {pendingSandboxRequest && <WorkerPendingPermission toolName="Network Access" description={`Waiting for leader to approve network access to ${pendingSandboxRequest.host}`} />}
+                {pendingSandboxRequest && <WorkerPendingPermission toolName="网络访问" description={`Waiting for leader to approve network access to ${pendingSandboxRequest.host}`} />}
                 {/* Worker sandbox permission requests from swarm workers */}
                 {focusedInputDialog === 'worker-sandbox-permission' && <SandboxPermissionRequest key={workerSandboxPermissions.queue[0]!.requestId} hostPattern={{
             host: workerSandboxPermissions.queue[0]!.host,

@@ -393,7 +393,7 @@ export function UnifiedInstalledCell(t0) {
             t1 = $[94];
           }
           statusIcon_2 = t1;
-          statusText_1 = "Enter to auth";
+          statusText_1 = "按 Enter 进行认证";
         } else {
           let t1;
           if ($[95] !== theme) {

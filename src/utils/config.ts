@@ -275,7 +275,7 @@ export type GlobalConfig = {
     lastShownTime?: number
   }
 
-  // Transcript share prompt tracking ("Don't ask again")
+  // Transcript share prompt tracking ("不再询问")
   transcriptShareDismissed?: boolean
 
   // Memory usage tracking
@@ -419,10 +419,10 @@ export type GlobalConfig = {
 
   // Desktop upsell startup dialog tracking
   desktopUpsellSeenCount?: number // Total showings (max 3)
-  desktopUpsellDismissed?: boolean // "Don't ask again" picked
+  desktopUpsellDismissed?: boolean // "不再询问" picked
 
   // Idle-return dialog tracking
-  idleReturnDismissed?: boolean // "Don't ask again" picked
+  idleReturnDismissed?: boolean // "不再询问" picked
 
   // Opus 4.5 Pro migration tracking
   opusProMigrationComplete?: boolean

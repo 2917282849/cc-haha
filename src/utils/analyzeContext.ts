@@ -69,8 +69,8 @@ import { buildEffectiveSystemPrompt } from './systemPrompt.js'
 import type { Theme } from './theme.js'
 import { getCurrentUsage } from './tokens.js'
 
-const RESERVED_CATEGORY_NAME = 'Autocompact buffer'
-const MANUAL_COMPACT_BUFFER_NAME = 'Compact buffer'
+const RESERVED_CATEGORY_NAME = '自动压缩缓冲'
+const MANUAL_COMPACT_BUFFER_NAME = '压缩缓冲'
 
 /**
  * Fixed token overhead added by the API when tools are present.
@@ -1053,7 +1053,7 @@ export async function analyzeContextUsage(
   // System prompt is always shown first (fixed overhead)
   if (systemPromptTokens > 0) {
     cats.push({
-      name: 'System prompt',
+      name: '系统提示词',
       tokens: systemPromptTokens,
       color: 'promptBorder',
     })
@@ -1076,7 +1076,7 @@ export async function analyzeContextUsage(
   // MCP tools after system tools
   if (mcpToolTokens > 0) {
     cats.push({
-      name: 'MCP tools',
+      name: 'MCP 工具',
       tokens: mcpToolTokens,
       color: 'cyan_FOR_SUBAGENTS_ONLY',
     })
@@ -1106,7 +1106,7 @@ export async function analyzeContextUsage(
   // Custom agents after MCP tools
   if (agentTokens > 0) {
     cats.push({
-      name: 'Custom agents',
+      name: '自定义 Agent',
       tokens: agentTokens,
       color: 'permission',
     })
@@ -1115,7 +1115,7 @@ export async function analyzeContextUsage(
   // Memory files after custom agents
   if (claudeMdTokens > 0) {
     cats.push({
-      name: 'Memory files',
+      name: '记忆文件',
       tokens: claudeMdTokens,
       color: 'claude',
     })

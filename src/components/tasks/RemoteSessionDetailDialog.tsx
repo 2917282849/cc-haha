@@ -187,7 +187,7 @@ function UltraplanSessionDetail(t0) {
     if ($[14] === Symbol.for("react.memo_cache_sentinel")) {
       t9 = [t8, {
         label: "Back",
-        value: "back" as const
+        value: "返回" as const
       }];
       $[14] = t9;
     } else {
@@ -321,7 +321,7 @@ function UltraplanSessionDetail(t0) {
   let t20;
   if ($[48] !== onKill || $[49] !== running) {
     t20 = onKill && running ? [{
-      label: "Stop ultraplan",
+      label: "停止 ultraplan",
       value: "stop" as const
     }] : [];
     $[48] = onKill;
@@ -334,7 +334,7 @@ function UltraplanSessionDetail(t0) {
   if ($[51] === Symbol.for("react.memo_cache_sentinel")) {
     t21 = {
       label: "Back",
-      value: "back" as const
+      value: "返回" as const
     };
     $[51] = t21;
   } else {
@@ -363,7 +363,7 @@ function UltraplanSessionDetail(t0) {
             setConfirmingStop(true);
             return;
           }
-        case "back":
+        case "返回":
           {
             goBackOrClose();
             return;
@@ -504,7 +504,7 @@ function reviewCountsLine(session: DeepImmutable<RemoteAgentTaskState>): string 
   }
   return formatReviewStageCounts(p.stage, p.bugsFound, verified, refuted);
 }
-type MenuAction = 'open' | 'stop' | 'back' | 'dismiss';
+type MenuAction = 'open' | 'stop' | '返回' | 'dismiss';
 function ReviewSessionDetail(t0) {
   const $ = _c(56);
   const {
@@ -557,7 +557,7 @@ function ReviewSessionDetail(t0) {
     let t5;
     if ($[6] === Symbol.for("react.memo_cache_sentinel")) {
       t5 = {
-        label: "Stop ultrareview",
+        label: "停止 ultrareview",
         value: "stop" as const
       };
       $[6] = t5;
@@ -568,7 +568,7 @@ function ReviewSessionDetail(t0) {
     if ($[7] === Symbol.for("react.memo_cache_sentinel")) {
       t6 = [t5, {
         label: "Back",
-        value: "back" as const
+        value: "返回" as const
       }];
       $[7] = t6;
     } else {
@@ -604,11 +604,11 @@ function ReviewSessionDetail(t0) {
       label: "Open in Claude Code on the web",
       value: "open"
     }, ...(onKill && running ? [{
-      label: "Stop ultrareview",
+      label: "停止 ultrareview",
       value: "stop" as const
     }] : []), {
       label: "Back",
-      value: "back"
+      value: "返回"
     }];
     $[11] = completed;
     $[12] = onKill;
@@ -633,7 +633,7 @@ function ReviewSessionDetail(t0) {
             setConfirmingStop(true);
             break bb45;
           }
-        case "back":
+        case "返回":
           {
             goBackOrClose();
             break bb45;

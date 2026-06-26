@@ -75,7 +75,7 @@ export async function call(
     return null
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : 'Unknown error occurred'
+      error instanceof Error ? error.message : '发生未知错误'
     onDone(`Failed to branch conversation: ${message}`)
     return null
   }

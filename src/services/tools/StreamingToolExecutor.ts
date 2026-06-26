@@ -156,7 +156,7 @@ export class StreamingToolExecutor {
     assistantMessage: AssistantMessage,
   ): Message {
     // For user interruptions (ESC to reject), use REJECT_MESSAGE so the UI shows
-    // "User rejected edit" instead of "Error editing file"
+    // "User rejected edit" instead of "编辑文件出错"
     if (reason === 'user_interrupted') {
       return createUserMessage({
         content: [
@@ -167,7 +167,7 @@ export class StreamingToolExecutor {
             tool_use_id: toolUseId,
           },
         ],
-        toolUseResult: 'User rejected tool use',
+        toolUseResult: '用户拒绝工具调用',
         sourceToolAssistantUUID: assistantMessage.uuid,
       })
     }

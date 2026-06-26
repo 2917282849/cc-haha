@@ -376,14 +376,14 @@ const LABEL_MAP: Record<string, string> = {
   misunderstood_request: 'Misunderstood Request',
   wrong_approach: 'Wrong Approach',
   buggy_code: 'Buggy Code',
-  user_rejected_action: 'User Rejected Action',
+  user_rejected_action: '用户拒绝操作',
   claude_got_blocked: 'Claude Got Blocked',
-  user_stopped_early: 'User Stopped Early',
+  user_stopped_early: '用户提前停止',
   wrong_file_or_location: 'Wrong File/Location',
   excessive_changes: 'Excessive Changes',
   slow_or_verbose: 'Slow/Verbose',
-  tool_failed: 'Tool Failed',
-  user_unclear: 'User Unclear',
+  tool_failed: '工具失败',
+  user_unclear: '用户不明确',
   external_issue: 'External Issue',
   // Satisfaction labels
   frustrated: 'Frustrated',
@@ -655,14 +655,14 @@ function extractToolStats(log: LogOption): {
                   lowerContent.includes('rejected') ||
                   lowerContent.includes("doesn't want")
                 ) {
-                  category = 'User Rejected'
+                  category = '用户拒绝'
                 } else if (
                   lowerContent.includes('string to replace not found') ||
                   lowerContent.includes('no changes')
                 ) {
-                  category = 'Edit Failed'
+                  category = '编辑失败'
                 } else if (lowerContent.includes('modified since read')) {
-                  category = 'File Changed'
+                  category = '文件已更改'
                 } else if (
                   lowerContent.includes('exceeds maximum') ||
                   lowerContent.includes('too large')
@@ -1904,10 +1904,10 @@ function generateTimeOfDayChart(messageHours: number[]): string {
 
   // Group into time periods
   const periods = [
-    { label: 'Morning (6-12)', range: [6, 7, 8, 9, 10, 11] },
-    { label: 'Afternoon (12-18)', range: [12, 13, 14, 15, 16, 17] },
-    { label: 'Evening (18-24)', range: [18, 19, 20, 21, 22, 23] },
-    { label: 'Night (0-6)', range: [0, 1, 2, 3, 4, 5] },
+    { label: '上午（6-12）', range: [6, 7, 8, 9, 10, 11] },
+    { label: '下午（12-18）', range: [12, 13, 14, 15, 16, 17] },
+    { label: '晚上（18-24）', range: [18, 19, 20, 21, 22, 23] },
+    { label: '深夜（0-6）', range: [0, 1, 2, 3, 4, 5] },
   ]
 
   const hourCounts: Record<number, number> = {}
@@ -2426,10 +2426,10 @@ function generateHtmlReport(
     const rawHourCounts = ${hourCountsJson};
     function updateHourHistogram(offsetFromPT) {
       const periods = [
-        { label: "Morning (6-12)", range: [6,7,8,9,10,11] },
-        { label: "Afternoon (12-18)", range: [12,13,14,15,16,17] },
-        { label: "Evening (18-24)", range: [18,19,20,21,22,23] },
-        { label: "Night (0-6)", range: [0,1,2,3,4,5] }
+        { label: "上午（6-12）", range: [6,7,8,9,10,11] },
+        { label: "下午（12-18）", range: [12,13,14,15,16,17] },
+        { label: "晚上（18-24）", range: [18,19,20,21,22,23] },
+        { label: "深夜（0-6）", range: [0,1,2,3,4,5] }
       ];
       const adjustedCounts = {};
       for (const [hour, count] of Object.entries(rawHourCounts)) {
@@ -3039,7 +3039,7 @@ function safeKeys(obj: Record<string, unknown> | undefined | null): string[] {
 const usageReport: Command = {
   type: 'prompt',
   name: 'insights',
-  description: 'Generate a report analyzing your Claude Code sessions',
+  description: '生成 Claude Code 会话分析报告',
   contentLength: 0, // Dynamic content
   progressMessage: 'analyzing your sessions',
   source: 'builtin',

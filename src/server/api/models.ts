@@ -272,7 +272,7 @@ async function handleCurrentModel(req: Request): Promise<Response> {
       || {
         id: currentModelId,
         name: currentModelName,
-        description: 'Custom model',
+        description: '自定义模型',
         context: contextTier || 'unknown',
       }
 

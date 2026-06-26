@@ -79,7 +79,7 @@ export function DescriptionStep() {
   const handleSubmit = t3;
   let t4;
   if ($[7] === Symbol.for("react.memo_cache_sentinel")) {
-    t4 = <Byline><KeyboardShortcutHint shortcut="Type" action="enter text" /><KeyboardShortcutHint shortcut="Enter" action="continue" /><ConfigurableShortcutHint action="chat:externalEditor" context="Chat" fallback="ctrl+g" description="open in editor" /><ConfigurableShortcutHint action="confirm:no" context="Settings" fallback="Esc" description="go back" /></Byline>;
+    t4 = <Byline><KeyboardShortcutHint shortcut="Type" action="enter text" /><KeyboardShortcutHint shortcut="Enter" action="continue" /><ConfigurableShortcutHint action="chat:externalEditor" context="Chat" fallback="ctrl+g" description="在编辑器中打开" /><ConfigurableShortcutHint action="confirm:no" context="Settings" fallback="Esc" description="go back" /></Byline>;
     $[7] = t4;
   } else {
     t4 = $[7];
@@ -93,7 +93,7 @@ export function DescriptionStep() {
   }
   let t6;
   if ($[9] !== cursorOffset || $[10] !== handleSubmit || $[11] !== whenToUse) {
-    t6 = <Box marginTop={1}><TextInput value={whenToUse} onChange={setWhenToUse} onSubmit={handleSubmit} placeholder="e.g., use this agent after you're done writing code..." columns={80} cursorOffset={cursorOffset} onChangeCursorOffset={setCursorOffset} focus={true} showCursor={true} /></Box>;
+    t6 = <Box marginTop={1}><TextInput value={whenToUse} onChange={setWhenToUse} onSubmit={handleSubmit} placeholder="例如：写完代码后使用此 Agent..." columns={80} cursorOffset={cursorOffset} onChangeCursorOffset={setCursorOffset} focus={true} showCursor={true} /></Box>;
     $[9] = cursorOffset;
     $[10] = handleSubmit;
     $[11] = whenToUse;
@@ -111,7 +111,7 @@ export function DescriptionStep() {
   }
   let t8;
   if ($[15] !== t6 || $[16] !== t7) {
-    t8 = <WizardDialogLayout subtitle="Description (tell Claude when to use this agent)" footerText={t4}><Box flexDirection="column">{t5}{t6}{t7}</Box></WizardDialogLayout>;
+    t8 = <WizardDialogLayout subtitle="描述（告诉 Claude 何时使用此 Agent）" footerText={t4}><Box flexDirection="column">{t5}{t6}{t7}</Box></WizardDialogLayout>;
     $[15] = t6;
     $[16] = t7;
     $[17] = t8;

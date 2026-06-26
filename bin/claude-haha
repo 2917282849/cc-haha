@@ -13,10 +13,12 @@ cd "$ROOT_DIR"
 # provider keys (e.g., a MiniMax key as ANTHROPIC_API_KEY) that
 # override the active provider config.
 if [[ "${CC_HAHA_SKIP_DOTENV:-0}" == "1" ]]; then
-  # Bun auto-loads .env by default; explicitly point to /dev/null to suppress.
-  ENV_FILE_FLAG="--env-file=/dev/null"
+  # Server sets env via settings.json; skip bash-level sourcing too.
+  ENV_FILE_FLAG=""
 elif [[ -f .env ]]; then
-  ENV_FILE_FLAG="--env-file=.env"
+  # Bash-level load: bun --env-file doesn't work on all platforms (e.g. Android Termux).
+  set -a; source .env; set +a
+  ENV_FILE_FLAG=""
 else
   ENV_FILE_FLAG=""
 fi

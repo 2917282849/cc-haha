@@ -18,7 +18,7 @@ const questionOptionSchema = lazySchema(() => z.object({
 }));
 const questionSchema = lazySchema(() => z.object({
   question: z.string().describe('The complete question to ask the user. Should be clear, specific, and end with a question mark. Example: "Which library should we use for date formatting?" If multiSelect is true, phrase it accordingly, e.g. "Which features do you want to enable?"'),
-  header: z.string().describe(`Very short label displayed as a chip/tag (max ${ASK_USER_QUESTION_TOOL_CHIP_WIDTH} chars). Examples: "Auth method", "Library", "Approach".`),
+  header: z.string().describe(`Very short label displayed as a chip/tag (max ${ASK_USER_QUESTION_TOOL_CHIP_WIDTH} chars). Examples: "认证方式", "Library", "Approach".`),
   options: z.array(questionOptionSchema()).min(2).max(4).describe(`The available choices for this question. Must have 2-4 options. Each option should be a distinct, mutually exclusive choice (unless multiSelect is enabled). There should be no 'Other' option, that will be provided automatically.`),
   multiSelect: z.boolean().default(false).describe('Set to true to allow the user to select multiple options instead of just one. Use when choices are not mutually exclusive.')
 }));
@@ -53,7 +53,7 @@ const UNIQUENESS_REFINE = {
   message: 'Question texts must be unique, option labels must be unique within each question'
 } as const;
 const commonFields = lazySchema(() => ({
-  answers: z.record(z.string(), z.string()).optional().describe('User answers collected by the permission component'),
+  answers: z.record(z.string(), z.string()).optional().describe('权限组件收集的用户回答'),
   annotations: annotationsSchema(),
   metadata: z.object({
     source: z.string().optional().describe('Optional identifier for the source of this question (e.g., "remember" for /remember command). Used for analytics tracking.')

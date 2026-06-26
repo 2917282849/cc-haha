@@ -97,9 +97,9 @@ Plugin syntax: \`plugin-name@source\` where source is \`claude-code-marketplace\
 - \`language\`: Preferred response language (e.g., "japanese")
 - \`cleanupPeriodDays\`: Days to keep transcripts (default: 30; 0 disables persistence entirely)
 - \`respectGitignore\`: Whether to respect .gitignore (default: true)
-- \`spinnerTipsEnabled\`: Show tips in spinner
+- \`spinnerTipsEnabled\`：在 spinner 中显示提示
 - \`spinnerVerbs\`: Customize spinner verbs (\`{ "mode": "append" | "replace", "verbs": [...] }\`)
-- \`spinnerTipsOverride\`: Override spinner tips (\`{ "excludeDefault": true, "tips": ["Custom tip"] }\`)
+- \`spinnerTipsOverride\`: Override spinner tips (\`{ "excludeDefault": true, "tips": ["自定义提示"] }\`)
 - \`syntaxHighlightingDisabled\`: Disable diff highlighting
 `
 
@@ -285,7 +285,7 @@ Given an event, matcher, target file, and desired behavior, follow this flow. Ea
 
    Check exit code AND side effect (file actually formatted, test actually ran). If it fails you get a real error — fix (wrong package manager? tool not installed? jq path wrong?) and retest. Once it works, wrap with \`2>/dev/null || true\` (unless the user wants a blocking check).
 
-4. **Write the JSON.** Merge into the target file (schema shape in the "Hook Structure" section above). If this creates \`.claude/settings.local.json\` for the first time, add it to .gitignore — the Write tool doesn't auto-gitignore it.
+4. **Write the JSON.** Merge into the target file (schema shape in the "Hook 结构" section above). If this creates \`.claude/settings.local.json\` for the first time, add it to .gitignore — the Write tool doesn't auto-gitignore it.
 
 5. **Validate syntax + schema in one shot:**
 
@@ -313,7 +313,7 @@ Modify Claude Code configuration by updating settings.json files.
 If the user wants something to happen automatically in response to an EVENT, they need a **hook** configured in settings.json. Memory/preferences cannot trigger automated actions.
 
 **These require hooks:**
-- "Before compacting, ask me what to preserve" → PreCompact hook
+- "压缩前先问我保留什么" → PreCompact hook
 - "After writing files, run prettier" → PostToolUse hook with Write|Edit matcher
 - "When I run bash commands, log them" → PreToolUse hook with Bash matcher
 - "Always run tests after code changes" → PostToolUse hook
@@ -446,7 +446,7 @@ export function registerUpdateConfigSkill(): void {
   registerBundledSkill({
     name: 'update-config',
     description:
-      'Use this skill to configure the Claude Code harness via settings.json. Automated behaviors ("from now on when X", "each time X", "whenever X", "before/after X") require hooks configured in settings.json - the harness executes these, not Claude, so memory/preferences cannot fulfill them. Also use for: permissions ("allow X", "add permission", "move permission to"), env vars ("set X=Y"), hook troubleshooting, or any changes to settings.json/settings.local.json files. Examples: "allow npm commands", "add bq permission to global settings", "move permission to user settings", "set DEBUG=true", "when claude stops show X". For simple settings like theme/model, use Config tool.',
+      '使用此技能通过 settings.json 配置 Claude Code harness。自动化行为（“从现在起当 X”“每次 X”“每当 X”“在 X 之前/之后”）需要在 settings.json 中配置 Hook - 这些由 harness 执行，不是 Claude，因此记忆/偏好无法满足它们。也用于：权限（“允许 X”“添加权限”“移动权限到”）、环境变量（“设置 X=Y”）、Hook 故障排查，或对 settings.json/settings.local.json 的任何修改。示例：“允许 npm 命令”“向全局设置添加 bq 权限”“将权限移到用户设置”“设置 DEBUG=true”“当 claude 停止时显示 X”。对于主题/模型这类简单设置，请使用 Config 工具。',
     allowedTools: ['Read'],
     userInvocable: true,
     async getPromptForCommand(args) {

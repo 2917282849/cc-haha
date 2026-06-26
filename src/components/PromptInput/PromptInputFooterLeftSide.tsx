@@ -449,7 +449,7 @@ function ModeIndicator({
   }
   if ((tasksPart || hasCoordinatorTasks) && showHint && !hasTeams) {
     parts.push(<Text dimColor key="manage-tasks">
-        {tasksSelected ? <KeyboardShortcutHint shortcut="Enter" action="view tasks" /> : <KeyboardShortcutHint shortcut="↓" action="manage" />}
+        {tasksSelected ? <KeyboardShortcutHint shortcut="Enter" action="查看任务" /> : <KeyboardShortcutHint shortcut="↓" action="manage" />}
       </Text>);
   }
 
@@ -457,7 +457,7 @@ function ModeIndicator({
   // is a row stolen from the ScrollBox. This component must have a STABLE
   // height so the footer never grows/shrinks and shifts scroll content.
   // Returning null when parts is empty (e.g. StatusLine on → suppressHint
-  // → showHint=false → no "? for shortcuts") would let a later-added
+  // → showHint=false → no "? 查看快捷键") would let a later-added
   // part (e.g. the selection copy/native-select hints) grow the column
   // from 0→1 row. Always render 1 row in fullscreen; return a space when
   // empty so Yoga reserves the row without painting anything visible.
@@ -506,7 +506,7 @@ function getSpinnerHintParts(isLoading: boolean, escShortcut: string, todosShort
   return [...(isLoading ? [<Text dimColor key="esc">
             <KeyboardShortcutHint shortcut={escShortcut} action="interrupt" />
           </Text>] : []), ...(!isLoading && hasRunningAgentTasks && !isKillAgentsConfirmShowing ? [<Text dimColor key="kill-agents">
-            <KeyboardShortcutHint shortcut={killAgentsShortcut} action="stop agents" />
+            <KeyboardShortcutHint shortcut={killAgentsShortcut} action="停止 Agent" />
           </Text>] : []), ...(showToggleHint ? [<Text dimColor key="toggle-tasks">
             <KeyboardShortcutHint shortcut={todosShortcut} action={toggleAction} />
           </Text>] : [])];

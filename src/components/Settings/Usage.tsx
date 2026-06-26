@@ -247,7 +247,7 @@ export function Usage(): React.ReactNode {
   return <Box flexDirection="column" gap={1} width="100%">
       {limits.some(({
       limit
-    }) => limit) || <Text dimColor>/usage is only available for subscription plans.</Text>}
+    }) => limit) || <Text dimColor>/usage 仅适用于订阅计划。</Text>}
 
       {limits.map(({
       title,
@@ -267,7 +267,7 @@ type ExtraUsageSectionProps = {
   extraUsage: ExtraUsage;
   maxWidth: number;
 };
-const EXTRA_USAGE_SECTION_TITLE = 'Extra usage';
+const EXTRA_USAGE_SECTION_TITLE = '额外用量';
 function ExtraUsageSection(t0) {
   const $ = _c(20);
   const {

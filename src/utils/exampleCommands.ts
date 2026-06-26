@@ -153,7 +153,7 @@ export const getExampleCommandFromCache = memoize(() => {
     'how do I log an error?',
     `edit ${frequentFile} to...`,
     `write a test for ${frequentFile}`,
-    'create a util logging.py that...',
+    '创建一个工具文件 logging.py，用于...',
   ]
 
   return `Try "${sample(commands)}"`

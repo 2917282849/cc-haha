@@ -93,7 +93,7 @@ export class ITermBackend implements PaneBackend {
     }
     const it2Available = await isIt2CliAvailable()
     logForDebugging(
-      `[ITermBackend] isAvailable: ${it2Available} (it2 CLI ${it2Available ? 'found' : 'not found'})`,
+      `[ITermBackend] isAvailable: ${it2Available} (it2 CLI ${it2Available ? 'found' : '未找到'})`,
     )
     return it2Available
   }

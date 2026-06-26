@@ -183,7 +183,7 @@ function isEagainError(stderr: string): boolean {
 
 /**
  * Custom error class for ripgrep timeouts.
- * This allows callers to distinguish between "no matches" and "timed out".
+ * This allows callers to distinguish between "无匹配项" and "timed out".
  */
 export class RipgrepTimeoutError extends Error {
   constructor(
@@ -478,13 +478,13 @@ export async function ripGrep(
         return
       }
 
-      // Exit code 1 is normal "no matches"
+      // Exit code 1 is normal "无匹配项"
       if (error.code === 1) {
         resolve([])
         return
       }
 
-      // Critical errors that indicate ripgrep is broken, not "no matches"
+      // Critical errors that indicate ripgrep is broken, not "无匹配项"
       // These should be surfaced to the user rather than silently returning empty results
       const CRITICAL_ERROR_CODES = ['ENOENT', 'EACCES', 'EPERM']
       if (CRITICAL_ERROR_CODES.includes(error.code as string)) {

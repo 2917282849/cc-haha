@@ -193,7 +193,7 @@ export function BridgeDialog(t0) {
     }
     footerText = t18;
     T1 = Dialog;
-    t15 = "Remote Control";
+    t15 = "远程控制";
     t16 = onDone;
     t17 = true;
     T0 = Box;

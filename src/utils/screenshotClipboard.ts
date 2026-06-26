@@ -38,7 +38,7 @@ export async function copyAnsiToClipboard(
     logError(error)
     return {
       success: false,
-      message: `Failed to copy screenshot: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      message: `Failed to copy screenshot: ${error instanceof Error ? error.message : '未知错误'}`,
     }
   }
 }

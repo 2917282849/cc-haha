@@ -224,12 +224,12 @@ function getPhaseSummary(
       end: 'query_context_loading_end',
     },
     {
-      name: 'Microcompact',
+      name: '微压缩',
       start: 'query_microcompact_start',
       end: 'query_microcompact_end',
     },
     {
-      name: 'Autocompact',
+      name: '自动压缩',
       start: 'query_autocompact_start',
       end: 'query_autocompact_end',
     },

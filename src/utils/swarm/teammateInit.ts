@@ -121,7 +121,7 @@ export function initializeTeammateHooks(
       )
       return true // Don't block the Stop
     },
-    'Failed to send idle notification to team leader',
+    '发送空闲通知给团队负责人失败',
     {
       timeout: 10000,
     },

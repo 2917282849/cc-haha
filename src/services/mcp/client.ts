@@ -787,11 +787,11 @@ export const connectToServer = memoize(
         logMCPDebug(
           name,
           `Environment: ${jsonStringify({
-            NODE_OPTIONS: process.env.NODE_OPTIONS || 'not set',
+            NODE_OPTIONS: process.env.NODE_OPTIONS || '未设置',
             UV_THREADPOOL_SIZE: process.env.UV_THREADPOOL_SIZE || 'default',
-            HTTP_PROXY: process.env.HTTP_PROXY || 'not set',
-            HTTPS_PROXY: process.env.HTTPS_PROXY || 'not set',
-            NO_PROXY: process.env.NO_PROXY || 'not set',
+            HTTP_PROXY: process.env.HTTP_PROXY || '未设置',
+            HTTPS_PROXY: process.env.HTTPS_PROXY || '未设置',
+            NO_PROXY: process.env.NO_PROXY || '未设置',
           })}`,
         )
 
@@ -981,7 +981,7 @@ export const connectToServer = memoize(
           name: 'claude-code',
           title: 'Claude Code',
           version: MACRO.VERSION ?? 'unknown',
-          description: "Anthropic's agentic coding tool",
+          description: "Anthropic 的智能编程工具",
           websiteUrl: PRODUCT_URL,
         },
         {
@@ -1426,7 +1426,7 @@ export const connectToServer = memoize(
             const childPid = stdioTransport.pid
 
             if (childPid) {
-              logMCPDebug(name, 'Sending SIGINT to MCP server process')
+              logMCPDebug(name, '向 MCP 服务器进程发送 SIGINT')
 
               // First try SIGINT (like Ctrl+C)
               try {
@@ -1464,7 +1464,7 @@ export const connectToServer = memoize(
                     clearInterval(checkInterval)
                     logMCPDebug(
                       name,
-                      'Cleanup timeout reached, stopping process monitoring',
+                      '清理超时，停止进程监控',
                     )
                     resolve()
                   }
@@ -3115,7 +3115,7 @@ async function callMCPTool({
     })
 
     if ('isError' in result && result.isError) {
-      let errorDetails = 'Unknown error'
+      let errorDetails = '未知错误'
       if (
         'content' in result &&
         Array.isArray(result.content) &&
@@ -3275,7 +3275,7 @@ export async function setupSdkMcpClients(
           name: 'claude-code',
           title: 'Claude Code',
           version: MACRO.VERSION ?? 'unknown',
-          description: "Anthropic's agentic coding tool",
+          description: "Anthropic 的智能编程工具",
           websiteUrl: PRODUCT_URL,
         },
         {

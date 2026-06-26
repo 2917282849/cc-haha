@@ -84,7 +84,7 @@ export const WebFetchTool = buildTool({
   getToolUseSummary,
   getActivityDescription(input) {
     const summary = getToolUseSummary(input)
-    return summary ? `Fetching ${summary}` : 'Fetching web page'
+    return summary ? `Fetching ${summary}` : '获取网页中'
   },
   get inputSchema(): InputSchema {
     return inputSchema()

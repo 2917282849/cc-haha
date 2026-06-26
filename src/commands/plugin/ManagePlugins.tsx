@@ -727,7 +727,7 @@ export function ManagePlugins({
         marketplace: marketplace_0,
         scope: 'flagged',
         reason: 'delisted',
-        text: 'Removed from marketplace',
+        text: '已从插件市场移除',
         flaggedAt: entry.flaggedAt
       });
     }
@@ -1305,7 +1305,7 @@ export function ManagePlugins({
       action: () => void;
     }> = [];
     menuItems.push({
-      label: isEnabled_1 ? 'Disable plugin' : 'Enable plugin',
+      label: isEnabled_1 ? '禁用插件' : '启用插件',
       action: () => void handleSingleOperation(isEnabled_1 ? 'disable' : 'enable')
     });
 
@@ -1377,7 +1377,7 @@ export function ManagePlugins({
       }
       if (selectedPlugin.plugin.manifest.userConfig && Object.keys(selectedPlugin.plugin.manifest.userConfig).length > 0) {
         menuItems.push({
-          label: 'Configure options',
+          label: '配置选项',
           action: () => {
             setViewState({
               type: 'configuring-options',
@@ -1387,7 +1387,7 @@ export function ManagePlugins({
         });
       }
       menuItems.push({
-        label: 'Update now',
+        label: '立即更新',
         action: () => void handleSingleOperation('update')
       });
       menuItems.push({
@@ -1397,7 +1397,7 @@ export function ManagePlugins({
     }
     if (selectedPlugin.plugin.manifest.homepage) {
       menuItems.push({
-        label: 'Open homepage',
+        label: '打开主页',
         action: () => void openBrowser(selectedPlugin.plugin.manifest.homepage!)
       });
     }
@@ -1405,13 +1405,13 @@ export function ManagePlugins({
       menuItems.push({
         // Generic label — manifest.repository can be GitLab, Bitbucket,
         // Azure DevOps, etc. (gh-31598). pluginDetailsHelpers.tsx:74 keeps
-        // 'View on GitHub' because that path has an explicit isGitHub check.
-        label: 'View repository',
+        // '在 GitHub 查看' because that path has an explicit isGitHub check.
+        label: '查看仓库',
         action: () => void openBrowser(selectedPlugin.plugin.manifest.repository!)
       });
     }
     menuItems.push({
-      label: 'Back to plugin list',
+      label: '返回插件列表',
       action: () => {
         setViewState('plugin-list');
         setSelectedPlugin(null);
@@ -1660,7 +1660,7 @@ export function ManagePlugins({
   // Configure options (from the Manage menu)
   if (typeof viewState === 'object' && viewState.type === 'configuring-options' && selectedPlugin) {
     const pluginId_11 = `${selectedPlugin.plugin.name}@${selectedPlugin.marketplace}`;
-    return <PluginOptionsDialog title={`Configure ${selectedPlugin.plugin.name}`} subtitle="Plugin options" configSchema={viewState.schema} initialValues={loadPluginOptions(pluginId_11)} onSave={values => {
+    return <PluginOptionsDialog title={`Configure ${selectedPlugin.plugin.name}`} subtitle="插件选项" configSchema={viewState.schema} initialValues={loadPluginOptions(pluginId_11)} onSave={values => {
       try {
         savePluginOptions(pluginId_11, values, viewState.schema);
         clearAllCaches();
@@ -1752,7 +1752,7 @@ export function ManagePlugins({
 
         <Byline>
           <ConfigurableShortcutHint action="select:accept" context="Select" fallback="Enter" description="dismiss" />
-          <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />
+          <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
         </Byline>
       </Box>;
   }
@@ -1904,7 +1904,7 @@ export function ManagePlugins({
             <Byline>
               <ConfigurableShortcutHint action="select:previous" context="Select" fallback="↑" description="navigate" />
               <ConfigurableShortcutHint action="select:accept" context="Select" fallback="Enter" description="select" />
-              <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />
+              <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
             </Byline>
           </Text>
         </Box>
@@ -1940,7 +1940,7 @@ export function ManagePlugins({
           <Text dimColor italic>
             <Byline>
               {failedPlugin_0.scope !== 'managed' && <ConfigurableShortcutHint action="select:accept" context="Select" fallback="Enter" description="remove" />}
-              <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />
+              <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
             </Byline>
           </Text>
         </Box>
@@ -2199,7 +2199,7 @@ export function ManagePlugins({
             <Text>type to search</Text>
             <ConfigurableShortcutHint action="plugin:toggle" context="Plugin" fallback="Space" description="toggle" />
             <ConfigurableShortcutHint action="select:accept" context="Select" fallback="Enter" description="details" />
-            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />
+            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
           </Byline>
         </Text>
       </Box>

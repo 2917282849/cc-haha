@@ -199,7 +199,7 @@ async function servePreviewFsFile(
   try {
     stat = fs.statSync(target)
   } catch {
-    return new Response('not found', { status: 404 })
+    return new Response('未找到', { status: 404 })
   }
   if (!stat.isFile()) return new Response('not a file', { status: 404 })
   if (stat.size > MAX_FILE_BYTES) return new Response('too large', { status: 413 })
@@ -235,7 +235,7 @@ export async function serveFileWithRange(
   try {
     stat = fs.statSync(target)
   } catch {
-    return new Response('not found', { status: 404 })
+    return new Response('未找到', { status: 404 })
   }
   if (!stat.isFile()) return new Response('not a file', { status: 404 })
   if (stat.size > MAX_FILE_BYTES) return new Response('too large', { status: 413 })

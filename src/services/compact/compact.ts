@@ -223,7 +223,7 @@ export function stripReinjectedAttachments(messages: Message[]): Message[] {
 }
 
 export const ERROR_MESSAGE_NOT_ENOUGH_MESSAGES =
-  'Not enough messages to compact.'
+  '消息不足，无法压缩。'
 const MAX_PTL_RETRIES = 3
 const PTL_RETRY_MARKER = '[earlier conversation truncated for compaction retry]'
 
@@ -291,10 +291,10 @@ export function truncateHeadForPTLRetry(
 }
 
 export const ERROR_MESSAGE_PROMPT_TOO_LONG =
-  'Conversation too long. Press esc twice to go up a few messages and try again.'
+  '对话过长。按 Esc 两次返回上几条消息后重试。'
 export const ERROR_MESSAGE_USER_ABORT = 'API Error: Request was aborted.'
 export const ERROR_MESSAGE_INCOMPLETE_RESPONSE =
-  'Compaction interrupted · This may be due to network issues — please try again.'
+  '压缩中断 · 可能是网络问题，请重试。'
 
 export interface CompactionResult {
   boundaryMarker: SystemMessage
@@ -834,8 +834,8 @@ export async function partialCompactConversation(
     if (messagesToSummarize.length === 0) {
       throw new Error(
         direction === 'up_to'
-          ? 'Nothing to summarize before the selected message.'
-          : 'Nothing to summarize after the selected message.',
+          ? '所选消息之前没有可摘要的内容。'
+          : '所选消息之后没有可摘要的内容。',
       )
     }
 
@@ -936,7 +936,7 @@ export async function partialCompactConversation(
         ...failureMetadata,
       })
       throw new Error(
-        'Failed to generate conversation summary - response did not contain valid text content',
+        '对话摘要生成失败——回复中不含有效文本内容',
       )
     } else if (startsWithApiErrorPrefix(summary)) {
       logEvent('tengu_partial_compact_failed', {
@@ -1157,7 +1157,7 @@ function addErrorNotificationIfNeeded(
 export function createCompactCanUseTool(): CanUseToolFn {
   return async () => ({
     behavior: 'deny' as const,
-    message: 'Tool use is not allowed during compaction',
+    message: '压缩过程中不允许使用工具',
     decisionReason: {
       type: 'other' as const,
       reason: 'compaction agent should only produce text summary',
@@ -1237,7 +1237,7 @@ async function streamCompactSummary({
         // Guard isApiErrorMessage: query() catches API errors (including
         // APIUserAbortError on ESC) and yields them as synthetic assistant
         // messages. Without this check, an aborted compact "succeeds" with
-        // "Request was aborted." as the summary — the text doesn't start with
+        // "请求已中止。" as the summary — the text doesn't start with
         // "API Error" so the caller's startsWithApiErrorPrefix guard misses it.
         if (assistantMsg && assistantText && !assistantMsg.isApiErrorMessage) {
           // Skip success logging for PTL error text — it's returned so the

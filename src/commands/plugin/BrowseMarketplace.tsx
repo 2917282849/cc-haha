@@ -527,7 +527,7 @@ export function BrowseMarketplace({
         void openBrowser(hasHomepage_0);
       } else if (action === 'github' && githubRepo_0) {
         void openBrowser(`https://github.com/${githubRepo_0}`);
-      } else if (action === 'back') {
+      } else if (action === '返回') {
         setViewState('plugin-list');
         setSelectedPlugin(null);
       }
@@ -713,7 +713,7 @@ export function BrowseMarketplace({
           <Text dimColor>
             <Byline>
               <ConfigurableShortcutHint action="select:accept" context="Select" fallback="Enter" description="select" />
-              <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />
+              <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
             </Byline>
           </Text>
         </Box>
@@ -747,7 +747,7 @@ export function BrowseMarketplace({
 
       {/* Scroll up indicator */}
       {pagination.scrollPosition.canScrollUp && <Box>
-          <Text dimColor> {figures.arrowUp} more above</Text>
+          <Text dimColor> {figures.arrowUp} 条在上方</Text>
         </Box>}
 
       {/* Plugin list */}
@@ -786,7 +786,7 @@ export function BrowseMarketplace({
 
       {/* Scroll down indicator */}
       {pagination.scrollPosition.canScrollDown && <Box>
-          <Text dimColor> {figures.arrowDown} more below</Text>
+          <Text dimColor> {figures.arrowDown} 条在下方</Text>
         </Box>}
 
       {/* Error messages shown in the UI */}

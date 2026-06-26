@@ -23,7 +23,7 @@ export function CreatingStep(t0) {
   const skipWorkflow = t1 === undefined ? false : t1;
   let t2;
   if ($[0] !== secretExists || $[1] !== secretName || $[2] !== selectedWorkflows || $[3] !== skipWorkflow || $[4] !== useExistingSecret) {
-    t2 = skipWorkflow ? ["Getting repository information", secretExists && useExistingSecret ? "Using existing API key secret" : `Setting up ${secretName} secret`] : ["Getting repository information", "Creating branch", selectedWorkflows.length > 1 ? "Creating workflow files" : "Creating workflow file", secretExists && useExistingSecret ? "Using existing API key secret" : `Setting up ${secretName} secret`, "Opening pull request page"];
+    t2 = skipWorkflow ? ["Getting repository information", secretExists && useExistingSecret ? "Using existing API key secret" : `Setting up ${secretName} secret`] : ["Getting repository information", "Creating branch", selectedWorkflows.length > 1 ? "正在创建工作流文件" : "正在创建工作流文件", secretExists && useExistingSecret ? "Using existing API key secret" : `Setting up ${secretName} secret`, "打开 PR 页面"];
     $[0] = secretExists;
     $[1] = secretName;
     $[2] = selectedWorkflows;

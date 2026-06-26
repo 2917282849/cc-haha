@@ -52,7 +52,7 @@ export function registerMcpAddCommand(mcp: Command): void {
     )
     .option(
       '-t, --transport <transport>',
-      'Transport type (stdio, sse, http). Defaults to stdio if not specified.',
+      '传输类型（stdio、sse、http）。未指定时默认 stdio。',
     )
     .option(
       '-e, --env <env...>',
@@ -69,9 +69,9 @@ export function registerMcpAddCommand(mcp: Command): void {
     )
     .option(
       '--callback-port <port>',
-      'Fixed port for OAuth callback (for servers requiring pre-registered redirect URIs)',
+      'OAuth 回调的固定端口（用于需要预注册重定向 URI 的服务器）',
     )
-    .helpOption('-h, --help', 'Display help for command')
+    .helpOption('-h, --help', '显示命令帮助')
     .addOption(
       new Option(
         '--xaa',

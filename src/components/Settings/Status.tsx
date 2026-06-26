@@ -24,10 +24,10 @@ function buildPrimarySection(): Property[] {
     label: 'Version',
     value: MACRO.VERSION
   }, {
-    label: 'Session name',
+    label: '会话名称',
     value: nameValue
   }, {
-    label: 'Session ID',
+    label: '会话 ID',
     value: sessionId
   }, {
     label: 'cwd',

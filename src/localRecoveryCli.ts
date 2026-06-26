@@ -11,7 +11,7 @@ function printHelp(): void {
       '',
       'Local recovery mode for this leaked source tree.',
       '',
-      'Options:',
+      '选项：',
       '  -h, --help                    Show help',
       '  -v, --version                 Show version',
       '  (no args)                     Start local interactive mode',

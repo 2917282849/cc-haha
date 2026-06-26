@@ -931,7 +931,7 @@ async function checkPermissionsAndCallTool(
   processedInput = resolved.input
   const permissionDurationMs = Date.now() - permissionStart
   // In auto mode, canUseTool awaits the classifier (side_query) — if that's
-  // slow the collapsed view shows "Running…" with no (Ns) tick since
+  // slow the collapsed view shows "运行中…" with no (Ns) tick since
   // bash_progress hasn't started yet. Auto-only: in default mode this timer
   // includes interactive-dialog wait (user think time), which is just noise.
   if (

@@ -61,7 +61,7 @@ export function IdeAutoConnectDialog(t0) {
   }
   let t5;
   if ($[6] !== onComplete || $[7] !== t3) {
-    t5 = <Dialog title="Do you wish to enable auto-connect to IDE?" color="ide" onCancel={onComplete}>{t3}{t4}</Dialog>;
+    t5 = <Dialog title="要启用自动连接 IDE 吗？" color="ide" onCancel={onComplete}>{t3}{t4}</Dialog>;
     $[6] = onComplete;
     $[7] = t3;
     $[8] = t5;
@@ -132,7 +132,7 @@ export function IdeDisableAutoConnectDialog(t0) {
   }
   let t5;
   if ($[7] !== handleCancel || $[8] !== t4) {
-    t5 = <Dialog title="Do you wish to disable auto-connect to IDE?" subtitle="You can also configure this in /config" onCancel={handleCancel} color="ide">{t4}</Dialog>;
+    t5 = <Dialog title="要禁用自动连接 IDE 吗？" subtitle="You can also configure this in /config" onCancel={handleCancel} color="ide">{t4}</Dialog>;
     $[7] = handleCancel;
     $[8] = t4;
     $[9] = t5;

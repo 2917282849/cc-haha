@@ -177,17 +177,17 @@ export function getPdfTooLargeErrorMessage(): string {
 export function getPdfPasswordProtectedErrorMessage(): string {
   return getIsNonInteractiveSession()
     ? 'PDF is password protected. Try using a CLI tool to extract or convert the PDF.'
-    : 'PDF is password protected. Please double press esc to edit your message and try again.'
+    : 'PDF 有密码保护。请双击 Esc 编辑消息后重试。'
 }
 export function getPdfInvalidErrorMessage(): string {
   return getIsNonInteractiveSession()
     ? 'The PDF file was not valid. Try converting it to text first (e.g., pdftotext).'
-    : 'The PDF file was not valid. Double press esc to go back and try again with a different file.'
+    : 'PDF 文件无效。双击 Esc 返回，使用其他文件重试。'
 }
 export function getImageTooLargeErrorMessage(): string {
   return getIsNonInteractiveSession()
     ? 'Image was too large. Try resizing the image or using a different approach.'
-    : 'Image was too large. Double press esc to go back and try again with a smaller image.'
+    : '图片过大。双击 Esc 返回，使用较小的图片重试。'
 }
 export function getImageUnsupportedErrorMessage(): string {
   return getIsNonInteractiveSession()
@@ -1038,7 +1038,7 @@ function get3PModelFallbackSuggestion(model: string): string | undefined {
  */
 export function classifyAPIError(error: unknown): string {
   // Aborted requests
-  if (error instanceof Error && error.message === 'Request was aborted.') {
+  if (error instanceof Error && error.message === '请求已中止。') {
     return 'aborted'
   }
 

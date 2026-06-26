@@ -107,7 +107,7 @@ export function initializeWarningHandler(): void {
 
       // In debug mode, show all warnings with context
       if (isEnvTruthy(process.env.CLAUDE_DEBUG)) {
-        const prefix = isInternal ? '[Internal Warning]' : '[Warning]'
+        const prefix = isInternal ? '[Internal Warning]' : '[警告]'
         logForDebugging(`${prefix} ${warning.toString()}`, { level: 'warn' })
       }
       // Hide all warnings from users - they are only logged to Statsig for monitoring

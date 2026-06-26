@@ -231,7 +231,7 @@ const SECTION_BEHAVIORAL_RULES = [
 const SECTION_DOCTOR = [
   '## Validation with /doctor',
   '',
-  'The `/doctor` command includes a "Keybinding Configuration Issues" section that validates `~/.claude/keybindings.json`.',
+  'The `/doctor` command includes a "快捷键配置问题" section that validates `~/.claude/keybindings.json`.',
   '',
   '### Common Issues and Fixes',
   '',
@@ -255,7 +255,7 @@ const SECTION_DOCTOR = [
       ],
       [
         '`Duplicate key "X" in Y bindings`',
-        'Same key defined twice in one context',
+        '同一上下文中定义了相同的键两次',
         'Remove the duplicate; JSON uses only the last value',
       ],
       [
@@ -279,7 +279,7 @@ const SECTION_DOCTOR = [
   '### Example /doctor Output',
   '',
   '```',
-  'Keybinding Configuration Issues',
+  '快捷键配置问题',
   'Location: ~/.claude/keybindings.json',
   '  └ [Error] Unknown context "chat"',
   '    → Valid contexts: Global, Chat, Autocomplete, ...',

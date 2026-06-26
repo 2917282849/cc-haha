@@ -2,7 +2,7 @@ import type { CommandSpec } from '../registry.js'
 
 const srun: CommandSpec = {
   name: 'srun',
-  description: 'Run a command on SLURM cluster nodes',
+  description: '在 SLURM 集群节点上运行命令',
   options: [
     {
       name: ['-n', '--ntasks'],

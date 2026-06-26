@@ -220,7 +220,7 @@ export function ShellDetailDialog(t0) {
   } else {
     t17 = $[33];
   }
-  const t18 = isMonitor ? "Script:" : "Command:";
+  const t18 = isMonitor ? "Script:" : "命令：";
   let t19;
   if ($[34] !== t18) {
     t19 = <Text bold={true}>{t18}</Text>;

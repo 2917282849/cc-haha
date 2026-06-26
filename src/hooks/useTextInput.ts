@@ -130,13 +130,13 @@ export function useTextInput({
       }
       addNotification({
         key: 'escape-again-to-clear',
-        text: 'Esc again to clear',
+        text: '再次按 Esc 清除',
         priority: 'immediate',
         timeoutMs: 1000,
       })
     },
     () => {
-      // Remove the "Esc again to clear" notification immediately
+      // Remove the "再次按 Esc 清除" notification immediately
       removeNotification('escape-again-to-clear')
       onClearInput?.()
       if (originalValue) {

@@ -307,7 +307,7 @@ export function Feedback({
       void submitReport();
     }
   });
-  return <Dialog title="Submit Feedback / Bug Report" onCancel={handleCancel} isCancelActive={step !== 'userInput'} inputGuide={exitState => exitState.pending ? <Text>Press {exitState.keyName} again to exit</Text> : step === 'userInput' ? <Byline>
+  return <Dialog title="提交反馈 / 报告问题" onCancel={handleCancel} isCancelActive={step !== 'userInput'} inputGuide={exitState => exitState.pending ? <Text>Press {exitState.keyName} again to exit</Text> : step === 'userInput' ? <Byline>
             <KeyboardShortcutHint shortcut="Enter" action="continue" />
             <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="cancel" />
           </Byline> : step === 'consent' ? <Byline>
@@ -328,7 +328,7 @@ export function Feedback({
           {error && <Box flexDirection="column" gap={1}>
               <Text color="error">{error}</Text>
               <Text dimColor>
-                Edit and press Enter to retry, or Esc to cancel
+                编辑后按 Enter 重试，或按 Esc 取消
               </Text>
             </Box>}
         </Box>}
@@ -447,7 +447,7 @@ export function createGitHubIssueUrl(feedbackId: string, title: string, descript
 async function generateTitle(description: string, abortSignal: AbortSignal): Promise<string> {
   try {
     const response = await queryHaiku({
-      systemPrompt: asSystemPrompt(['Generate a concise, technical issue title (max 80 chars) for a public GitHub issue based on this bug report for Claude Code.', 'Claude Code is an agentic coding CLI based on the Anthropic API.', 'The title should:', '- Include the type of issue [Bug] or [Feature Request] as the first thing in the title', '- Be concise, specific and descriptive of the actual problem', '- Use technical terminology appropriate for a software issue', '- For error messages, extract the key error (e.g., "Missing Tool Result Block" rather than the full message)', '- Be direct and clear for developers to understand the problem', '- If you cannot determine a clear issue, use "Bug Report: [brief description]"', '- Any LLM API errors are from the Anthropic API, not from any other model provider', 'Your response will be directly used as the title of the Github issue, and as such should not contain any other commentary or explaination', 'Examples of good titles include: "[Bug] Auto-Compact triggers to soon", "[Bug] Anthropic API Error: Missing Tool Result Block", "[Bug] Error: Invalid Model Name for Opus"']),
+      systemPrompt: asSystemPrompt(['Generate a concise, technical issue title (max 80 chars) for a public GitHub issue based on this bug report for Claude Code.', 'Claude Code 是基于 Anthropic API 的智能编程 CLI。', 'The title should:', '- Include the type of issue [Bug] or [Feature Request] as the first thing in the title', '- Be concise, specific and descriptive of the actual problem', '- Use technical terminology appropriate for a software issue', '- For error messages, extract the key error (e.g., "Missing Tool Result Block" rather than the full message)', '- Be direct and clear for developers to understand the problem', '- If you cannot determine a clear issue, use "Bug Report: [brief description]"', '- Any LLM API errors are from the Anthropic API, not from any other model provider', 'Your response will be directly used as the title of the Github issue, and as such should not contain any other commentary or explaination', 'Examples of good titles include: "[Bug] Auto-Compact triggers to soon", "[Bug] Anthropic API Error: Missing Tool Result Block", "[Bug] Error: Invalid Model Name for Opus"']),
       userPrompt: description,
       signal: abortSignal,
       options: {
@@ -459,7 +459,7 @@ async function generateTitle(description: string, abortSignal: AbortSignal): Pro
         mcpTools: []
       }
     });
-    const title = response.message.content[0]?.type === 'text' ? response.message.content[0].text : 'Bug Report';
+    const title = response.message.content[0]?.type === 'text' ? response.message.content[0].text : '报告问题';
 
     // Check if the title contains an API error message
     if (startsWithApiErrorPrefix(title)) {
@@ -495,7 +495,7 @@ function createFallbackTitle(description: string): string {
     }
     truncated += '...';
   }
-  return truncated.length < 10 ? 'Bug Report' : truncated;
+  return truncated.length < 10 ? '报告问题' : truncated;
 }
 
 // Helper function to sanitize and log errors without exposing API keys

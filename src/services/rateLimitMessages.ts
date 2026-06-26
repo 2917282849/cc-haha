@@ -20,7 +20,7 @@ const FEEDBACK_CHANNEL_ANT = '#briarpatch-cc'
  */
 export const RATE_LIMIT_ERROR_PREFIXES = [
   "You've hit your",
-  "You've used",
+  "你已使用",
   "You're now using extra usage",
   "You're close to",
   "You're out of extra usage",
@@ -321,7 +321,7 @@ export function getUsingOverageText(limits: ClaudeAILimits): string {
   }
 
   if (!limitName) {
-    return 'Now using extra usage'
+    return '正在使用额外用量'
   }
 
   const resetMessage = resetTime

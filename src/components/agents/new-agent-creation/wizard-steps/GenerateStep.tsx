@@ -129,14 +129,14 @@ export function GenerateStep(): ReactNode {
   }
   return <WizardDialogLayout subtitle={subtitle} footerText={<Byline>
           <ConfigurableShortcutHint action="confirm:yes" context="Confirmation" fallback="Enter" description="submit" />
-          <ConfigurableShortcutHint action="chat:externalEditor" context="Chat" fallback="ctrl+g" description="open in editor" />
+          <ConfigurableShortcutHint action="chat:externalEditor" context="Chat" fallback="ctrl+g" description="在编辑器中打开" />
           <ConfigurableShortcutHint action="confirm:no" context="Settings" fallback="Esc" description="go back" />
         </Byline>}>
       <Box flexDirection="column">
         {error && <Box marginBottom={1}>
             <Text color="error">{error}</Text>
           </Box>}
-        <TextInput value={prompt} onChange={setPrompt} onSubmit={handleGenerate} placeholder="e.g., Help me write unit tests for my code..." columns={80} cursorOffset={cursorOffset} onChangeCursorOffset={setCursorOffset} focus showCursor />
+        <TextInput value={prompt} onChange={setPrompt} onSubmit={handleGenerate} placeholder="例如：帮我写单元测试..." columns={80} cursorOffset={cursorOffset} onChangeCursorOffset={setCursorOffset} focus showCursor />
       </Box>
     </WizardDialogLayout>;
 }

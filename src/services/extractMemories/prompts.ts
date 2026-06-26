@@ -67,7 +67,7 @@ export function buildExtractAutoOnlyPrompt(
     : [
         '## How to save memories',
         '',
-        'Saving a memory is a two-step process:',
+        '保存记忆分两步：',
         '',
         '**Step 1** — write the memory to its own file (e.g., `user_role.md`, `feedback_testing.md`) using this frontmatter format:',
         '',
@@ -126,7 +126,7 @@ export function buildExtractCombinedPrompt(
     : [
         '## How to save memories',
         '',
-        'Saving a memory is a two-step process:',
+        '保存记忆分两步：',
         '',
         "**Step 1** — write the memory to its own file in the chosen directory (private or team, per the type's scope guidance) using this frontmatter format:",
         '',

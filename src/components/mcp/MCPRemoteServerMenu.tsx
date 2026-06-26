@@ -406,7 +406,7 @@ export function MCPRemoteServerMenu({
             Press <Text bold>Enter</Text> after authenticating in your browser.
           </Text>
           <Text dimColor italic>
-            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />
+            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
           </Text>
         </Box>
       </Box>;
@@ -436,7 +436,7 @@ export function MCPRemoteServerMenu({
                 Press <Text bold>Enter</Text> when done.
               </Text>
               <Text dimColor italic>
-                <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />
+                <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
               </Text>
             </Box>
           </> : <>
@@ -449,7 +449,7 @@ export function MCPRemoteServerMenu({
                 Press <Text bold>Enter</Text> to open the browser.
               </Text>
               <Text dimColor italic>
-                <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />
+                <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
               </Text>
             </Box>
           </>}
@@ -478,14 +478,14 @@ export function MCPRemoteServerMenu({
   }
   if (server.client.type === 'connected' && serverToolsCount > 0) {
     menuOptions.push({
-      label: 'View tools',
+      label: '查看工具',
       value: 'tools'
     });
   }
   if (server.config.type === 'claudeai-proxy') {
     if (server.client.type === 'connected') {
       menuOptions.push({
-        label: 'Clear authentication',
+        label: '清除认证',
         value: 'claudeai-clear-auth'
       });
     } else if (server.client.type !== 'disabled') {
@@ -497,11 +497,11 @@ export function MCPRemoteServerMenu({
   } else {
     if (isEffectivelyAuthenticated) {
       menuOptions.push({
-        label: 'Re-authenticate',
+        label: '重新认证',
         value: 'reauth'
       });
       menuOptions.push({
-        label: 'Clear authentication',
+        label: '清除认证',
         value: 'clear-auth'
       });
     }
@@ -529,7 +529,7 @@ export function MCPRemoteServerMenu({
   if (menuOptions.length === 0) {
     menuOptions.push({
       label: 'Back',
-      value: 'back'
+      value: '返回'
     });
   }
   return <Box flexDirection="column">
@@ -627,7 +627,7 @@ export function MCPRemoteServerMenu({
             case 'toggle-enabled':
               await handleToggleEnabled();
               break;
-            case 'back':
+            case '返回':
               onCancel();
               break;
           }
@@ -640,7 +640,7 @@ export function MCPRemoteServerMenu({
           {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <Byline>
               <KeyboardShortcutHint shortcut="↑↓" action="navigate" />
               <KeyboardShortcutHint shortcut="Enter" action="select" />
-              <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />
+              <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
             </Byline>}
         </Text>
       </Box>

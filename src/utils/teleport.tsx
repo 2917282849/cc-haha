@@ -865,7 +865,7 @@ export async function teleportToRemote(options: {
         }
       }
       const requestBody = {
-        title: options.title || options.description || 'Remote task',
+        title: options.title || options.description || '远程任务',
         events: [],
         session_context: {
           sources: gitSource ? [gitSource] : [],

@@ -93,7 +93,7 @@ export function ManagedSettingsSecurityDialog(t0) {
   let t15;
   if ($[11] === Symbol.for("react.memo_cache_sentinel")) {
     t15 = [{
-      label: "Yes, I trust these settings",
+      label: "是，我信任这些设置",
       value: "accept"
     }, {
       label: "No, exit Claude Code",

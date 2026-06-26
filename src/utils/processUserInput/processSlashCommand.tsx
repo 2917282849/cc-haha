@@ -732,7 +732,7 @@ async function getMessagesForSlashCommand(commandName: string, args: string, set
             }
             return await getMessagesForPromptSlashCommand(command, args, context, precedingInputBlocks, imageContentBlocks, uuid);
           } catch (e) {
-            // Handle abort errors specially to show proper "Interrupted" message
+            // Handle abort errors specially to show proper "已中断" message
             if (e instanceof AbortError) {
               return {
                 messages: [createUserMessage({

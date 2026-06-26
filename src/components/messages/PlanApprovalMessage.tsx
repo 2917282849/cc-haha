@@ -171,7 +171,7 @@ function getPlanApprovalSummary(content: string): string | null {
  * Get a brief summary text for an idle notification.
  */
 function getIdleNotificationSummary(msg: IdleNotificationMessage): string {
-  const parts: string[] = ['Agent idle'];
+  const parts: string[] = ['Agent 空闲'];
   if (msg.completedTaskId) {
     const status = msg.completedStatus || 'completed';
     parts.push(`Task ${msg.completedTaskId} ${status}`);

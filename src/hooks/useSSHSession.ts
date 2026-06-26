@@ -124,7 +124,7 @@ export function useSSHSession({
           onAbort() {
             manager.respondToPermissionRequest(requestId, {
               behavior: 'deny',
-              message: 'User aborted',
+              message: '用户已中止',
             })
             setToolUseConfirmQueue(q =>
               q.filter(i => i.toolUseID !== request.tool_use_id),
@@ -143,7 +143,7 @@ export function useSSHSession({
           onReject(feedback) {
             manager.respondToPermissionRequest(requestId, {
               behavior: 'deny',
-              message: feedback ?? 'User denied permission',
+              message: feedback ?? '用户拒绝授权',
             })
             setToolUseConfirmQueue(q =>
               q.filter(i => i.toolUseID !== request.tool_use_id),

@@ -32,7 +32,7 @@ export function userFacingName(input: Partial<{
     return 'Update';
   }
   if (input.file_path?.startsWith(getPlansDirectory())) {
-    return 'Updated plan';
+    return '方案已更新';
   }
   // Hashline edits always modify an existing file (line-ref based)
   if (input.edits != null) {
@@ -87,7 +87,7 @@ export function renderToolResultMessage({
 }): React.ReactNode {
   // For plan files, show /plan hint above the diff
   const isPlanFile = filePath.startsWith(getPlansDirectory());
-  return <FileEditToolUpdatedMessage filePath={filePath} structuredPatch={structuredPatch} firstLine={originalFile.split('\n')[0] ?? null} fileContent={originalFile} style={style} verbose={verbose} previewHint={isPlanFile ? '/plan to preview' : undefined} />;
+  return <FileEditToolUpdatedMessage filePath={filePath} structuredPatch={structuredPatch} firstLine={originalFile.split('\n')[0] ?? null} fileContent={originalFile} style={style} verbose={verbose} previewHint={isPlanFile ? '/plan 预览' : undefined} />;
 }
 export function renderToolUseRejectedMessage(input: {
   file_path: string;

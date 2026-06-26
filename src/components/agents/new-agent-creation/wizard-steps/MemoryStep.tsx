@@ -100,7 +100,7 @@ export function MemoryStep() {
   }
   let t4;
   if ($[9] !== goBack || $[10] !== handleSelect || $[11] !== memoryOptions) {
-    t4 = <WizardDialogLayout subtitle="Configure agent memory" footerText={t3}><Box><Select key="memory-select" options={memoryOptions} onChange={handleSelect} onCancel={goBack} /></Box></WizardDialogLayout>;
+    t4 = <WizardDialogLayout subtitle="配置 Agent 记忆" footerText={t3}><Box><Select key="memory-select" options={memoryOptions} onChange={handleSelect} onCancel={goBack} /></Box></WizardDialogLayout>;
     $[9] = goBack;
     $[10] = handleSelect;
     $[11] = memoryOptions;

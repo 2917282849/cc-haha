@@ -185,8 +185,8 @@ const externalTips: Tip[] = [
     id: 'shift-enter',
     content: async () =>
       env.terminal === 'Apple_Terminal'
-        ? 'Press Option+Enter to send a multi-line message'
-        : 'Press Shift+Enter to send a multi-line message',
+        ? '按 Option+Enter 发送多行消息'
+        : '按 Shift+Enter 发送多行消息',
     cooldownSessions: 10,
     async isRelevant() {
       const config = getGlobalConfig()
@@ -255,7 +255,7 @@ const externalTips: Tip[] = [
   {
     id: 'prompt-queue',
     content: async () =>
-      'Hit Enter to queue up additional messages while Claude is working.',
+      'Claude 工作时，按 Enter 可继续排队输入消息。',
     cooldownSessions: 5,
     async isRelevant() {
       const config = getGlobalConfig()
@@ -362,14 +362,14 @@ const externalTips: Tip[] = [
   {
     id: 'double-esc',
     content: async () =>
-      'Double-tap esc to rewind the conversation to a previous point in time',
+      '双击 Esc 回退对话到之前的某个时刻',
     cooldownSessions: 10,
     isRelevant: async () => !fileHistoryEnabled(),
   },
   {
     id: 'double-esc-code-restore',
     content: async () =>
-      'Double-tap esc to rewind the code and/or conversation to a previous point in time',
+      '双击 Esc 回退代码和/或对话到之前的某个时刻',
     cooldownSessions: 10,
     isRelevant: async () => fileHistoryEnabled(),
   },

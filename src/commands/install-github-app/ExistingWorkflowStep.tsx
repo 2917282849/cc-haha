@@ -15,10 +15,10 @@ export function ExistingWorkflowStep(t0) {
   let t1;
   if ($[0] === Symbol.for("react.memo_cache_sentinel")) {
     t1 = [{
-      label: "Update workflow file with latest version",
+      label: "用最新版本更新工作流文件",
       value: "update"
     }, {
-      label: "Skip workflow update (configure secrets only)",
+      label: "跳过工作流更新（仅配置密钥）",
       value: "skip"
     }, {
       label: "Exit without making changes",

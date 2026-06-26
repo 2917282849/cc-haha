@@ -277,7 +277,7 @@ export async function setupGitHubActions(
           '· For manual setup → Visit: https://github.com/anthropics/claude-code-action'
 
         throw new Error(
-          `Failed to set API key secret: ${setSecretResult.stderr || 'Unknown error'}${helpText}`,
+          `Failed to set API key secret: ${setSecretResult.stderr || '未知错误'}${helpText}`,
         )
       }
     }

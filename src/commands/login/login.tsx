@@ -54,7 +54,7 @@ export async function call(onDone: LocalJSXCommandOnDone, context: LocalJSXComma
         authVersion: prev.authVersion + 1
       }));
     }
-    onDone(success ? 'Login successful' : 'Login interrupted');
+    onDone(success ? 'Login successful' : '登录已中断');
   }} />;
 }
 export function Login(props) {

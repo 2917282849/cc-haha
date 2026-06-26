@@ -1309,7 +1309,7 @@ export async function initializeIdeIntegration(
             .catch(error => {
               const ideInstallationStatus: IDEExtensionInstallationStatus = {
                 installed: false,
-                error: error.message || 'Installation failed',
+                error: error.message || '安装失败',
                 installedVersion: null,
                 ideType: ideType,
               }

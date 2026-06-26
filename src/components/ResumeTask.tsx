@@ -122,7 +122,7 @@ export function ResumeTask({
           <Text bold>Loading Claude Code sessions…</Text>
         </Box>
         <Text dimColor>
-          {retrying ? 'Retrying…' : 'Fetching your Claude Code sessions…'}
+          {retrying ? '重试中…' : '正在获取 Claude Code 会话…'}
         </Text>
       </Box>;
   }

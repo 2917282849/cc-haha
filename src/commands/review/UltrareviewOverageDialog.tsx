@@ -54,10 +54,10 @@ export function UltrareviewOverageDialog(t0) {
   let t4;
   if ($[6] === Symbol.for("react.memo_cache_sentinel")) {
     t4 = [{
-      label: "Proceed with Extra Usage billing",
+      label: "继续使用额外用量计费",
       value: "proceed"
     }, {
-      label: "Cancel",
+      label: "取消",
       value: "cancel"
     }];
     $[6] = t4;
@@ -84,7 +84,7 @@ export function UltrareviewOverageDialog(t0) {
   }
   let t7;
   if ($[12] !== handleCancel || $[13] !== t6) {
-    t7 = <Dialog title="Ultrareview billing" onCancel={handleCancel} color="background">{t6}</Dialog>;
+    t7 = <Dialog title="Ultrareview 计费" onCancel={handleCancel} color="background">{t6}</Dialog>;
     $[12] = handleCancel;
     $[13] = t6;
     $[14] = t7;

@@ -9,10 +9,10 @@ export function getAgentSourceDisplayName(
     return 'Agents'
   }
   if (source === 'built-in') {
-    return 'Built-in agents'
+    return '内置 Agent'
   }
   if (source === 'plugin') {
-    return 'Plugin agents'
+    return '插件 Agent'
   }
   return capitalize(getSettingSourceName(source))
 }

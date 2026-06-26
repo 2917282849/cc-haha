@@ -1032,7 +1032,7 @@ async function* queryLoop(
       } else {
         yield* yieldMissingToolResultBlocks(
           assistantMessages,
-          'Interrupted by user',
+          '用户中断',
         )
       }
       // chicago MCP: auto-unhide + lock release on interrupt. Same cleanup

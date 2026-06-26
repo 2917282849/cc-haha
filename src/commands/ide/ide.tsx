@@ -186,7 +186,7 @@ function IDEScreen(t0) {
   }
   let t11;
   if ($[36] !== onClose || $[37] !== t10) {
-    t11 = <Dialog title="Select IDE" subtitle="Connect to an IDE for integrated development features." onCancel={onClose} color="ide">{t10}</Dialog>;
+    t11 = <Dialog title="选择 IDE" subtitle="连接 IDE 以获取集成开发功能。" onCancel={onClose} color="ide">{t10}</Dialog>;
     $[36] = onClose;
     $[37] = t10;
     $[38] = t11;
@@ -298,7 +298,7 @@ function IDEOpenSelection(t0) {
   }
   let t7;
   if ($[15] !== handleCancel || $[16] !== t6) {
-    t7 = <Dialog title="Select an IDE to open the project" onCancel={handleCancel} color="ide">{t6}</Dialog>;
+    t7 = <Dialog title="选择一个 IDE 打开项目" onCancel={handleCancel} color="ide">{t6}</Dialog>;
     $[15] = handleCancel;
     $[16] = t6;
     $[17] = t7;

@@ -102,7 +102,7 @@ export function getSettingSourceDisplayNameCapitalized(
 ): string {
   switch (source) {
     case 'userSettings':
-      return 'User settings'
+      return '用户设置'
     case 'projectSettings':
       return 'Shared project settings'
     case 'localSettings':

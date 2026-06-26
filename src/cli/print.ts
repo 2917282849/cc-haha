@@ -4532,7 +4532,7 @@ async function handleRewindFiles(
   dryRun: boolean,
 ): Promise<RewindFilesResult> {
   if (!fileHistoryEnabled()) {
-    return { canRewind: false, error: 'File rewinding is not enabled.' }
+    return { canRewind: false, error: '文件回退功能未启用。' }
   }
   if (!fileHistoryCanRestore(appState.fileHistory, userMessageId)) {
     return {
@@ -4731,7 +4731,7 @@ function handleChannelEnable(
 
   const pluginId =
     `${entry.name}@${entry.marketplace}` as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS
-  logMCPDebug(serverName, 'Channel notifications registered')
+  logMCPDebug(serverName, '频道通知已注册')
   logEvent('tengu_mcp_channel_enable', { plugin: pluginId })
 
   // Identical enqueue shape to the interactive register block in
@@ -4812,7 +4812,7 @@ function reregisterChannelHandlerAfterReconnect(
 
   logMCPDebug(
     connection.name,
-    'Channel notifications re-registered after reconnect',
+    '重连后重新注册频道通知',
   )
   connection.client.setNotificationHandler(
     ChannelMessageNotificationSchema(),

@@ -158,7 +158,7 @@ export function renderChromeToolResultMessage(output: MCPToolResult, toolName: C
       summary = 'Navigation completed';
       break;
     case 'tabs_create_mcp':
-      summary = 'Tab created';
+      summary = '标签页已创建';
       break;
     case 'tabs_context_mcp':
       summary = 'Tabs read';
@@ -203,7 +203,7 @@ export function renderChromeToolResultMessage(output: MCPToolResult, toolName: C
       summary = 'Page text retrieved';
       break;
     case 'update_plan':
-      summary = 'Plan updated';
+      summary = '方案已更新';
       break;
   }
   if (summary) {

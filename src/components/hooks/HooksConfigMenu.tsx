@@ -368,7 +368,7 @@ export function HooksConfigMenu(t0) {
     }
     let t34;
     if ($[58] !== handleExit || $[59] !== t33) {
-      t34 = <Dialog title="Hook Configuration - Disabled" onCancel={handleExit} inputGuide={_temp6}>{t33}</Dialog>;
+      t34 = <Dialog title="Hook 配置 - 已禁用" onCancel={handleExit} inputGuide={_temp6}>{t33}</Dialog>;
       $[58] = handleExit;
       $[59] = t33;
       $[60] = t34;

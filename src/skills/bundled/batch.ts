@@ -44,7 +44,7 @@ Call the \`${ENTER_PLAN_MODE_TOOL_NAME}\` tool now to enter plan mode, then:
    - A dev-server + curl pattern (for API changes: start the server, hit the affected endpoints)
    - An existing e2e/integration test suite the worker can run
 
-   If you cannot find a concrete e2e path, use the \`${ASK_USER_QUESTION_TOOL_NAME}\` tool to ask the user how to verify this change end-to-end. Offer 2–3 specific options based on what you found (e.g., "Screenshot via chrome extension", "Run \`bun run dev\` and curl the endpoint", "No e2e — unit tests are sufficient"). Do not skip this — the workers cannot ask the user themselves.
+   If you cannot find a concrete e2e path, use the \`${ASK_USER_QUESTION_TOOL_NAME}\` tool to ask the user how to verify this change end-to-end. Offer 2–3 specific options based on what you found (e.g., "通过 Chrome 扩展截图", "Run \`bun run dev\` and curl the endpoint", "No e2e — unit tests are sufficient"). Do not skip this — the workers cannot ask the user themselves.
 
    Write the recipe as a short, concrete set of steps that a worker can execute autonomously. Include any setup (start a dev server, build first) and the exact command/interaction to verify.
 
@@ -101,7 +101,7 @@ export function registerBatchSkill(): void {
   registerBundledSkill({
     name: 'batch',
     description:
-      'Research and plan a large-scale change, then execute it in parallel across 5–30 isolated worktree agents that each open a PR.',
+      '调研并规划一项大规模变更，然后将其并行拆分给 5–30 个彼此隔离的 worktree Agent 执行，每个 Agent 都会打开一个 PR。',
     whenToUse:
       'Use when the user wants to make a sweeping, mechanical change across many files (migrations, refactors, bulk renames) that can be decomposed into independent parallel units.',
     argumentHint: '<instruction>',

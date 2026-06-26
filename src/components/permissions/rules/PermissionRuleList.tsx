@@ -390,7 +390,7 @@ function PermissionRulesTab(t0) {
       t8 = {
         allow: "Claude Code won't ask before using allowed tools.",
         ask: "Claude Code will always ask for confirmation before using these tools.",
-        deny: "Claude Code will always reject requests to use denied tools."
+        deny: "Claude Code 将始终拒绝使用被拒绝的工具。"
       };
       $[10] = t8;
     } else {
@@ -1114,7 +1114,7 @@ export function PermissionRuleList(t0) {
   }
   let t30;
   if ($[93] !== defaultTab || $[94] !== isHidden || $[95] !== t23 || $[96] !== t25 || $[97] !== t26 || $[98] !== t27 || $[99] !== t29) {
-    t30 = <Tabs title="Permissions:" color="permission" defaultTab={defaultTab} hidden={isHidden} initialHeaderFocused={!hasDenials} navFromContent={t23}>{t24}{t25}{t26}{t27}{t29}</Tabs>;
+    t30 = <Tabs title="权限：" color="permission" defaultTab={defaultTab} hidden={isHidden} initialHeaderFocused={!hasDenials} navFromContent={t23}>{t24}{t25}{t26}{t27}{t29}</Tabs>;
     $[93] = defaultTab;
     $[94] = isHidden;
     $[95] = t23;

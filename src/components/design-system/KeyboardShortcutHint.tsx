@@ -21,7 +21,7 @@ type Props = {
  * // Simple hint wrapped in dim Text
  * <Text dimColor><KeyboardShortcutHint shortcut="esc" action="cancel" /></Text>
  *
- * // With parentheses: "(ctrl+o to expand)"
+ * // With parentheses: "(ctrl+o 展开)"
  * <Text dimColor><KeyboardShortcutHint shortcut="ctrl+o" action="expand" parens /></Text>
  *
  * // With bold shortcut: "Enter to confirm" (Enter is bold)

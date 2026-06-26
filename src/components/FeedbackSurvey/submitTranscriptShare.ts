@@ -32,7 +32,7 @@ export async function submitTranscriptShare(
   appearanceId: string,
 ): Promise<TranscriptShareResult> {
   try {
-    logForDebugging('Collecting transcript for sharing', { level: 'info' })
+    logForDebugging('正在收集对话记录以分享', { level: 'info' })
 
     const transcript = normalizeMessagesForAPI(messages)
 
@@ -95,7 +95,7 @@ export async function submitTranscriptShare(
 
     if (response.status === 200 || response.status === 201) {
       const result = response.data
-      logForDebugging('Transcript shared successfully', { level: 'info' })
+      logForDebugging('对话记录分享成功', { level: 'info' })
       return {
         success: true,
         transcriptId: result?.transcript_id,

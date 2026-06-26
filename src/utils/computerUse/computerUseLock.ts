@@ -207,7 +207,7 @@ export async function releaseComputerUseLock(): Promise<boolean> {
   if (!existing || existing.sessionId !== getSessionId()) return false
   try {
     await unlink(getLockPath())
-    logForDebugging('Released computer-use lock')
+    logForDebugging('已释放电脑操作锁')
     return true
   } catch {
     return false

@@ -192,7 +192,7 @@ function ThinkbackInstaller({
           setState({
             phase: 'installing-marketplace'
           });
-          setProgressMessage('Updating marketplace…');
+          setProgressMessage('正在更新插件市场…');
           logForDebugging(`Refreshing marketplace ${marketplaceName}`);
           await refreshMarketplace(marketplaceName, message_0 => {
             setProgressMessage(message_0);
@@ -258,7 +258,7 @@ function ThinkbackInstaller({
   if (state.phase === 'ready') {
     return null;
   }
-  const statusMessage = state.phase === 'checking' ? 'Checking thinkback installation…' : state.phase === 'installing-marketplace' ? 'Installing marketplace…' : state.phase === 'enabling-plugin' ? 'Enabling thinkback plugin…' : 'Installing thinkback plugin…';
+  const statusMessage = state.phase === 'checking' ? '检查 thinkback 安装…' : state.phase === 'installing-marketplace' ? 'Installing marketplace…' : state.phase === 'enabling-plugin' ? 'Enabling thinkback plugin…' : 'Installing thinkback plugin…';
   return <Box flexDirection="column">
       <Box>
         <Spinner />
@@ -280,25 +280,25 @@ function ThinkbackMenu(t0) {
   let t1;
   if ($[0] !== hasGenerated) {
     t1 = hasGenerated ? [{
-      label: "Play animation",
+      label: "播放动画",
       value: "play" as const,
       description: "Watch your year in review"
     }, {
-      label: "Edit content",
+      label: "编辑内容",
       value: "edit" as const,
       description: "Modify the animation"
     }, {
-      label: "Fix errors",
+      label: "修复错误",
       value: "fix" as const,
       description: "Fix validation or rendering issues"
     }, {
-      label: "Regenerate",
+      label: "重新生成",
       value: "regenerate" as const,
-      description: "Create a new animation from scratch"
+      description: "从零开始创建新动画"
     }] : [{
-      label: "Let's go!",
+      label: "开始吧！",
       value: "regenerate" as const,
-      description: "Generate your personalized animation"
+      description: "生成你的个性化动画"
     }];
     $[0] = hasGenerated;
     $[1] = t1;
@@ -346,7 +346,7 @@ function ThinkbackMenu(t0) {
   }
   let t4;
   if ($[8] !== hasGenerated) {
-    t4 = !hasGenerated && <Box flexDirection="column"><Text>Relive your year of coding with Claude.</Text><Text dimColor={true}>{"We'll create a personalized ASCII animation celebrating your journey."}</Text></Box>;
+    t4 = !hasGenerated && <Box flexDirection="column"><Text>Relive your year of coding with Claude.</Text><Text dimColor={true}>{"我们将创建一个个性化 ASCII 动画来庆祝你的旅程。"}</Text></Box>;
     $[8] = hasGenerated;
     $[9] = t4;
   } else {
@@ -372,7 +372,7 @@ function ThinkbackMenu(t0) {
   }
   let t7;
   if ($[16] !== handleCancel || $[17] !== t6) {
-    t7 = <Dialog title="Think Back on 2025 with Claude Code" subtitle="Generate your 2025 Claude Code Think Back (takes a few minutes to run)" onCancel={handleCancel} color="claude">{t6}</Dialog>;
+    t7 = <Dialog title="用 Claude Code 回顾 2025" subtitle="Generate your 2025 Claude Code Think Back (takes a few minutes to run)" onCancel={handleCancel} color="claude">{t6}</Dialog>;
     $[16] = handleCancel;
     $[17] = t6;
     $[18] = t7;
@@ -453,7 +453,7 @@ function ThinkbackFlow(t0) {
       }
       const dataPath = join(skillDir, "year_in_review.js");
       pathExists(dataPath).then(exists => {
-        logForDebugging(`Checking for ${dataPath}: ${exists ? "found" : "not found"}`);
+        logForDebugging(`Checking for ${dataPath}: ${exists ? "found" : "未找到"}`);
         setHasGenerated(exists);
       });
     };

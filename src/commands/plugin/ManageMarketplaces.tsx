@@ -131,7 +131,7 @@ export function ManageMarketplaces({
             const targetState = states[targetIndex];
             if (action) {
               // Mark the action as pending and execute
-              setSelectedIndex(targetIndex + 1); // +1 because "Add Marketplace" is at index 0
+              setSelectedIndex(targetIndex + 1); // +1 because "添加插件市场" is at index 0
               const newStates = [...states];
               if (action === 'update') {
                 newStates[targetIndex]!.pendingUpdate = true;
@@ -143,7 +143,7 @@ export function ManageMarketplaces({
               setTimeout(applyChanges, 100, newStates);
             } else if (targetState) {
               // No action - just show the details view for this marketplace
-              setSelectedIndex(targetIndex + 1); // +1 because "Add Marketplace" is at index 0
+              setSelectedIndex(targetIndex + 1); // +1 because "添加插件市场" is at index 0
               setSelectedMarketplace(targetState);
               setInternalView('details');
             }
@@ -368,7 +368,7 @@ export function ManageMarketplaces({
       label: `Browse plugins (${marketplace.pluginCount ?? 0})`,
       value: 'browse'
     }, {
-      label: 'Update marketplace',
+      label: '更新插件市场',
       secondaryLabel: marketplace.lastUpdated ? `(last updated ${new Date(marketplace.lastUpdated).toLocaleDateString()})` : undefined,
       value: 'update'
     }];
@@ -381,7 +381,7 @@ export function ManageMarketplaces({
       });
     }
     options.push({
-      label: 'Remove marketplace',
+      label: '移除插件市场',
       value: 'remove'
     });
     return options;
@@ -782,7 +782,7 @@ function ManageMarketplacesKeyHints(t0) {
   }
   let t1;
   if ($[2] !== hasPendingActions) {
-    t1 = hasPendingActions && <ConfigurableShortcutHint action="select:accept" context="Select" fallback="Enter" description="apply changes" />;
+    t1 = hasPendingActions && <ConfigurableShortcutHint action="select:accept" context="Select" fallback="Enter" description="应用更改" />;
     $[2] = hasPendingActions;
     $[3] = t1;
   } else {

@@ -158,7 +158,7 @@ function ResumeCommand({
       if (raw) process.stdout.write(raw);
 
       // Format the output message
-      const message = ['', 'This conversation is from a different directory.', '', 'To resume, run:', `  ${crossProjectCheck.command}`, '', '(Command copied to clipboard)', ''].join('\n');
+      const message = ['', '此对话来自不同的目录。', '', 'To resume, run:', `  ${crossProjectCheck.command}`, '', '（命令已复制到剪贴板）', ''].join('\n');
       onDone(message, {
         display: 'user'
       });
@@ -214,7 +214,7 @@ export const call: LocalJSXCommandCall = async (onDone, context, args) => {
   const worktreePaths = await getWorktreePaths(getOriginalCwd());
   const logs = await loadSameRepoMessageLogs(worktreePaths);
   if (logs.length === 0) {
-    const message = 'No conversations found to resume.';
+    const message = '没有找到可恢复的对话。';
     return <ResumeError message={message} args={arg} onDone={() => onDone(message)} />;
   }
 

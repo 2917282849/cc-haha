@@ -485,7 +485,7 @@ export class TmuxBackend implements PaneBackend {
 
       if (result.code !== 0) {
         throw new Error(
-          `Failed to create swarm session: ${result.stderr || 'Unknown error'}`,
+          `Failed to create swarm session: ${result.stderr || '未知错误'}`,
         )
       }
 
@@ -538,7 +538,7 @@ export class TmuxBackend implements PaneBackend {
 
     if (createResult.code !== 0) {
       throw new Error(
-        `Failed to create swarm-view window: ${createResult.stderr || 'Unknown error'}`,
+        `Failed to create swarm-view window: ${createResult.stderr || '未知错误'}`,
       )
     }
 

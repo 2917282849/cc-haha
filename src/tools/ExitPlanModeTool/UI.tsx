@@ -74,7 +74,7 @@ export function renderToolUseRejectedMessage({
 }: {
   theme: ThemeName;
 }): React.ReactNode {
-  const planContent = plan ?? getPlan() ?? 'No plan found';
+  const planContent = plan ?? getPlan() ?? '未找到方案';
   return <Box flexDirection="column">
       <RejectedPlanMessage plan={planContent} />
     </Box>;

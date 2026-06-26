@@ -1603,7 +1603,7 @@ export async function createPluginFromPath(
       manifest.name,
       source,
       'output-styles',
-      'Output style',
+      '输出风格',
       'specified in manifest but',
       errors,
     )
@@ -2670,7 +2670,7 @@ async function finishLoadingPluginFromPath(
         entry.name,
         pluginId,
         'output-styles',
-        'Output style',
+        '输出风格',
         'from marketplace entry',
         errors,
       )
@@ -2894,7 +2894,7 @@ async function finishLoadingPluginFromPath(
         entry.name,
         pluginId,
         'output-styles',
-        'Output style',
+        '输出风格',
         'from marketplace entry',
         errors,
       )

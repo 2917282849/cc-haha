@@ -56,7 +56,7 @@ function getCommitAndPRInstructions(): string {
   if (process.env.USER_TYPE === 'ant') {
     const skillsSection = !isEnvTruthy(process.env.CLAUDE_CODE_SIMPLE)
       ? `For git commits and pull requests, use the \`/commit\` and \`/commit-push-pr\` skills:
-- \`/commit\` - Create a git commit with staged changes
+- \`/commit\` - 使用暂存的更改创建 Git 提交
 - \`/commit-push-pr\` - Commit, push, and create a pull request
 
 These skills handle git safety protocols, proper commit message formatting, and PR creation.
@@ -233,14 +233,14 @@ function getSimpleSandboxSection(): string {
             'The user *explicitly* asks you to bypass sandbox',
             'A specific command just failed and you see evidence of sandbox restrictions causing the failure. Note that commands can fail for many reasons unrelated to the sandbox (missing files, wrong arguments, network issues, etc.).',
           ],
-          'Evidence of sandbox-caused failures includes:',
+          '沙盒导致失败的迹象包括：',
           [
             '"Operation not permitted" errors for file/network operations',
-            'Access denied to specific paths outside allowed directories',
-            'Network connection failures to non-whitelisted hosts',
+            '拒绝访问允许目录外的特定路径',
+            '到非白名单主机的网络连接失败',
             'Unix socket connection errors',
           ],
-          'When you see evidence of sandbox-caused failure:',
+          '当你看到沙盒导致失败的迹象时：',
           [
             "Immediately retry with `dangerouslyDisableSandbox: true` (don't ask, just do it)",
             'Briefly explain what sandbox restriction likely caused the failure. Be sure to mention that the user can use the `/sandbox` command to manage restrictions.',
@@ -251,7 +251,7 @@ function getSimpleSandboxSection(): string {
         ]
       : [
           'All commands MUST run in sandbox mode - the `dangerouslyDisableSandbox` parameter is disabled by policy.',
-          'Commands cannot run outside the sandbox under any circumstances.',
+          '任何情况下都不允许在沙盒外运行命令。',
           'If a command fails due to sandbox restrictions, work with the user to adjust sandbox settings instead.',
         ]
 
@@ -265,7 +265,7 @@ function getSimpleSandboxSection(): string {
     '## Command sandbox',
     'By default, your command will be run in a sandbox. This sandbox controls which directories and network hosts commands may access or modify without an explicit override.',
     '',
-    'The sandbox has the following restrictions:',
+    '沙盒存在以下限制：',
     restrictionsLines.join('\n'),
     '',
     ...prependBullets(items),
@@ -334,7 +334,7 @@ export function getSimplePrompt(): string {
     'Try to maintain your current working directory throughout the session by using absolute paths and avoiding usage of `cd`. You may use `cd` if the User explicitly requests it.',
     `You may specify an optional timeout in milliseconds (up to ${getMaxTimeoutMs()}ms / ${getMaxTimeoutMs() / 60000} minutes). By default, your command will timeout after ${getDefaultTimeoutMs()}ms (${getDefaultTimeoutMs() / 60000} minutes).`,
     ...(backgroundNote !== null ? [backgroundNote] : []),
-    'When issuing multiple commands:',
+    '发出多个命令时：',
     multipleCommandsSubitems,
     'For git commands:',
     gitSubitems,

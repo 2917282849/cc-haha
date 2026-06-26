@@ -36,7 +36,7 @@ export function DesktopHandoff(t0) {
   if ($[0] !== error || $[1] !== onDone || $[2] !== state) {
     t1 = input => {
       if (state === "error") {
-        onDone(error ?? "Unknown error", {
+        onDone(error ?? "未知错误", {
           display: "system"
         });
         return;

@@ -497,7 +497,7 @@ export async function revokeServerTokens(
             ? metadata.revocation_endpoint
             : null
         if (!revocationEndpoint) {
-          logMCPDebug(serverName, 'Server does not support token revocation')
+          logMCPDebug(serverName, '服务器不支持 token 撤销')
         } else {
           const revocationEndpointStr = String(revocationEndpoint)
           // RFC 7009 defines revocation_endpoint_auth_methods_supported
@@ -613,7 +613,7 @@ export async function revokeServerTokens(
       },
     }
     storage.update(updatedData)
-    logMCPDebug(serverName, 'Preserved step-up auth state across revocation')
+    logMCPDebug(serverName, '在撤销过程中保留了升级认证状态')
   }
 }
 
@@ -1276,7 +1276,7 @@ export async function performMCPOAuthFlow(
         reason = 'timeout'
       } else if (msg.includes('OAuth state mismatch')) {
         reason = 'state_mismatch'
-      } else if (msg.includes('OAuth error:')) {
+      } else if (msg.includes('OAuth 错误：')) {
         reason = 'provider_denied'
       } else if (
         msg.includes('already in use') ||
@@ -2385,7 +2385,7 @@ export async function readClientSecret(): Promise<string> {
       } else if (c === '\u0003') {
         process.stdin.setRawMode?.(false)
         process.stdin.removeListener('data', onData)
-        reject(new Error('Cancelled'))
+        reject(new Error('已取消'))
       } else if (c === '\u007F' || c === '\b') {
         secret = secret.slice(0, -1)
       } else {

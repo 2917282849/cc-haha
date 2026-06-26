@@ -1064,7 +1064,7 @@ export async function initBridgeCore(
       wakePollLoop()
       onStateChange?.(
         'reconnecting',
-        'Work item lease expired, fetching fresh token',
+        '工作项租约过期，获取新 token',
       )
     },
     async onEnvironmentLost() {

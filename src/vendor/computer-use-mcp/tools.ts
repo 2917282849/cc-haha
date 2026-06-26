@@ -650,7 +650,7 @@ function buildTeachTools(
     {
       name: "teach_step",
       description:
-        "Show one guided-tour tooltip and wait for the user to click Next. On Next, execute the actions, " +
+        "显示一个引导提示并等待用户 to click Next. On Next, execute the actions, " +
         "take a fresh screenshot, and return both — you do NOT need a separate screenshot call between steps. " +
         "The returned image shows the state after your actions ran; anchor the next teach_step against it. " +
         "IMPORTANT — the user only sees the tooltip during teach mode. Put ALL narration in `explanation`. " +

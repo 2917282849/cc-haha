@@ -56,7 +56,7 @@ export function Onboarding({
 
   // Define all onboarding steps
   const themeStep = <Box marginX={1}>
-      <ThemePicker onThemeSelect={handleThemeSelection} showIntroText={true} helpText="To change this later, run /theme" hideEscToCancel={true} skipExitHandling={true} // Skip exit handling as Onboarding already handles it
+      <ThemePicker onThemeSelect={handleThemeSelection} showIntroText={true} helpText="之后要更改，运行 /theme" hideEscToCancel={true} skipExitHandling={true} // Skip exit handling as Onboarding already handles it
     />
     </Box>;
   const securityStep = <Box flexDirection="column" gap={1} paddingLeft={1}>
@@ -116,10 +116,10 @@ export function Onboarding({
               {env.terminal === 'Apple_Terminal' ? 'Option+Enter for newlines and visual bell' : 'Shift+Enter for newlines'}
             </Text>
             <Select options={[{
-            label: 'Yes, use recommended settings',
+            label: '是，使用推荐设置',
             value: 'install'
           }, {
-            label: 'No, maybe later with /terminal-setup',
+            label: '不了，以后用 /terminal-setup',
             value: 'no'
           }]} onChange={value => {
             if (value === 'install') {

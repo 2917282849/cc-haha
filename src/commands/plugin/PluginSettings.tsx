@@ -240,8 +240,8 @@ function buildErrorRows(failedMarketplaces: Array<{
     const scope = sourceInfo.isInPolicy ? 'managed' : sourceInfo.editableSources[0]?.scope;
     rows.push({
       label: m.name,
-      message: m.error ?? 'Installation failed',
-      guidance: action.kind === 'managed-only' ? 'Managed by your organization — contact your admin' : undefined,
+      message: m.error ?? '安装失败',
+      guidance: action.kind === 'managed-only' ? '由你的组织管理 — 联系管理员' : undefined,
       action,
       scope
     });
@@ -256,7 +256,7 @@ function buildErrorRows(failedMarketplaces: Array<{
     rows.push({
       label: marketplace,
       message: formatErrorMessage(e),
-      guidance: action.kind === 'managed-only' ? 'Managed by your organization — contact your admin' : getErrorGuidance(e),
+      guidance: action.kind === 'managed-only' ? '由你的组织管理 — 联系管理员' : getErrorGuidance(e),
       action,
       scope
     });
@@ -525,7 +525,7 @@ function ErrorsTabContent(t0) {
     }
     let t11;
     if ($[10] === Symbol.for("react.memo_cache_sentinel")) {
-      t11 = <Box flexDirection="column">{t10}<Box marginTop={1}><Text dimColor={true} italic={true}><ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" /></Text></Box></Box>;
+      t11 = <Box flexDirection="column">{t10}<Box marginTop={1}><Text dimColor={true} italic={true}><ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" /></Text></Box></Box>;
       $[10] = t11;
     } else {
       t11 = $[10];
@@ -571,7 +571,7 @@ function ErrorsTabContent(t0) {
   }
   let t16;
   if ($[18] === Symbol.for("react.memo_cache_sentinel")) {
-    t16 = <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />;
+    t16 = <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />;
     $[18] = t16;
   } else {
     t16 = $[18];

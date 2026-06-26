@@ -52,7 +52,7 @@ export function FilePermissionDialog<T extends ToolInput = ToolInput>({
   onReject,
   title,
   subtitle,
-  question = 'Do you want to proceed?',
+  question = '要继续吗？',
   content,
   completionType = 'tool_use_single',
   path,

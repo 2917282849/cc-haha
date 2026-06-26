@@ -123,7 +123,7 @@ async function handleServeFile(url: URL): Promise<Response> {
       },
     })
   } catch {
-    return json({ error: 'File not found' }, 404)
+    return json({ error: '文件未找到' }, 404)
   }
 }
 

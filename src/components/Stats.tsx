@@ -1174,7 +1174,7 @@ function renderOverviewToAnsi(stats: ClaudeCodeStats): string[] {
       const b6_10 = bucket(6, 10);
       const b11 = bucket(11);
       lines.push('');
-      lines.push('Shot distribution');
+      lines.push('分布情况');
       lines.push(row('1-shot', fmtBucket(b1, pct(b1)), '2\u20135 shot', fmtBucket(b2_5, pct(b2_5))));
       lines.push(row('6\u201310 shot', fmtBucket(b6_10, pct(b6_10)), '11+ shot', fmtBucket(b11, pct(b11))));
       lines.push(`${'Avg/session:'.padEnd(COL1_LABEL_WIDTH)}${h(avgShots)}`);
@@ -1192,7 +1192,7 @@ function renderModelsToAnsi(stats: ClaudeCodeStats): string[] {
   const lines: string[] = [];
   const modelEntries = Object.entries(stats.modelUsage).sort(([, a], [, b]) => b.inputTokens + b.outputTokens - (a.inputTokens + a.outputTokens));
   if (modelEntries.length === 0) {
-    lines.push(chalk.gray('No model usage data available'));
+    lines.push(chalk.gray('没有可用的模型使用数据'));
     return lines;
   }
   const favoriteModel = modelEntries[0];
@@ -1202,7 +1202,7 @@ function renderModelsToAnsi(stats: ClaudeCodeStats): string[] {
   const chartOutput = generateTokenChart(stats.dailyModelTokens, modelEntries.map(([model]) => model), 80 // Fixed width for screenshot
   );
   if (chartOutput) {
-    lines.push(chalk.bold('Tokens per Day'));
+    lines.push(chalk.bold('每日 Token 用量'));
     lines.push(chartOutput.chart);
     lines.push(chalk.gray(chartOutput.xAxisLabels));
     // Legend - use pre-colored bullets from chart output

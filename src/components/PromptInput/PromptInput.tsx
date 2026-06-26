@@ -746,7 +746,7 @@ function PromptInput({
     if (thinkTriggers.length && isUltrathinkEnabled()) {
       addNotification({
         key: 'ultrathink-active',
-        text: 'Effort set to high for this turn',
+        text: '此轮努力级别设为高',
         priority: 'immediate',
         timeoutMs: 5000
       });
@@ -758,7 +758,7 @@ function PromptInput({
     if (feature('ULTRAPLAN') && ultraplanTriggers.length) {
       addNotification({
         key: 'ultraplan-active',
-        text: 'This prompt will launch an ultraplan session in Claude Code on the web',
+        text: '此提示将在 Claude Code 网页版中启动 ultraplan 会话',
         priority: 'immediate',
         timeoutMs: 5000
       });

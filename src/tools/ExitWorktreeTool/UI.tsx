@@ -10,7 +10,7 @@ export function renderToolUseMessage(): React.ReactNode {
 export function renderToolResultMessage(output: Output, _progressMessagesForMessage: ProgressMessage<ToolProgressData>[], _options: {
   theme: ThemeName;
 }): React.ReactNode {
-  const actionLabel = output.action === 'keep' ? 'Kept worktree' : 'Removed worktree';
+  const actionLabel = output.action === 'keep' ? 'Kept worktree' : '已移除 worktree';
   return <Box flexDirection="column">
       <Text>
         {actionLabel}

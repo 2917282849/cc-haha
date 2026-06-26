@@ -36,7 +36,7 @@ const DEFAULT_PLACEHOLDERS: Record<FeedbackType, string> = {
  * Shared component for permission prompts with optional feedback input.
  *
  * Handles:
- * - "Do you want to proceed?" question with optional Tab hint
+ * - "要继续吗？" question with optional Tab hint
  * - Feature flag check for feedback capability
  * - Input mode toggling (Tab to expand feedback input)
  * - Analytics events for feedback interactions
@@ -51,7 +51,7 @@ export function PermissionPrompt(t0) {
     question: t1,
     toolAnalyticsContext
   } = t0;
-  const question = t1 === undefined ? "Do you want to proceed?" : t1;
+  const question = t1 === undefined ? "要继续吗？" : t1;
   const setAppState = useSetAppState();
   const [acceptFeedback, setAcceptFeedback] = useState("");
   const [rejectFeedback, setRejectFeedback] = useState("");

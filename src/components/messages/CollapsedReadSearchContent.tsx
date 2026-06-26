@@ -344,7 +344,7 @@ export function CollapsedReadSearchContent({
   }
   if (searchCount > 0) {
     const isFirst_0 = nonMemParts.length === 0;
-    const searchVerb = isActiveGroup ? isFirst_0 ? 'Searching for' : 'searching for' : isFirst_0 ? 'Searched for' : 'searched for';
+    const searchVerb = isActiveGroup ? isFirst_0 ? '搜索中' : 'searching for' : isFirst_0 ? '已搜索' : 'searched for';
     if (!isFirst_0) {
       nonMemParts.push(<Text key="comma-s">, </Text>);
     }
@@ -402,7 +402,7 @@ export function CollapsedReadSearchContent({
   }
   if (isFullscreenEnvEnabled() && bashCount > 0) {
     const isFirst_4 = nonMemParts.length === 0;
-    const verb_1 = isActiveGroup ? isFirst_4 ? 'Running' : 'running' : isFirst_4 ? 'Ran' : 'ran';
+    const verb_1 = isActiveGroup ? isFirst_4 ? '运行中' : 'running' : isFirst_4 ? 'Ran' : 'ran';
     if (!isFirst_4) {
       nonMemParts.push(<Text key="comma-bash">, </Text>);
     }

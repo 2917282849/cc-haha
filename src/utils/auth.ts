@@ -633,7 +633,7 @@ async function runAwsAuthRefresh(): Promise<boolean> {
   }
 
   try {
-    logForDebugging('Fetching AWS caller identity for AWS auth refresh command')
+    logForDebugging('获取 AWS 调用者身份用于 AWS 认证刷新命令')
     await checkStsCallerIdentity()
     logForDebugging(
       'Fetched AWS caller identity, skipping AWS auth refresh command',
@@ -731,7 +731,7 @@ async function getAwsCredsFromCredentialExport(): Promise<{
 
   try {
     logForDebugging(
-      'Fetching AWS caller identity for credential export command',
+      '获取 AWS 调用者身份用于凭证导出命令',
     )
     await checkStsCallerIdentity()
     logForDebugging(
@@ -897,7 +897,7 @@ async function runGcpAuthRefresh(): Promise<boolean> {
   }
 
   try {
-    logForDebugging('Checking GCP credentials validity for auth refresh')
+    logForDebugging('检查 GCP 凭证有效性以刷新认证')
     const isValid = await checkGcpCredentialsValid()
     if (isValid) {
       logForDebugging(

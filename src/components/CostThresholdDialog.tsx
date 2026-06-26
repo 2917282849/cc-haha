@@ -22,7 +22,7 @@ export function CostThresholdDialog(t0) {
   if ($[1] === Symbol.for("react.memo_cache_sentinel")) {
     t2 = [{
       value: "ok",
-      label: "Got it, thanks!"
+      label: "知道了，谢谢！"
     }];
     $[1] = t2;
   } else {
@@ -38,7 +38,7 @@ export function CostThresholdDialog(t0) {
   }
   let t4;
   if ($[4] !== onDone || $[5] !== t3) {
-    t4 = <Dialog title="You've spent $5 on the Anthropic API this session." onCancel={onDone}>{t1}{t3}</Dialog>;
+    t4 = <Dialog title="本会话你已在 Anthropic API 上花费了 $5。" onCancel={onDone}>{t1}{t3}</Dialog>;
     $[4] = onDone;
     $[5] = t3;
     $[6] = t4;

@@ -83,7 +83,7 @@ export function FastModePicker(t0) {
         onDone(`${fastIcon} Fast mode ON${modelUpdated} · ${pricing}`);
       } else {
         setAppState(_temp3);
-        onDone("Fast mode OFF");
+        onDone("快速模式 关");
       }
     };
     $[2] = enableFastMode;
@@ -103,7 +103,7 @@ export function FastModePicker(t0) {
         if (initialFastMode) {
           applyFastMode(false, setAppState);
         }
-        onDone("Fast mode OFF", {
+        onDone("快速模式 关", {
           display: "system"
         });
         return;
@@ -172,7 +172,7 @@ export function FastModePicker(t0) {
   const title = t8;
   let t9;
   if ($[20] !== isUnavailable) {
-    t9 = exitState => exitState.pending ? <Text>Press {exitState.keyName} again to exit</Text> : isUnavailable ? <Text>Esc to cancel</Text> : <Text>Tab to toggle · Enter to confirm · Esc to cancel</Text>;
+    t9 = exitState => exitState.pending ? <Text>再按 {exitState.keyName} 退出</Text> : isUnavailable ? <Text>Esc 取消</Text> : <Text>Tab 切换 · Enter 确认 · Esc 取消</Text>;
     $[20] = isUnavailable;
     $[21] = t9;
   } else {
@@ -180,7 +180,7 @@ export function FastModePicker(t0) {
   }
   let t10;
   if ($[22] !== enableFastMode || $[23] !== unavailableReason) {
-    t10 = unavailableReason ? <Box marginLeft={2}><Text color="error">{unavailableReason}</Text></Box> : <><Box flexDirection="column" gap={0} marginLeft={2}><Box flexDirection="row" gap={2}><Text bold={true}>Fast mode</Text><Text color={enableFastMode ? "fastMode" : undefined} bold={enableFastMode}>{enableFastMode ? "ON " : "OFF"}</Text><Text dimColor={true}>{pricing}</Text></Box></Box>{isCooldown && runtimeState.status === "cooldown" && <Box marginLeft={2}><Text color="warning">{runtimeState.reason === "overloaded" ? "Fast mode overloaded and is temporarily unavailable" : "You've hit your fast limit"}{" \xB7 resets in "}{formatDuration(runtimeState.resetAt - Date.now(), {
+    t10 = unavailableReason ? <Box marginLeft={2}><Text color="error">{unavailableReason}</Text></Box> : <><Box flexDirection="column" gap={0} marginLeft={2}><Box flexDirection="row" gap={2}><Text bold={true}>Fast mode</Text><Text color={enableFastMode ? "fastMode" : undefined} bold={enableFastMode}>{enableFastMode ? "ON " : "OFF"}</Text><Text dimColor={true}>{pricing}</Text></Box></Box>{isCooldown && runtimeState.status === "cooldown" && <Box marginLeft={2}><Text color="warning">{runtimeState.reason === "overloaded" ? "Fast mode overloaded and is temporarily unavailable" : "你已达到快速模式限额"}{" \xB7 resets in "}{formatDuration(runtimeState.resetAt - Date.now(), {
             hideTrailingZeros: true
           })}</Text></Box>}</>;
     $[22] = enableFastMode;

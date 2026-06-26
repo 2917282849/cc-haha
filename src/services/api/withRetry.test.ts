@@ -17,7 +17,7 @@ describe('withRetry stale connections', () => {
       code: 'ECONNRESET',
     })
     const staleConnection = new APIConnectionError({
-      message: 'Connection error.',
+      message: '连接错误。',
       cause,
     })
 

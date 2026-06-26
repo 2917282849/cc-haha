@@ -452,7 +452,7 @@ export function DiscoverPlugins({
         void openBrowser(hasHomepage_0);
       } else if (action === 'github' && githubRepo_0) {
         void openBrowser(`https://github.com/${githubRepo_0}`);
-      } else if (action === 'back') {
+      } else if (action === '返回') {
         setViewState('plugin-list');
         setSelectedPlugin(null);
       }
@@ -545,7 +545,7 @@ export function DiscoverPlugins({
           <Text dimColor>
             <Byline>
               <ConfigurableShortcutHint action="select:accept" context="Select" fallback="Enter" description="select" />
-              <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />
+              <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
             </Byline>
           </Text>
         </Box>
@@ -681,7 +681,7 @@ function DiscoverPluginsKeyHint(t0) {
   let t5;
   if ($[5] === Symbol.for("react.memo_cache_sentinel")) {
     t4 = <ConfigurableShortcutHint action="select:accept" context="Select" fallback="Enter" description="details" />;
-    t5 = <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />;
+    t5 = <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />;
     $[5] = t4;
     $[6] = t5;
   } else {

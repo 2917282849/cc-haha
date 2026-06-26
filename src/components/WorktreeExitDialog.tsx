@@ -203,23 +203,23 @@ export function WorktreeExitDialog({
   const removeDescription = hasUncommitted || hasCommits ? 'All changes and commits will be lost.' : 'Clean up the worktree directory.';
   const hasTmuxSession = Boolean(worktreeSession.tmuxSessionName);
   const options = hasTmuxSession ? [{
-    label: 'Keep worktree and tmux session',
+    label: '保留 worktree 和 tmux 会话',
     value: 'keep-with-tmux',
     description: `Stays at ${worktreeSession.worktreePath}. Reattach with: tmux attach -t ${worktreeSession.tmuxSessionName}`
   }, {
-    label: 'Keep worktree, kill tmux session',
+    label: '保留 worktree，关闭 tmux 会话',
     value: 'keep-kill-tmux',
     description: `Keeps worktree at ${worktreeSession.worktreePath}, terminates tmux session.`
   }, {
-    label: 'Remove worktree and tmux session',
+    label: '移除 worktree 和 tmux 会话',
     value: 'remove-with-tmux',
     description: removeDescription
   }] : [{
-    label: 'Keep worktree',
+    label: '保留 worktree',
     value: 'keep',
     description: `Stays at ${worktreeSession.worktreePath}`
   }, {
-    label: 'Remove worktree',
+    label: '移除 worktree',
     value: 'remove',
     description: removeDescription
   }];

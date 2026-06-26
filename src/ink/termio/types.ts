@@ -123,7 +123,7 @@ export function colorsEqual(a: Color, b: Color): boolean {
 // Cursor Actions
 // =============================================================================
 
-export type CursorDirection = 'up' | 'down' | 'forward' | 'back'
+export type CursorDirection = 'up' | 'down' | 'forward' | '返回'
 
 export type CursorAction =
   | { type: 'move'; direction: CursorDirection; count: number }

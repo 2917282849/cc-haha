@@ -39,7 +39,7 @@ export function SandboxOverridesTab(t0) {
     }
     let t2;
     if ($[2] === Symbol.for("react.memo_cache_sentinel")) {
-      t2 = <Box flexDirection="column" paddingY={1}>{t1}<Box marginTop={1}><Text dimColor={true}>Current setting:{" "}{currentAllowUnsandboxed ? "Allow unsandboxed fallback" : "Strict sandbox mode"}</Text></Box></Box>;
+      t2 = <Box flexDirection="column" paddingY={1}>{t1}<Box marginTop={1}><Text dimColor={true}>Current setting:{" "}{currentAllowUnsandboxed ? "Allow unsandboxed fallback" : "严格沙盒模式"}</Text></Box></Box>;
       $[2] = t2;
     } else {
       t2 = $[2];
@@ -92,7 +92,7 @@ function OverridesSelect(t0) {
   } else {
     t3 = $[3];
   }
-  const t4 = currentMode === "closed" ? `Strict sandbox mode ${currentIndicator}` : "Strict sandbox mode";
+  const t4 = currentMode === "closed" ? `Strict sandbox mode ${currentIndicator}` : "严格沙盒模式";
   let t5;
   if ($[4] !== t4) {
     t5 = {

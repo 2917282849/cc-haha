@@ -107,13 +107,13 @@ export function MCPAgentServerMenu({
   // Only show authenticate option for HTTP/SSE servers
   if (agentServer.needsAuth) {
     menuOptions.push({
-      label: agentServer.isAuthenticated ? 'Re-authenticate' : 'Authenticate',
+      label: agentServer.isAuthenticated ? '重新认证' : 'Authenticate',
       value: 'auth'
     });
   }
   menuOptions.push({
     label: 'Back',
-    value: 'back'
+    value: '返回'
   });
   return <Dialog title={`${capitalizedServerName} MCP Server`} subtitle="agent-only" onCancel={onCancel} inputGuide={exitState => exitState.pending ? <Text>Press {exitState.keyName} again to exit</Text> : <Byline>
             <KeyboardShortcutHint shortcut="↑↓" action="navigate" />
@@ -172,7 +172,7 @@ export function MCPAgentServerMenu({
           case 'auth':
             await handleAuthenticate();
             break;
-          case 'back':
+          case '返回':
             onCancel();
             break;
         }

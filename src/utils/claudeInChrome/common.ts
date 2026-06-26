@@ -56,7 +56,7 @@ export const CHROMIUM_BROWSERS: Record<ChromiumBrowser, BrowserConfig> = {
       nativeMessagingPath: ['.config', 'google-chrome', 'NativeMessagingHosts'],
     },
     windows: {
-      dataPath: ['Google', 'Chrome', 'User Data'],
+      dataPath: ['Google', 'Chrome', '用户数据'],
       registryKey: 'HKCU\\Software\\Google\\Chrome\\NativeMessagingHosts',
     },
   },
@@ -89,7 +89,7 @@ export const CHROMIUM_BROWSERS: Record<ChromiumBrowser, BrowserConfig> = {
       ],
     },
     windows: {
-      dataPath: ['BraveSoftware', 'Brave-Browser', 'User Data'],
+      dataPath: ['BraveSoftware', 'Brave-Browser', '用户数据'],
       registryKey:
         'HKCU\\Software\\BraveSoftware\\Brave-Browser\\NativeMessagingHosts',
     },
@@ -98,12 +98,12 @@ export const CHROMIUM_BROWSERS: Record<ChromiumBrowser, BrowserConfig> = {
     name: 'Arc',
     macos: {
       appName: 'Arc',
-      dataPath: ['Library', 'Application Support', 'Arc', 'User Data'],
+      dataPath: ['Library', 'Application Support', 'Arc', '用户数据'],
       nativeMessagingPath: [
         'Library',
         'Application Support',
         'Arc',
-        'User Data',
+        '用户数据',
         'NativeMessagingHosts',
       ],
     },
@@ -115,7 +115,7 @@ export const CHROMIUM_BROWSERS: Record<ChromiumBrowser, BrowserConfig> = {
     },
     windows: {
       // Arc Windows is Chromium-based
-      dataPath: ['Arc', 'User Data'],
+      dataPath: ['Arc', '用户数据'],
       registryKey: 'HKCU\\Software\\ArcBrowser\\Arc\\NativeMessagingHosts',
     },
   },
@@ -137,7 +137,7 @@ export const CHROMIUM_BROWSERS: Record<ChromiumBrowser, BrowserConfig> = {
       nativeMessagingPath: ['.config', 'chromium', 'NativeMessagingHosts'],
     },
     windows: {
-      dataPath: ['Chromium', 'User Data'],
+      dataPath: ['Chromium', '用户数据'],
       registryKey: 'HKCU\\Software\\Chromium\\NativeMessagingHosts',
     },
   },
@@ -163,7 +163,7 @@ export const CHROMIUM_BROWSERS: Record<ChromiumBrowser, BrowserConfig> = {
       ],
     },
     windows: {
-      dataPath: ['Microsoft', 'Edge', 'User Data'],
+      dataPath: ['Microsoft', 'Edge', '用户数据'],
       registryKey: 'HKCU\\Software\\Microsoft\\Edge\\NativeMessagingHosts',
     },
   },
@@ -185,7 +185,7 @@ export const CHROMIUM_BROWSERS: Record<ChromiumBrowser, BrowserConfig> = {
       nativeMessagingPath: ['.config', 'vivaldi', 'NativeMessagingHosts'],
     },
     windows: {
-      dataPath: ['Vivaldi', 'User Data'],
+      dataPath: ['Vivaldi', '用户数据'],
       registryKey: 'HKCU\\Software\\Vivaldi\\NativeMessagingHosts',
     },
   },

@@ -503,7 +503,7 @@ export function useManageMCPConnections(
             }
             switch (gate.action) {
               case 'register':
-                logMCPDebug(client.name, 'Channel notifications registered')
+                logMCPDebug(client.name, '频道通知已注册')
                 client.client.setNotificationHandler(
                   ChannelMessageNotificationSchema(),
                   async notification => {
@@ -595,7 +595,7 @@ export function useManageMCPConnections(
                   // since it already names the mismatch.
                   const text =
                     gate.kind === 'disabled'
-                      ? 'Channels are not currently available'
+                      ? '频道当前不可用'
                       : gate.kind === 'auth'
                         ? 'Channels require claude.ai authentication · run /login'
                         : gate.kind === 'policy'

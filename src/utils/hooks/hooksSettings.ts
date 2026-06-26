@@ -192,17 +192,17 @@ export function hookSourceDescriptionDisplayString(source: HookSource): string {
 export function hookSourceHeaderDisplayString(source: HookSource): string {
   switch (source) {
     case 'userSettings':
-      return 'User Settings'
+      return '用户设置'
     case 'projectSettings':
       return 'Project Settings'
     case 'localSettings':
       return 'Local Settings'
     case 'pluginHook':
-      return 'Plugin Hooks'
+      return '插件 Hook'
     case 'sessionHook':
-      return 'Session Hooks'
+      return '会话 Hook'
     case 'builtinHook':
-      return 'Built-in Hooks'
+      return '内置 Hook'
     default:
       return source as string
   }

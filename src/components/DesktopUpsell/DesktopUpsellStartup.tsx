@@ -100,7 +100,7 @@ export function DesktopUpsellStartup(t0) {
   let t4;
   if ($[6] === Symbol.for("react.memo_cache_sentinel")) {
     t4 = {
-      label: "Not now",
+      label: "以后再说",
       value: "not-now" as const
     };
     $[6] = t4;
@@ -110,7 +110,7 @@ export function DesktopUpsellStartup(t0) {
   let t5;
   if ($[7] === Symbol.for("react.memo_cache_sentinel")) {
     t5 = [t3, t4, {
-      label: "Don't ask again",
+      label: "不再询问",
       value: "never" as const
     }];
     $[7] = t5;

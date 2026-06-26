@@ -28,10 +28,10 @@ const REMEMBER_DIRECTORY_OPTIONS: Array<{
   label: string;
 }> = [{
   value: 'yes-session',
-  label: 'Yes, for this session'
+  label: '是，仅本次会话'
 }, {
   value: 'yes-remember',
-  label: 'Yes, and remember this directory'
+  label: '是，并记住此目录'
 }, {
   value: 'no',
   label: 'No'
@@ -315,7 +315,7 @@ export function AddWorkspaceDirectory(t0) {
   }
   let t12;
   if ($[27] !== onCancel || $[28] !== t10 || $[29] !== t11) {
-    t12 = <Dialog title="Add directory to workspace" onCancel={onCancel} color="permission" isCancelActive={false} inputGuide={t10}>{t11}</Dialog>;
+    t12 = <Dialog title="添加目录到工作区" onCancel={onCancel} color="permission" isCancelActive={false} inputGuide={t10}>{t11}</Dialog>;
     $[27] = onCancel;
     $[28] = t10;
     $[29] = t11;

@@ -137,7 +137,7 @@ function parseCSI(rawSequence: string): Action | null {
   if (finalByte === CSI.CUB) {
     return {
       type: 'cursor',
-      action: { type: 'move', direction: 'back', count: p0 },
+      action: { type: 'move', direction: '返回', count: p0 },
     }
   }
   if (finalByte === CSI.CNL) {

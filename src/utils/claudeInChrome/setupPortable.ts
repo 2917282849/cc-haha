@@ -56,32 +56,32 @@ const CHROMIUM_BROWSERS: Record<ChromiumBrowser, BrowserDataConfig> = {
   chrome: {
     macos: ['Library', 'Application Support', 'Google', 'Chrome'],
     linux: ['.config', 'google-chrome'],
-    windows: { path: ['Google', 'Chrome', 'User Data'] },
+    windows: { path: ['Google', 'Chrome', '用户数据'] },
   },
   brave: {
     macos: ['Library', 'Application Support', 'BraveSoftware', 'Brave-Browser'],
     linux: ['.config', 'BraveSoftware', 'Brave-Browser'],
-    windows: { path: ['BraveSoftware', 'Brave-Browser', 'User Data'] },
+    windows: { path: ['BraveSoftware', 'Brave-Browser', '用户数据'] },
   },
   arc: {
-    macos: ['Library', 'Application Support', 'Arc', 'User Data'],
+    macos: ['Library', 'Application Support', 'Arc', '用户数据'],
     linux: [],
-    windows: { path: ['Arc', 'User Data'] },
+    windows: { path: ['Arc', '用户数据'] },
   },
   chromium: {
     macos: ['Library', 'Application Support', 'Chromium'],
     linux: ['.config', 'chromium'],
-    windows: { path: ['Chromium', 'User Data'] },
+    windows: { path: ['Chromium', '用户数据'] },
   },
   edge: {
     macos: ['Library', 'Application Support', 'Microsoft Edge'],
     linux: ['.config', 'microsoft-edge'],
-    windows: { path: ['Microsoft', 'Edge', 'User Data'] },
+    windows: { path: ['Microsoft', 'Edge', '用户数据'] },
   },
   vivaldi: {
     macos: ['Library', 'Application Support', 'Vivaldi'],
     linux: ['.config', 'vivaldi'],
-    windows: { path: ['Vivaldi', 'User Data'] },
+    windows: { path: ['Vivaldi', '用户数据'] },
   },
   opera: {
     macos: ['Library', 'Application Support', 'com.operasoftware.Opera'],

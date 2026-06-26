@@ -531,7 +531,7 @@ function renderNodeToOutput(
     // The sibling-overlap check is load-bearing: Yoga's pixel-grid rounding
     // can give a box h=0 while still leaving a row for it (next sibling at
     // y+1, not y). HelpV2's third shortcuts column hits this — skipping
-    // unconditionally drops "ctrl + z to suspend" from /help output.
+    // unconditionally drops "ctrl + z 挂起" from /help output.
     if (height === 0 && siblingSharesY(node, yogaNode)) {
       nodeCache.set(node, { x, y, width, height, top: yogaTop })
       node.dirty = false

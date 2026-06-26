@@ -58,10 +58,10 @@ export function BypassPermissionsModeDialog(t0) {
   let t4;
   if ($[4] === Symbol.for("react.memo_cache_sentinel")) {
     t4 = [{
-      label: "No, exit",
+      label: "否，退出",
       value: "decline"
     }, {
-      label: "Yes, I accept",
+      label: "是，我接受",
       value: "accept"
     }];
     $[4] = t4;
@@ -70,7 +70,7 @@ export function BypassPermissionsModeDialog(t0) {
   }
   let t5;
   if ($[5] !== onChange) {
-    t5 = <Dialog title="WARNING: Claude Code running in Bypass Permissions mode" color="error" onCancel={handleEscape}>{t3}<Select options={t4} onChange={value_0 => onChange(value_0 as 'accept' | 'decline')} /></Dialog>;
+    t5 = <Dialog title="警告：Claude Code 正在以跳过权限检查模式运行" color="error" onCancel={handleEscape}>{t3}<Select options={t4} onChange={value_0 => onChange(value_0 as 'accept' | 'decline')} /></Dialog>;
     $[5] = onChange;
     $[6] = t5;
   } else {

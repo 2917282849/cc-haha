@@ -72,7 +72,7 @@ export function MemoryFileSelector(t0) {
     const indent = depth > 0 ? "  ".repeat(depth - 1) : "";
     let label;
     if (file.type === "User" && !file.isNested && file.path === userMemoryPath) {
-      label = "User memory";
+      label = "用户记忆";
     } else {
       if (file.type === "Project" && !file.isNested && file.path === projectMemoryPath) {
         label = "Project memory";
@@ -115,7 +115,7 @@ export function MemoryFileSelector(t0) {
     let t1;
     if ($[0] === Symbol.for("react.memo_cache_sentinel")) {
       t1 = {
-        label: "Open auto-memory folder",
+        label: "打开自动记忆文件夹",
         value: `${OPEN_FOLDER_PREFIX}${getAutoMemPath()}`,
         description: ""
       };
@@ -128,7 +128,7 @@ export function MemoryFileSelector(t0) {
       let t2;
       if ($[1] === Symbol.for("react.memo_cache_sentinel")) {
         t2 = {
-          label: "Open team memory folder",
+          label: "打开团队记忆文件夹",
           value: `${OPEN_FOLDER_PREFIX}${teamMemPaths.getTeamMemPath()}`,
           description: ""
         };

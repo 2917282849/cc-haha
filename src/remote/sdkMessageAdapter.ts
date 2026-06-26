@@ -55,7 +55,7 @@ function convertStreamEvent(msg: SDKPartialAssistantMessage): StreamEvent {
 function convertResultMessage(msg: SDKResultMessage): SystemMessage {
   const isError = msg.subtype !== 'success'
   const content = isError
-    ? msg.errors?.join(', ') || 'Unknown error'
+    ? msg.errors?.join(', ') || '未知错误'
     : 'Session completed successfully'
 
   return {
@@ -95,7 +95,7 @@ function convertStatusMessage(msg: SDKStatusMessage): SystemMessage | null {
     subtype: 'informational',
     content:
       msg.status === 'compacting'
-        ? 'Compacting conversation…'
+        ? '压缩对话中…'
         : `Status: ${msg.status}`,
     level: 'info',
     uuid: msg.uuid,
@@ -131,7 +131,7 @@ function convertCompactBoundaryMessage(
   return {
     type: 'system',
     subtype: 'compact_boundary',
-    content: 'Conversation compacted',
+    content: '对话已压缩',
     level: 'info',
     uuid: msg.uuid,
     timestamp: new Date().toISOString(),

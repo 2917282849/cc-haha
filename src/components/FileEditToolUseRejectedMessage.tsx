@@ -99,7 +99,7 @@ export function FileEditToolUseRejectedMessage(t0) {
       t5 = $[15];
     }
     const truncatedContent = t5;
-    const t6 = truncatedContent || "(No content)";
+    const t6 = truncatedContent || "（无内容）";
     const t7 = columns - 12;
     let t8;
     if ($[16] !== file_path || $[17] !== t6 || $[18] !== t7) {

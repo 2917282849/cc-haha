@@ -70,7 +70,7 @@ describe('OpenAI Codex OAuth client', () => {
       })
 
       expect(tokenRequestUrl).toBe('https://auth.openai.com/oauth/token')
-      expect(tokenRequestHeaders.get('Accept')).toBe('application/json')
+      expect(tokenRequestHeaders.get('接受')).toBe('application/json')
       expect(tokenRequestHeaders.get('Content-Type')).toBe(
         'application/x-www-form-urlencoded',
       )

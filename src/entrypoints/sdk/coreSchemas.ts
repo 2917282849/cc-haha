@@ -88,7 +88,7 @@ export const ThinkingDisabledSchema = lazySchema(() =>
     .object({
       type: z.literal('disabled'),
     })
-    .describe('No extended thinking'),
+    .describe('不使用扩展思考'),
 )
 
 export const ThinkingConfigSchema = lazySchema(() =>
@@ -1223,7 +1223,7 @@ export const RewindFilesResultSchema = lazySchema(() =>
       insertions: z.number().optional(),
       deletions: z.number().optional(),
     })
-    .describe('Result of a rewindFiles operation.'),
+    .describe('rewindFiles 操作的结果。'),
 )
 
 // ============================================================================

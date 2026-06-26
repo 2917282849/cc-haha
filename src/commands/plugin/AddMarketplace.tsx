@@ -139,7 +139,7 @@ export function AddMarketplace({
         {isLoading && <Box marginTop={1}>
             <Spinner />
             <Text>
-              {progressMessage || 'Adding marketplace to configuration…'}
+              {progressMessage || '正在将插件市场添加到配置中…'}
             </Text>
           </Box>}
         {error && <Box marginTop={1}>

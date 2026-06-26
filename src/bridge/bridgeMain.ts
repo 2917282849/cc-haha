@@ -2373,7 +2373,7 @@ export async function bridgeMain(args: string[]): Promise<void> {
     }
     // Proactively refresh the OAuth token — getBridgeSession uses raw axios
     // without the withOAuthRetry 401-refresh logic. An expired-but-present
-    // token would otherwise produce a misleading "not found" error.
+    // token would otherwise produce a misleading "未找到" error.
     await checkAndRefreshOAuthTokenIfNeeded()
     clearOAuthTokenCache()
     const { getBridgeSession } = await import('./createSession.js')

@@ -18,7 +18,7 @@ export const hookResponseSchema = lazySchema(() =>
     ok: z.boolean().describe('Whether the condition was met'),
     reason: z
       .string()
-      .describe('Reason, if the condition was not met')
+      .describe('条件未满足时的原因')
       .optional(),
   }),
 )
@@ -51,7 +51,7 @@ export function createStructuredOutputTool(): Tool {
         },
         reason: {
           type: 'string',
-          description: 'Reason, if the condition was not met',
+          description: '条件未满足时的原因',
         },
       },
       required: ['ok'],

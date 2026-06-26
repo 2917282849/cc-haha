@@ -59,7 +59,7 @@ export function ChannelDowngradeDialog(t0) {
   let t5;
   if ($[7] === Symbol.for("react.memo_cache_sentinel")) {
     t5 = {
-      label: "Allow possible downgrade to stable version",
+      label: "允许降级到稳定版",
       value: "downgrade" as ChannelDowngradeChoice
     };
     $[7] = t5;

@@ -159,7 +159,7 @@ export class DoctorService {
 
   private async buildTargets(): Promise<DoctorTarget[]> {
     const targets: DoctorTarget[] = [
-      this.jsonTarget('user-settings', 'User settings', 'user', path.join(this.configDir, 'settings.json')),
+      this.jsonTarget('user-settings', '用户设置', 'user', path.join(this.configDir, 'settings.json')),
       this.jsonTarget(
         'cc-haha-providers',
         'Managed providers',
@@ -202,7 +202,7 @@ export class DoctorService {
       targets.push(
         this.jsonTarget(
           'project-settings',
-          'Project settings',
+          '项目设置',
           'project',
           path.join(this.projectRoot, '.claude', 'settings.json'),
         ),

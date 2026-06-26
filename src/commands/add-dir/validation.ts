@@ -54,7 +54,7 @@ export async function validateDirectoryForWorkspace(
     }
   } catch (e: unknown) {
     const code = getErrnoCode(e)
-    // Match prior existsSync() semantics: treat any of these as "not found"
+    // Match prior existsSync() semantics: treat any of these as "未找到"
     // rather than re-throwing. EACCES/EPERM in particular must not crash
     // startup when a settings-configured additional directory is inaccessible.
     if (

@@ -234,7 +234,7 @@ export function formatAPIError(error: APIError): string {
     }
   }
 
-  if (error.message === 'Connection error.') {
+  if (error.message === '连接错误。') {
     // If we have a code but it's not SSL, include it for debugging
     if (connectionDetails?.code) {
       return `Unable to connect to API (${connectionDetails.code})`

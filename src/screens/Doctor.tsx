@@ -311,7 +311,7 @@ export function Doctor(t0) {
   } else {
     t15 = $[28];
   }
-  const t16 = diagnostic.ripgrepStatus.working ? "OK" : "Not working";
+  const t16 = diagnostic.ripgrepStatus.working ? "OK" : "不工作";
   const t17 = diagnostic.ripgrepStatus.mode === "embedded" ? "bundled" : diagnostic.ripgrepStatus.mode === "builtin" ? "vendor" : diagnostic.ripgrepStatus.systemPath || "system";
   let t18;
   if ($[29] !== t16 || $[30] !== t17) {
@@ -397,7 +397,7 @@ export function Doctor(t0) {
   }
   let t28;
   if ($[56] === Symbol.for("react.memo_cache_sentinel")) {
-    t28 = <Text>└ Auto-update channel: {autoUpdatesChannel}</Text>;
+    t28 = <Text>└ 自动更新频道： {autoUpdatesChannel}</Text>;
     $[56] = t28;
   } else {
     t28 = $[56];

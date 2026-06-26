@@ -29,7 +29,7 @@ export const call: LocalCommandCall = async () => {
 
   return {
     type: 'text',
-    value: `Editor mode set to ${newMode}. ${
+    value: `编辑器模式已设为 ${newMode}。 ${
       newMode === 'vim'
         ? 'Use Escape key to toggle between INSERT and NORMAL modes.'
         : 'Using standard (readline) keyboard bindings.'

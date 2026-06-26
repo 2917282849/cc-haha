@@ -155,7 +155,7 @@ function formatContextAsMarkdownTable(data: ContextData): string {
     cat =>
       cat.tokens > 0 &&
       cat.name !== 'Free space' &&
-      cat.name !== 'Autocompact buffer',
+      cat.name !== '自动压缩缓冲',
   )
 
   if (visibleCategories.length > 0) {
@@ -178,7 +178,7 @@ function formatContextAsMarkdownTable(data: ContextData): string {
     }
 
     const autocompactCategory = categories.find(
-      c => c.name === 'Autocompact buffer',
+      c => c.name === '自动压缩缓冲',
     )
     if (autocompactCategory && autocompactCategory.tokens > 0) {
       const percentDisplay = (

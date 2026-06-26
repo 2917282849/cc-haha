@@ -71,7 +71,7 @@ export function EnterPlanModePermissionRequest(t0) {
   let t5;
   if ($[8] === Symbol.for("react.memo_cache_sentinel")) {
     t5 = {
-      label: "Yes, enter plan mode",
+      label: "是，进入计划模式",
       value: "yes" as const
     };
     $[8] = t5;
@@ -81,7 +81,7 @@ export function EnterPlanModePermissionRequest(t0) {
   let t6;
   if ($[9] === Symbol.for("react.memo_cache_sentinel")) {
     t6 = [t5, {
-      label: "No, start implementing now",
+      label: "否，立即开始实施",
       value: "no" as const
     }];
     $[9] = t6;
@@ -107,7 +107,7 @@ export function EnterPlanModePermissionRequest(t0) {
   }
   let t9;
   if ($[15] !== t8 || $[16] !== workerBadge) {
-    t9 = <PermissionDialog color="planMode" title="Enter plan mode?" workerBadge={workerBadge}>{t8}</PermissionDialog>;
+    t9 = <PermissionDialog color="planMode" title="进入计划模式？" workerBadge={workerBadge}>{t8}</PermissionDialog>;
     $[15] = t8;
     $[16] = workerBadge;
     $[17] = t9;

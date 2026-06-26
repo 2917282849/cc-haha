@@ -99,7 +99,7 @@ export const SDKControlInterruptRequestSchema = lazySchema(() =>
     .object({
       subtype: z.literal('interrupt'),
     })
-    .describe('Interrupts the currently running conversation turn.'),
+    .describe('中断当前正在运行的对话回合。'),
 )
 
 
@@ -355,7 +355,7 @@ export const SDKControlRewindFilesRequestSchema = lazySchema(() =>
       user_message_id: z.string(),
       dry_run: z.boolean().optional(),
     })
-    .describe('Rewinds file changes made since a specific user message.'),
+    .describe('回退自特定用户消息以来的文件更改。'),
 )
 
 export const SDKControlRewindFilesResponseSchema = lazySchema(() =>
@@ -367,7 +367,7 @@ export const SDKControlRewindFilesResponseSchema = lazySchema(() =>
       insertions: z.number().optional(),
       deletions: z.number().optional(),
     })
-    .describe('Result of a rewindFiles operation.'),
+    .describe('rewindFiles 操作的结果。'),
 )
 
 export const SDKControlCancelAsyncMessageRequestSchema = lazySchema(() =>

@@ -100,7 +100,7 @@ export function AsyncAgentDetailDialog(t0) {
   const tokenCount = agent.result?.totalTokens ?? agent.progress?.tokenCount;
   const toolUseCount = agent.result?.totalToolUseCount ?? agent.progress?.toolUseCount;
   const t6 = agent.selectedAgent?.agentType ?? "agent";
-  const t7 = agent.description || "Async agent";
+  const t7 = agent.description || "异步 Agent";
   let t8;
   if ($[11] !== t6 || $[12] !== t7) {
     t8 = <Text>{t6} ›{" "}{t7}</Text>;

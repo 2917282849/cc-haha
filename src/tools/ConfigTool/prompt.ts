@@ -84,7 +84,7 @@ function generateModelSection(): string {
       return `  - ${value}: ${o.descriptionForModel ?? o.description}`
     })
     return `## Model
-- model - Override the default model. Available options:
+- model - 覆盖默认模型。可用选项：
 ${lines.join('\n')}`
   } catch {
     return `## Model

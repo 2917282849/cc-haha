@@ -73,7 +73,7 @@ export function TypeStep(_props) {
   }
   let t4;
   if ($[6] !== agentType || $[7] !== cursorOffset || $[8] !== handleSubmit) {
-    t4 = <Box marginTop={1}><TextInput value={agentType} onChange={setAgentType} onSubmit={handleSubmit} placeholder="e.g., test-runner, tech-lead, etc" columns={60} cursorOffset={cursorOffset} onChangeCursorOffset={setCursorOffset} focus={true} showCursor={true} /></Box>;
+    t4 = <Box marginTop={1}><TextInput value={agentType} onChange={setAgentType} onSubmit={handleSubmit} placeholder="例如：test-runner、tech-lead 等" columns={60} cursorOffset={cursorOffset} onChangeCursorOffset={setCursorOffset} focus={true} showCursor={true} /></Box>;
     $[6] = agentType;
     $[7] = cursorOffset;
     $[8] = handleSubmit;

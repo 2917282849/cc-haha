@@ -18,10 +18,10 @@ export function createRecentActivityFeed(activities: LogOption[]): FeedConfig {
     };
   });
   return {
-    title: 'Recent activity',
+    title: '最近活动记录',
     lines,
     footer: lines.length > 0 ? '/resume for more' : undefined,
-    emptyMessage: 'No recent activity'
+    emptyMessage: '暂无最近活动记录'
   };
 }
 export function createWhatsNewFeed(releaseNotes: string[]): FeedConfig {
@@ -41,7 +41,7 @@ export function createWhatsNewFeed(releaseNotes: string[]): FeedConfig {
   });
   const emptyMessage = "external" === 'ant' ? 'Unable to fetch latest claude-cli-internal commits' : 'Check the Claude Code changelog for updates';
   return {
-    title: "external" === 'ant' ? "What's new [ANT-ONLY: Latest CC commits]" : "What's new",
+    title: "external" === 'ant' ? "What's new [ANT-ONLY: Latest CC commits]" : "更新内容",
     lines,
     footer: lines.length > 0 ? '/release-notes for more' : undefined,
     emptyMessage
@@ -67,7 +67,7 @@ export function createProjectOnboardingFeed(steps: Step[]): FeedConfig {
     });
   }
   return {
-    title: 'Tips for getting started',
+    title: '入门技巧',
     lines
   };
 }

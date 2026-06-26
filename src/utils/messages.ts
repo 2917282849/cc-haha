@@ -182,7 +182,7 @@ import {
 const MEMORY_CORRECTION_HINT =
   "\n\nNote: The user's next message may contain a correction or preference. Pay close attention — if they explain what went wrong or how they'd prefer you to work, consider saving that to memory for future sessions."
 
-const TOOL_REFERENCE_TURN_BOUNDARY = 'Tool loaded.'
+const TOOL_REFERENCE_TURN_BOUNDARY = '工具已加载。'
 
 /**
  * Appends a memory correction hint to a rejection/cancellation message

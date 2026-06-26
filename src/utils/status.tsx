@@ -109,7 +109,7 @@ export function buildMcpProperties(clients: MCPServerConnection[] = [], theme: T
   if (byState.pending) parts.push(color('inactive', theme)(`${byState.pending} pending`));
   if (byState.failed) parts.push(color('error', theme)(`${byState.failed} failed`));
   return [{
-    label: 'MCP servers',
+    label: 'MCP 服务器',
     value: `${parts.join(', ')} ${color('inactive', theme)('· /mcp')}`
   }];
 }
@@ -168,7 +168,7 @@ export function buildSettingSourcesProperties(): Property[] {
     return getSettingSourceDisplayNameCapitalized(source);
   }).filter((name): name is string => name !== null);
   return [{
-    label: 'Setting sources',
+    label: '设置来源',
     value: sourceNames
   }];
 }
@@ -211,19 +211,19 @@ export function buildAccountProperties(): Property[] {
   }
   if (accountInfo.subscription) {
     properties.push({
-      label: accountInfo.provider === 'openai' ? 'Subscription' : 'Login method',
+      label: accountInfo.provider === 'openai' ? 'Subscription' : '登录方式',
       value: accountInfo.provider === 'openai' ? accountInfo.subscription : `${accountInfo.subscription} Account`
     });
   }
   if (accountInfo.tokenSource) {
     properties.push({
-      label: 'Auth token',
+      label: '认证令牌',
       value: accountInfo.tokenSource
     });
   }
   if (accountInfo.apiKeySource) {
     properties.push({
-      label: 'API key',
+      label: 'API 密钥',
       value: accountInfo.apiKeySource
     });
   }
@@ -267,7 +267,7 @@ export function buildAPIProviderProperties(): Property[] {
     const anthropicBaseUrl = process.env.ANTHROPIC_BASE_URL;
     if (anthropicBaseUrl) {
       properties.push({
-        label: 'Anthropic base URL',
+        label: 'Anthropic 基础 URL',
         value: anthropicBaseUrl
       });
     }
@@ -275,7 +275,7 @@ export function buildAPIProviderProperties(): Property[] {
     const bedrockBaseUrl = process.env.BEDROCK_BASE_URL;
     if (bedrockBaseUrl) {
       properties.push({
-        label: 'Bedrock base URL',
+        label: 'Bedrock 基础 URL',
         value: bedrockBaseUrl
       });
     }
@@ -292,19 +292,19 @@ export function buildAPIProviderProperties(): Property[] {
     const vertexBaseUrl = process.env.VERTEX_BASE_URL;
     if (vertexBaseUrl) {
       properties.push({
-        label: 'Vertex base URL',
+        label: 'Vertex 基础 URL',
         value: vertexBaseUrl
       });
     }
     const gcpProject = process.env.ANTHROPIC_VERTEX_PROJECT_ID;
     if (gcpProject) {
       properties.push({
-        label: 'GCP project',
+        label: 'GCP 项目',
         value: gcpProject
       });
     }
     properties.push({
-      label: 'Default region',
+      label: '默认区域',
       value: getDefaultVertexRegion()
     });
     if (isEnvTruthy(process.env.CLAUDE_CODE_SKIP_VERTEX_AUTH)) {
@@ -316,14 +316,14 @@ export function buildAPIProviderProperties(): Property[] {
     const foundryBaseUrl = process.env.ANTHROPIC_FOUNDRY_BASE_URL;
     if (foundryBaseUrl) {
       properties.push({
-        label: 'Microsoft Foundry base URL',
+        label: 'Microsoft Foundry 基础 URL',
         value: foundryBaseUrl
       });
     }
     const foundryResource = process.env.ANTHROPIC_FOUNDRY_RESOURCE;
     if (foundryResource) {
       properties.push({
-        label: 'Microsoft Foundry resource',
+        label: 'Microsoft Foundry 资源',
         value: foundryResource
       });
     }
@@ -343,20 +343,20 @@ export function buildAPIProviderProperties(): Property[] {
   const mtlsConfig = getMTLSConfig();
   if (process.env.NODE_EXTRA_CA_CERTS) {
     properties.push({
-      label: 'Additional CA cert(s)',
+      label: '额外 CA 证书',
       value: process.env.NODE_EXTRA_CA_CERTS
     });
   }
   if (mtlsConfig) {
     if (mtlsConfig.cert && process.env.CLAUDE_CODE_CLIENT_CERT) {
       properties.push({
-        label: 'mTLS client cert',
+        label: 'mTLS 客户端证书',
         value: process.env.CLAUDE_CODE_CLIENT_CERT
       });
     }
     if (mtlsConfig.key && process.env.CLAUDE_CODE_CLIENT_KEY) {
       properties.push({
-        label: 'mTLS client key',
+        label: 'mTLS 客户端密钥',
         value: process.env.CLAUDE_CODE_CLIENT_KEY
       });
     }

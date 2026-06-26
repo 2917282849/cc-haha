@@ -114,22 +114,22 @@ export function ThemePicker(t0) {
       label: "Auto (match terminal)",
       value: "auto" as const
     }] : []), {
-      label: "Dark mode",
+      label: "深色模式",
       value: "dark"
     }, {
-      label: "Light mode",
+      label: "浅色模式",
       value: "light"
     }, {
-      label: "Dark mode (colorblind-friendly)",
+      label: "深色模式（色觉友好）",
       value: "dark-daltonized"
     }, {
-      label: "Light mode (colorblind-friendly)",
+      label: "浅色模式（色觉友好）",
       value: "light-daltonized"
     }, {
-      label: "Dark mode (ANSI colors only)",
+      label: "深色模式（仅 ANSI 颜色）",
       value: "dark-ansi"
     }, {
-      label: "Light mode (ANSI colors only)",
+      label: "浅色模式（仅 ANSI 颜色）",
       value: "light-ansi"
     }];
     $[7] = t10;

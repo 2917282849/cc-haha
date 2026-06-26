@@ -179,7 +179,7 @@ async function ensureSession(sessionName: string): Promise<void> {
     ])
     if (result.code !== 0) {
       throw new Error(
-        `Failed to create tmux session '${sessionName}': ${result.stderr || 'Unknown error'}`,
+        `Failed to create tmux session '${sessionName}': ${result.stderr || '未知错误'}`,
       )
     }
   }

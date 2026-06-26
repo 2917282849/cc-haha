@@ -119,13 +119,13 @@ export const AllowedMcpServerEntrySchema = lazySchema(() =>
         .string()
         .regex(
           /^[a-zA-Z0-9_-]+$/,
-          'Server name can only contain letters, numbers, hyphens, and underscores',
+          '服务器名称只能包含字母、数字、连字符和下划线',
         )
         .optional()
         .describe('Name of the MCP server that users are allowed to configure'),
       serverCommand: z
         .array(z.string())
-        .min(1, 'Server command must have at least one element (the command)')
+        .min(1, '服务器命令必须至少有一个元素（命令本身）')
         .optional()
         .describe(
           'Command array [command, ...args] to match exactly for allowed stdio servers',
@@ -168,13 +168,13 @@ export const DeniedMcpServerEntrySchema = lazySchema(() =>
         .string()
         .regex(
           /^[a-zA-Z0-9_-]+$/,
-          'Server name can only contain letters, numbers, hyphens, and underscores',
+          '服务器名称只能包含字母、数字、连字符和下划线',
         )
         .optional()
         .describe('Name of the MCP server that is explicitly blocked'),
       serverCommand: z
         .array(z.string())
-        .min(1, 'Server command must have at least one element (the command)')
+        .min(1, '服务器命令必须至少有一个元素（命令本身）')
         .optional()
         .describe(
           'Command array [command, ...args] to match exactly for blocked stdio servers',
@@ -731,7 +731,7 @@ export const SettingsSchema = lazySchema(() =>
       advisorModel: z
         .string()
         .optional()
-        .describe('Advisor model for the server-side advisor tool.'),
+        .describe('服务器端顾问工具的模型。'),
       fastMode: z
         .boolean()
         .optional()
@@ -976,7 +976,7 @@ export const SettingsSchema = lazySchema(() =>
         .boolean()
         .optional()
         .describe(
-          'Show thinking summaries in the transcript view (ctrl+o). Default: false.',
+          '在对话记录视图（ctrl+o）中显示思考摘要。默认：false。',
         ),
       skipDangerousModePermissionPrompt: z
         .boolean()
@@ -1085,7 +1085,7 @@ export const SettingsSchema = lazySchema(() =>
           'Custom message to append to the plugin trust warning shown before installation. ' +
             'Only read from policy settings (managed-settings.json / MDM). ' +
             'Useful for enterprise administrators to add organization-specific context ' +
-            '(e.g., "All plugins from our internal marketplace are vetted and approved.").',
+            '(e.g., "我们内部插件市场的所有插件都经过审查和批准。").',
         ),
     })
     .passthrough(),

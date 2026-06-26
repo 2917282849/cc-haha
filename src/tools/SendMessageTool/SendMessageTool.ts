@@ -906,7 +906,7 @@ export const SendMessageTool: Tool<InputSchema, SendMessageToolOutput> =
           return handlePlanRejection(
             input.to,
             input.message.request_id,
-            input.message.feedback ?? 'Plan needs revision',
+            input.message.feedback ?? '计划需要修改',
             context,
           )
       }

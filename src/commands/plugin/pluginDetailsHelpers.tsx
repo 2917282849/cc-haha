@@ -45,30 +45,30 @@ export function extractGitHubRepo(plugin: InstallablePlugin): string | null {
  */
 export function buildPluginDetailsMenuOptions(hasHomepage: string | undefined, githubRepo: string | null): PluginDetailsMenuOption[] {
   const options: PluginDetailsMenuOption[] = [{
-    label: 'Install for you (user scope)',
+    label: '为你安装（用户范围）',
     action: 'install-user'
   }, {
-    label: 'Install for all collaborators on this repository (project scope)',
+    label: '为所有协作者安装（项目范围）',
     action: 'install-project'
   }, {
-    label: 'Install for you, in this repo only (local scope)',
+    label: '为你安装，仅此仓库（本地范围）',
     action: 'install-local'
   }];
   if (hasHomepage) {
     options.push({
-      label: 'Open homepage',
+      label: '打开主页',
       action: 'homepage'
     });
   }
   if (githubRepo) {
     options.push({
-      label: 'View on GitHub',
+      label: '在 GitHub 查看',
       action: 'github'
     });
   }
   options.push({
-    label: 'Back to plugin list',
-    action: 'back'
+    label: '返回插件列表',
+    action: '返回'
   });
   return options;
 }
@@ -95,7 +95,7 @@ export function PluginSelectionKeyHint(t0) {
   if ($[2] === Symbol.for("react.memo_cache_sentinel")) {
     t2 = <ConfigurableShortcutHint action="plugin:toggle" context="Plugin" fallback="Space" description="toggle" />;
     t3 = <ConfigurableShortcutHint action="select:accept" context="Select" fallback="Enter" description="details" />;
-    t4 = <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />;
+    t4 = <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />;
     $[2] = t2;
     $[3] = t3;
     $[4] = t4;

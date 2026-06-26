@@ -71,7 +71,7 @@ export function getDefaultOptionForUser(fastMode = false): ModelOption {
     )
     return {
       value: null,
-      label: 'Default (recommended)',
+      label: '默认（推荐）',
       description: `Use the default model for Ants (currently ${currentModel})`,
       descriptionForModel: `Default model (currently ${currentModel})`,
     }
@@ -83,7 +83,7 @@ export function getDefaultOptionForUser(fastMode = false): ModelOption {
     )
     return {
       value: null,
-      label: 'Default (recommended)',
+      label: '默认（推荐）',
       description: `Use the OpenAI/Codex default model (currently ${currentModel})`,
       descriptionForModel: `OpenAI/Codex default model (currently ${currentModel})`,
     }
@@ -93,7 +93,7 @@ export function getDefaultOptionForUser(fastMode = false): ModelOption {
   if (isClaudeAISubscriber()) {
     return {
       value: null,
-      label: 'Default (recommended)',
+      label: '默认（推荐）',
       description: getClaudeAiUserDefaultModelDescription(fastMode),
     }
   }
@@ -102,7 +102,7 @@ export function getDefaultOptionForUser(fastMode = false): ModelOption {
   const is3P = hasAnthropicCompatibleThirdPartyConfig()
   return {
     value: null,
-    label: 'Default (recommended)',
+    label: '默认（推荐）',
     description: `Use the default model (currently ${renderDefaultModelSetting(getDefaultMainLoopModelSetting())})${is3P ? '' : ` · ${formatModelPricing(COST_TIER_3_15)}`}`,
   }
 }
@@ -178,7 +178,7 @@ export function getSonnet46_1MOption(): ModelOption {
   const is3P = hasAnthropicCompatibleThirdPartyConfig()
   return {
     value: is3P ? getModelStrings().sonnet46 + '[1m]' : 'sonnet[1m]',
-    label: 'Sonnet (1M context)',
+    label: 'Sonnet（1M 上下文）',
     description: `Sonnet 4.6 for long sessions${is3P ? '' : ` · ${formatModelPricing(COST_TIER_3_15)}`}`,
     descriptionForModel:
       'Sonnet 4.6 with 1M context window - for long sessions with large codebases',
@@ -189,7 +189,7 @@ export function getOpus46_1MOption(fastMode = false): ModelOption {
   const is3P = hasAnthropicCompatibleThirdPartyConfig()
   return {
     value: is3P ? getModelStrings().opus46 + '[1m]' : 'opus[1m]',
-    label: 'Opus (1M context)',
+    label: 'Opus（1M 上下文）',
     description: `Opus 4.7 for long sessions${getOpus46PricingSuffix(fastMode)}`,
     descriptionForModel:
       'Opus 4.7 with 1M context window - for long sessions with large codebases',
@@ -255,7 +255,7 @@ export function getMaxSonnet46_1MOption(): ModelOption {
   const billingInfo = isClaudeAISubscriber() ? ' · Billed as extra usage' : ''
   return {
     value: 'sonnet[1m]',
-    label: 'Sonnet (1M context)',
+    label: 'Sonnet（1M 上下文）',
     description: `Sonnet 4.6 with 1M context${billingInfo}${is3P ? '' : ` · ${formatModelPricing(COST_TIER_3_15)}`}`,
   }
 }
@@ -264,7 +264,7 @@ export function getMaxOpus46_1MOption(fastMode = false): ModelOption {
   const billingInfo = isClaudeAISubscriber() ? ' · Billed as extra usage' : ''
   return {
     value: 'opus[1m]',
-    label: 'Opus (1M context)',
+    label: 'Opus（1M 上下文）',
     description: `Opus 4.7 with 1M context${billingInfo}${getOpus46PricingSuffix(fastMode)}`,
   }
 }
@@ -273,7 +273,7 @@ function getMergedOpus1MOption(fastMode = false): ModelOption {
   const is3P = hasAnthropicCompatibleThirdPartyConfig()
   return {
     value: is3P ? getModelStrings().opus46 + '[1m]' : 'opus[1m]',
-    label: 'Opus (1M context)',
+    label: 'Opus（1M 上下文）',
     description: `Opus 4.7 with 1M context · Most capable for complex work${!is3P && fastMode ? getOpus46PricingSuffix(fastMode) : ''}`,
     descriptionForModel:
       'Opus 4.7 with 1M context - most capable for complex work',
@@ -295,7 +295,7 @@ const MaxHaiku45Option: ModelOption = {
 function getOpusPlanOption(): ModelOption {
   return {
     value: 'opusplan',
-    label: 'Opus Plan Mode',
+    label: 'Opus 计划模式',
     description: 'Use Opus 4.7 in plan mode, Sonnet 4.6 otherwise',
   }
 }
@@ -564,7 +564,7 @@ export function getModelOptions(fastMode = false): ModelOption[] {
       label: process.env.ANTHROPIC_CUSTOM_MODEL_OPTION_NAME ?? envCustomModel,
       description:
         process.env.ANTHROPIC_CUSTOM_MODEL_OPTION_DESCRIPTION ??
-        `Custom model (${envCustomModel})`,
+        `自定义模型（${envCustomModel}）`,
     })
   }
 
@@ -609,7 +609,7 @@ export function getModelOptions(fastMode = false): ModelOption[] {
       options.push({
         value: customModel,
         label: customModel,
-        description: 'Custom model',
+        description: '自定义模型',
       })
     }
     return filterModelOptionsByAllowlist(options)

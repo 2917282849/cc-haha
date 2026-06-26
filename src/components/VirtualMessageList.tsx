@@ -58,7 +58,7 @@ export type JumpHandle = {
   /** Warm the search-text cache by extracting every message's text.
    *  Returns elapsed ms, or 0 if already warm (subsequent / in same
    *  transcript session). Yields before work so the caller can paint
-   *  "indexing…" first. Caller shows "indexed in Xms" on resolve. */
+   *  "索引中…" first. Caller shows "indexed in Xms" on resolve. */
   warmSearchIndex: () => Promise<number>;
   /** Manual scroll (j/k/PgUp/wheel) exited the search context. Clear
    *  positions (yellow goes away, inverse highlights stay). Next n/N

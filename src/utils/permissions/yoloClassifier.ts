@@ -262,7 +262,7 @@ export const YOLO_CLASSIFIER_TOOL_NAME = 'classify_result'
 const YOLO_CLASSIFIER_TOOL_SCHEMA: BetaToolUnion = {
   type: 'custom',
   name: YOLO_CLASSIFIER_TOOL_NAME,
-  description: 'Report the security classification result for the agent action',
+  description: '报告 Agent 操作的安全分类结果',
   input_schema: {
     type: 'object',
     properties: {
@@ -277,7 +277,7 @@ const YOLO_CLASSIFIER_TOOL_SCHEMA: BetaToolUnion = {
       },
       reason: {
         type: 'string',
-        description: 'Brief explanation of the classification decision',
+        description: '分类决定的简要说明',
       },
     },
     required: ['thinking', 'shouldBlock', 'reason'],
@@ -658,7 +658,7 @@ function replaceOutputFormatWithXml(systemPrompt: string): string {
     '<block>no</block>',
     '',
     'Do NOT include a <reason> tag when the action is allowed.',
-    'Your ENTIRE response MUST begin with <block>. Do NOT output any analysis, reasoning, or commentary before <block>. No "Looking at..." or similar preamble.',
+    'Your ENTIRE response MUST begin with <block>. Do NOT output any analysis, reasoning, or commentary before <block>. No "查看中..." or similar preamble.',
   ].join('\n')
   return systemPrompt.replace(toolUseLine, xmlFormat)
 }

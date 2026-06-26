@@ -47,7 +47,7 @@ export async function update() {
   // Check for multiple installations
   if (diagnostic.multipleInstallations.length > 1) {
     writeToStdout('\n')
-    writeToStdout(chalk.yellow('Warning: Multiple installations found') + '\n')
+    writeToStdout(chalk.yellow('警告：发现多个安装') + '\n')
     for (const install of diagnostic.multipleInstallations) {
       const current =
         diagnostic.installationType === install.type
@@ -168,7 +168,7 @@ export async function update() {
   // Check for config/reality mismatch (skip for package-manager installs)
   if (
     config.installMethod &&
-    diagnostic.configInstallMethod !== 'not set' &&
+    diagnostic.configInstallMethod !== '未设置' &&
     diagnostic.installationType !== 'package-manager'
   ) {
     const runningType = diagnostic.installationType

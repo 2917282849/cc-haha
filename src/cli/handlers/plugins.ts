@@ -490,7 +490,7 @@ export async function marketplaceAddHandler(
     }
 
     // biome-ignore lint/suspicious/noConsole:: intentional console output
-    console.log('Adding marketplace...')
+    console.log('正在添加插件市场...')
 
     const { name, alreadyMaterialized, resolvedSource } =
       await addMarketplaceSource(marketplaceSource, message => {

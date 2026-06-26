@@ -458,7 +458,7 @@ export function extractSedExpressions(command: string): string[] {
   } catch (error) {
     // If shell-quote parsing fails, treat the sed command as unsafe
     throw new Error(
-      `Failed to parse sed command: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      `Failed to parse sed command: ${error instanceof Error ? error.message : '未知错误'}`,
     )
   }
 

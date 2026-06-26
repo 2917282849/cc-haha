@@ -80,7 +80,7 @@ export function PromptStep() {
   const handleSubmit = t3;
   let t4;
   if ($[8] === Symbol.for("react.memo_cache_sentinel")) {
-    t4 = <Byline><KeyboardShortcutHint shortcut="Type" action="enter text" /><KeyboardShortcutHint shortcut="Enter" action="continue" /><ConfigurableShortcutHint action="chat:externalEditor" context="Chat" fallback="ctrl+g" description="open in editor" /><ConfigurableShortcutHint action="confirm:no" context="Settings" fallback="Esc" description="go back" /></Byline>;
+    t4 = <Byline><KeyboardShortcutHint shortcut="Type" action="enter text" /><KeyboardShortcutHint shortcut="Enter" action="continue" /><ConfigurableShortcutHint action="chat:externalEditor" context="Chat" fallback="ctrl+g" description="在编辑器中打开" /><ConfigurableShortcutHint action="confirm:no" context="Settings" fallback="Esc" description="go back" /></Byline>;
     $[8] = t4;
   } else {
     t4 = $[8];
@@ -98,7 +98,7 @@ export function PromptStep() {
   }
   let t7;
   if ($[11] !== cursorOffset || $[12] !== handleSubmit || $[13] !== systemPrompt) {
-    t7 = <Box marginTop={1}><TextInput value={systemPrompt} onChange={setSystemPrompt} onSubmit={handleSubmit} placeholder="You are a helpful code reviewer who..." columns={80} cursorOffset={cursorOffset} onChangeCursorOffset={setCursorOffset} focus={true} showCursor={true} /></Box>;
+    t7 = <Box marginTop={1}><TextInput value={systemPrompt} onChange={setSystemPrompt} onSubmit={handleSubmit} placeholder="你是一个有用的代码审查者..." columns={80} cursorOffset={cursorOffset} onChangeCursorOffset={setCursorOffset} focus={true} showCursor={true} /></Box>;
     $[11] = cursorOffset;
     $[12] = handleSubmit;
     $[13] = systemPrompt;
@@ -116,7 +116,7 @@ export function PromptStep() {
   }
   let t9;
   if ($[17] !== t7 || $[18] !== t8) {
-    t9 = <WizardDialogLayout subtitle="System prompt" footerText={t4}><Box flexDirection="column">{t5}{t6}{t7}{t8}</Box></WizardDialogLayout>;
+    t9 = <WizardDialogLayout subtitle="系统提示词" footerText={t4}><Box flexDirection="column">{t5}{t6}{t7}{t8}</Box></WizardDialogLayout>;
     $[17] = t7;
     $[18] = t8;
     $[19] = t9;

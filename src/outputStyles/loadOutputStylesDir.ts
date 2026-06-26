@@ -64,7 +64,7 @@ export const getOutputStyleDirStyles = memoize(
             // Warn if force-for-plugin is set on non-plugin output style
             if (frontmatter['force-for-plugin'] !== undefined) {
               logForDebugging(
-                `Output style "${name}" has force-for-plugin set, but this option only applies to plugin output styles. Ignoring.`,
+                `输出风格 "${name}" 已经强制对插件gin set, but this option only applies to plugin output styles. Ignoring.`,
                 { level: 'warn' },
               )
             }

@@ -235,7 +235,7 @@ function createPluginCommand(
       validatedDescription ??
       extractDescriptionFromMarkdown(
         content,
-        isSkill ? 'Plugin skill' : 'Plugin command',
+        isSkill ? '插件 Skill' : 'Plugin command',
       )
 
     // Substitute ${CLAUDE_PLUGIN_ROOT} in allowed-tools before parsing

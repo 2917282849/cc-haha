@@ -98,7 +98,7 @@ export async function call(onDone: LocalJSXCommandOnDone, context: LocalJSXComma
         persistPermissionUpdate(permissionUpdate);
         message = `Added ${chalk.bold(path)} as a working directory and saved to local settings`;
       } catch (error) {
-        message = `Added ${chalk.bold(path)} as a working directory. Failed to save to local settings: ${error instanceof Error ? error.message : 'Unknown error'}`;
+        message = `Added ${chalk.bold(path)} as a working directory. Failed to save to local settings: ${error instanceof Error ? error.message : '未知错误'}`;
       }
     } else {
       message = `Added ${chalk.bold(path)} as a working directory for this session`;

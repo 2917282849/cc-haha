@@ -56,7 +56,7 @@ export type DiagnosticInfo = {
   version: string
   installationPath: string
   invokedBinary: string
-  configInstallMethod: InstallMethod | 'not set'
+  configInstallMethod: InstallMethod | '未设置'
   autoUpdates: string
   hasUpdatePermissions: boolean | null
   multipleInstallations: Array<{ type: string; path: string }>
@@ -568,7 +568,7 @@ export async function getDoctorDiagnostic(): Promise<DiagnosticInfo> {
   const config = getGlobalConfig()
 
   // Get config values for display
-  const configInstallMethod = config.installMethod || 'not set'
+  const configInstallMethod = config.installMethod || '未设置'
 
   // Check permissions for global installations
   let hasUpdatePermissions: boolean | null = null

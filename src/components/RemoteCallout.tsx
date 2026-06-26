@@ -33,15 +33,15 @@ export function RemoteCallout({
     onDoneRef.current(value);
   }, []);
   const options: OptionWithDescription<RemoteCalloutSelection>[] = [{
-    label: 'Enable Remote Control for this session',
-    description: 'Opens a secure connection to claude.ai.',
+    label: '为本次会话启用远程控制',
+    description: '建立到 claude.ai 的安全连接。',
     value: 'enable'
   }, {
-    label: 'Never mind',
-    description: 'You can always enable it later with /remote-control.',
+    label: '算了',
+    description: '随时可以用 /remote-control 启用。',
     value: 'dismiss'
   }];
-  return <PermissionDialog title="Remote Control">
+  return <PermissionDialog title="远程控制">
       <Box flexDirection="column" paddingX={2} paddingY={1}>
         <Box marginBottom={1} flexDirection="column">
           <Text>

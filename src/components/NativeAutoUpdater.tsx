@@ -23,7 +23,7 @@ function getErrorType(errorMessage: string): string {
   if (errorMessage.includes('Checksum mismatch')) {
     return 'checksum_mismatch';
   }
-  if (errorMessage.includes('ENOENT') || errorMessage.includes('not found')) {
+  if (errorMessage.includes('ENOENT') || errorMessage.includes('未找到')) {
     return 'not_found';
   }
   if (errorMessage.includes('EACCES') || errorMessage.includes('permission')) {

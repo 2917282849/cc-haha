@@ -50,21 +50,21 @@ const PERMISSION_MODE_CONFIG: Partial<
     external: 'default',
   },
   plan: {
-    title: 'Plan Mode',
+    title: '计划模式',
     shortTitle: 'Plan',
     symbol: PAUSE_ICON,
     color: 'planMode',
     external: 'plan',
   },
   acceptEdits: {
-    title: 'Accept edits',
-    shortTitle: 'Accept',
+    title: '接受编辑',
+    shortTitle: '接受',
     symbol: '⏵⏵',
     color: 'autoAccept',
     external: 'acceptEdits',
   },
   bypassPermissions: {
-    title: 'Bypass Permissions',
+    title: '跳过权限检查',
     shortTitle: 'Bypass',
     symbol: '⏵⏵',
     color: 'error',
@@ -80,7 +80,7 @@ const PERMISSION_MODE_CONFIG: Partial<
   ...(feature('TRANSCRIPT_CLASSIFIER')
     ? {
         auto: {
-          title: 'Auto mode',
+          title: '自动模式',
           shortTitle: 'Auto',
           symbol: '⏵⏵',
           color: 'warning' as ModeColorKey,

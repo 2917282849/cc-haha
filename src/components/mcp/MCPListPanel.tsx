@@ -44,26 +44,26 @@ function getScopeHeading(scope: ConfigScope): {
   switch (scope) {
     case 'project':
       return {
-        label: 'Project MCPs',
+        label: '项目 MCP',
         path: describeMcpConfigFilePath(scope)
       };
     case 'user':
       return {
-        label: 'User MCPs',
+        label: '用户 MCP',
         path: describeMcpConfigFilePath(scope)
       };
     case 'local':
       return {
-        label: 'Local MCPs',
+        label: '本地 MCP',
         path: describeMcpConfigFilePath(scope)
       };
     case 'enterprise':
       return {
-        label: 'Enterprise MCPs'
+        label: '企业 MCP'
       };
     case 'dynamic':
       return {
-        label: 'Built-in MCPs',
+        label: '内置 MCP',
         path: 'always available'
       };
     default:
@@ -458,7 +458,7 @@ export function MCPListPanel(t0) {
   }
   let t30;
   if ($[71] !== handleCancel || $[72] !== t21 || $[73] !== t29) {
-    t30 = <Dialog title="Manage MCP servers" subtitle={t21} onCancel={handleCancel} hideInputGuide={true}>{t29}</Dialog>;
+    t30 = <Dialog title="管理 MCP 服务器" subtitle={t21} onCancel={handleCancel} hideInputGuide={true}>{t29}</Dialog>;
     $[71] = handleCancel;
     $[72] = t21;
     $[73] = t29;

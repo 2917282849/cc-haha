@@ -21,7 +21,7 @@ const WORKFLOWS: WorkflowOption[] = [{
   label: '@Claude Code - Tag @claude in issues and PR comments'
 }, {
   value: 'claude-review' as const,
-  label: 'Claude Code Review - Automated code review on new PRs'
+  label: 'Claude Code Review - 新 PR 的自动代码审查'
 }];
 function renderInputGuide(exitState: ExitState): React.ReactNode {
   if (exitState.pending) {
@@ -110,7 +110,7 @@ export function WorkflowMultiselectDialog(t0) {
   }
   let t8;
   if ($[11] !== t6 || $[12] !== t7) {
-    t8 = <Dialog title="Select GitHub workflows to install" subtitle="We'll create a workflow file in your repository for each one you select." onCancel={handleCancel} inputGuide={renderInputGuide}>{t4}{t6}{t7}</Dialog>;
+    t8 = <Dialog title="选择要安装的 GitHub 工作流" subtitle="我们会为你选择的每个工作流在仓库中创建工作流文件。" onCancel={handleCancel} inputGuide={renderInputGuide}>{t4}{t6}{t7}</Dialog>;
     $[11] = t6;
     $[12] = t7;
     $[13] = t8;

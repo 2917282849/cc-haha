@@ -81,7 +81,7 @@ function startRestartInterval(): void {
   restartInterval = setInterval(() => {
     // Only restart if we still need sleep prevention
     if (refCount > 0) {
-      logForDebugging('Restarting caffeinate to maintain sleep prevention')
+      logForDebugging('重启 caffeinate 以保持防止休眠')
       killCaffeinate()
       spawnCaffeinate()
     }

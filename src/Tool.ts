@@ -654,7 +654,7 @@ export type Tool<
   /**
    * Optional. When omitted, falls back to <FallbackToolUseErrorMessage />.
    * Only define this for tools that need custom error UI (e.g., search tools
-   * that show "File not found" instead of the raw error).
+   * that show "文件未找到" instead of the raw error).
    */
   renderToolUseErrorMessage?(
     result: ToolResultBlockParam['content'],

@@ -16,7 +16,7 @@ function makeBoundary(): CompactionResult['boundaryMarker'] {
   return {
     type: 'system',
     subtype: 'compact_boundary',
-    content: 'Conversation compacted',
+    content: '对话已压缩',
     isMeta: false,
     timestamp: new Date().toISOString(),
     uuid: '00000000-0000-0000-0000-000000000001',

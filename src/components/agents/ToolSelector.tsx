@@ -53,7 +53,7 @@ function getToolBuckets(): ToolBuckets {
       toolNames: new Set([GlobTool.name, GrepTool.name, ExitPlanModeV2Tool.name, FileReadTool.name, WebFetchTool.name, TodoWriteTool.name, WebSearchTool.name, TaskStopTool.name, TaskOutputTool.name, ListMcpResourcesTool.name, ReadMcpResourceTool.name])
     },
     EDIT: {
-      name: 'Edit tools',
+      name: '编辑工具',
       toolNames: new Set([FileEditTool.name, FileWriteTool.name, NotebookEditTool.name])
     },
     EXECUTION: {
@@ -61,7 +61,7 @@ function getToolBuckets(): ToolBuckets {
       toolNames: new Set([BashTool.name, "external" === 'ant' ? TungstenTool.name : undefined].filter(n => n !== undefined))
     },
     MCP: {
-      name: 'MCP tools',
+      name: 'MCP 工具',
       toolNames: new Set(),
       // Dynamic - no static list
       isMcp: true
@@ -356,7 +356,7 @@ export function ToolSelector(t0) {
       if (mcpServerBuckets.length > 0) {
         navigableItems.push({
           id: "mcp-servers-header",
-          label: "MCP Servers:",
+          label: "MCP 服务器：",
           action: _temp6,
           isHeader: true
         });
@@ -378,7 +378,7 @@ export function ToolSelector(t0) {
         });
         navigableItems.push({
           id: "tools-header",
-          label: "Individual Tools:",
+          label: "独立工具：",
           action: _temp8,
           isHeader: true
         });

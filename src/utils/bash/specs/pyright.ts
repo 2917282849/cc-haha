@@ -8,17 +8,17 @@ export default {
     { name: '--version', description: 'Print pyright version and exit' },
     {
       name: ['--watch', '-w'],
-      description: 'Continue to run and watch for changes',
+      description: '继续运行并监视更改',
     },
     {
       name: ['--project', '-p'],
-      description: 'Use the configuration file at this location',
+      description: '使用此位置的配置文件',
       args: { name: 'FILE OR DIRECTORY' },
     },
     { name: '-', description: 'Read file or directory list from stdin' },
     {
       name: '--createstub',
-      description: 'Create type stub file(s) for import',
+      description: '创建类型存根文件用于导入',
       args: { name: 'IMPORT' },
     },
     {
@@ -52,12 +52,12 @@ export default {
     },
     {
       name: ['--venvpath', '-v'],
-      description: 'Directory that contains virtual environments',
+      description: '包含虚拟环境的目录',
       args: { name: 'DIRECTORY' },
     },
     { name: '--outputjson', description: 'Output results in JSON format' },
     { name: '--verbose', description: 'Emit verbose diagnostics' },
-    { name: '--stats', description: 'Print detailed performance stats' },
+    { name: '--stats', description: '打印详细性能统计' },
     {
       name: '--dependencies',
       description: 'Emit import dependency information',

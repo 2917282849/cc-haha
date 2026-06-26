@@ -313,7 +313,7 @@ export function getPluginInstallationFromV2(pluginId: string): {
  *
  * Marketplace reconciliation is NOT this function's responsibility — startup
  * reconcile handles declared-but-not-materialized marketplaces. If the
- * marketplace isn't found, "not found" is the correct error.
+ * marketplace isn't found, "未找到" is the correct error.
  *
  * @param plugin Plugin identifier (name or plugin@marketplace)
  * @param scope Installation scope: user, project, or local (defaults to 'user')
